@@ -11,6 +11,7 @@ import entity_Interfaces.MonsterType;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import level_Impl.Blocks.Background;
@@ -24,6 +25,7 @@ import ui_Interfaces.UiNames;
 public class StageManagementService implements StageManagementServiceIfc {
     
     public StageManagementService() {
+        m_blocks = new HashMap<>();
         Level level = new Level();
         level.setupTestLevel();
         setStage(level);
@@ -67,6 +69,12 @@ public class StageManagementService implements StageManagementServiceIfc {
     }
     
     private void createStage() {
+        m_blockFactory = new BlockFactory();
+        Map<Coordinates, BlockType> blocks = m_stage.getBlocks();
+        for (Map.Entry<Coordinates, BlockType> block: blocks.entrySet()) {
+            m_blocks.put(block.getKey(), m_blockFactory.createBlock(block.getValue()));
+        }
+        
         // Todo: expose the levels fields.
         m_screenService = (ScreenServiceIfc) ServiceManager.getService(UiNames.Services.ScreenService);
         m_entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
@@ -102,7 +110,7 @@ public class StageManagementService implements StageManagementServiceIfc {
     }
 
     private void drawBlocks(Graphics2D g2) {
-        for (Map.Entry<Coordinates, BlockAbs> block: m_stage.getBlocks().entrySet()) {
+        for (Map.Entry<Coordinates, BlockAbs> block: m_blocks.entrySet()) {
             BufferedImage sprite = block.getValue().getSpriteToDraw();
             int tileSize = m_screenService.getTileSize();
             int xPosition = block.getKey().x * tileSize;
@@ -115,6 +123,9 @@ public class StageManagementService implements StageManagementServiceIfc {
         m_entityManagementService.drawEntities(g2);
     }
     
+    private HashMap<Coordinates, BlockAbs> m_blocks;
+    
+    private BlockFactory m_blockFactory;
     private EntityManagementServiceIfc m_entityManagementService;
     private ArrayList<Coordinates> m_explosions;
     private Level m_stage;

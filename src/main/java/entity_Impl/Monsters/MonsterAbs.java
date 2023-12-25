@@ -8,6 +8,7 @@ import common.Coordinates;
 import common.Direction;
 import entity_Impl.MovingEntityAbs;
 import entity_Interfaces.ExplosionIfc;
+import entity_Interfaces.MonsterType;
 import java.util.List;
 
 /**
@@ -16,8 +17,8 @@ import java.util.List;
  */
 public abstract class MonsterAbs extends MovingEntityAbs {
 
-    protected MonsterAbs(Coordinates position) {
-        super(position);
+    protected MonsterAbs(Coordinates position, MonsterType monsterType) {
+        super(position, "Sprites/Monsters/" + monsterType.name() + "/Skin_0/");
     }
 
     public final void Start() {

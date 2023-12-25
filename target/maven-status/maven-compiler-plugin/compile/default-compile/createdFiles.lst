@@ -1,6 +1,7 @@
 entity_Impl\ModuleImpl.class
 entity_Interfaces\ExplosionIfc.class
 game_Interfaces\Difficulty.class
+Level_Impl\BlockFactory$1.class
 mainApplication\Main.class
 game_Interfaces\GameMode.class
 common\ServiceManager.class
@@ -55,7 +56,6 @@ entity_Impl\Players\PlayerFactory.class
 entity_Impl\Collectables\CollectableAbs.class
 entity_Impl\MovingEntityAbs.class
 entity_Impl\EntityManagementService.class
-entity_Impl\MovingEntityAbs$1.class
 ui_Interfaces\UiNames.class
 entity_Impl\Monsters\MonsterAbs.class
 entity_Interfaces\PlayerIfc.class
@@ -67,6 +67,7 @@ game_Interfaces\GameManagementServiceIfc.class
 game_Impl\ModuleImpl.class
 entity_Impl\Monsters\MonsterFactory.class
 ui_Impl\GamePanel.class
+Level_Impl\BlockType.class
 Level_Impl\Blocks\Brick.class
 entity_Impl\Monsters\Behaviors\HostileMovement.class
 Level_Impl\Blocks\Wall.class
@@ -79,5 +80,6 @@ entity_Impl\Monsters\MonsterEntities\Ghost.class
 entity_Interfaces\MonsterType.class
 game_Impl\gameStates\LoadLevelState$LoadLevelThreadRunner.class
 game_Impl\GameStateMachine.class
+Level_Impl\BlockFactory.class
 game_Impl\GameManagerAgent.class
 common\IdentifiableIfc.class

@@ -12,6 +12,10 @@ import javax.imageio.ImageIO;
  */
 public abstract class BlockAbs {
 
+    public BlockAbs(BlockType type) {
+        loadSprites(type.name());
+    }
+    
     /**
      * Shows if the block can be walked over.
      *
@@ -89,7 +93,7 @@ public abstract class BlockAbs {
         return m_isDestroyed;
     }
 
-    protected final void loadSprites(String folderName) {
+    private final void loadSprites(String folderName) {
         // Todo implement: this gets the sprites and then creates an ExplosionAnimation and an Idle Sprite.
         // Then set setIdleSprite and setExplosionAnimation to private.
         try {

@@ -9,6 +9,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <exec.mainClass>xplosivedeluxe.XplosiveDeluxe</exec.mainClass>
+        <exec.mainClass>xplosivedeluxe.XplosiveDeluxe</exec.mainClass>  
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>2.11.1</version>
+        </dependency>
+    </dependencies>
 </project>

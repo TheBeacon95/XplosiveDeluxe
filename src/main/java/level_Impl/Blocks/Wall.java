@@ -1,6 +1,7 @@
 package level_Impl.Blocks;
 
 import level_Impl.BlockAbs;
+import level_Impl.BlockType;
 
 /**
  *
@@ -9,7 +10,7 @@ import level_Impl.BlockAbs;
 public class Wall extends BlockAbs {
     
     public Wall() {
-        loadSprites("Wall");
+        super(BlockType.Wall);
     }
     
     @Override

@@ -20,8 +20,8 @@ import ui_Interfaces.UiNames;
  */
 public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIfc {
 
-    public Player(String playerId, Coordinates position, int lifeCount){
-        super(position);
+    public Player(String playerId, Coordinates position, int lifeCount, String skinPath){
+        super(position, skinPath);
         m_playerId = playerId;
         m_status = new PlayerStatus(lifeCount);
         m_controls = new PlayerControls();

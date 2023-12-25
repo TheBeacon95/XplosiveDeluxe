@@ -1,6 +1,7 @@
 package level_Impl.Blocks;
 
 import level_Impl.BlockAbs;
+import level_Impl.BlockType;
 
 /**
  *
@@ -9,6 +10,6 @@ import level_Impl.BlockAbs;
 public class Brick extends BlockAbs {
     
     public Brick() {
-        loadSprites("Brick");
+        super(BlockType.Brick);
     }
 }

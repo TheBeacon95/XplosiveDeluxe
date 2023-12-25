@@ -1,12 +1,18 @@
 package level_Impl;
 
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import level_Impl.Blocks.*;
 import common.Coordinates;
-import entity_Impl.Monsters.MonsterEntities.Ghost;
 import entity_Interfaces.CollectableType;
 import entity_Interfaces.MonsterType;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Logger;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamWriter;
 
 /**
  *
@@ -21,14 +27,33 @@ public class Level {
         m_collectables = new HashMap<>();
     }
 
-    public boolean readLevelConfig() {
-        // Todo: implement
-        return false;
+    public static Level readLevelConfig() {
+        XmlMapper mapper = new XmlMapper();
+        Level level = null;
+        try {
+            level = mapper.readValue(Level.class.getClassLoader().getResourceAsStream("Level/TestLevel.xml"), Level.class);
+        }
+        catch (IOException ex) {
+            Logger.getLogger(Level.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        return level;
+    }
+    
+    public void writeTestLevel() {
+        XmlMapper mapper = new XmlMapper();
+        try {
+            //        XMLStreamWriter streamWriter = XMLOutputFactory.newFactory().createXMLStreamWriter(new FileOutputStream("Level/TestLevel.xml"));
+            mapper.writeValue(new File("C:\\Users\\Yanick\\GitHub\\XplosiveDeluxe\\src\\main\\resources\\Levels\\TestLevel.xml"), this);
+        }
+        catch (IOException ex) {
+            Logger.getLogger(Level.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
     }
 
     public void setupTestLevel() {
         setupGrid();
         placeRandomBlocks();
+//        writeTestLevel();
     }
 
     public HashMap<Coordinates, ArrayList<MonsterType>> getMonsters() {
@@ -43,8 +68,8 @@ public class Level {
         return (HashMap<Coordinates, CollectableType>) m_collectables.clone();
     }
 
-    public HashMap<Coordinates, BlockAbs> getBlocks() {
-        return (HashMap<Coordinates, BlockAbs>) m_blocks.clone();
+    public HashMap<Coordinates, BlockType> getBlocks() {
+        return (HashMap<Coordinates, BlockType>) m_blocks.clone();
     }
 
     private boolean isLevelValid() {
@@ -61,24 +86,24 @@ public class Level {
             for (int row = 0; row < 15; row++) {
                 if (column == 0 || column == 18 || row == 0 || row == 14) {
                     // Wall around the level
-                    m_blocks.put(new Coordinates(column, row), new Wall());
+                    m_blocks.put(new Coordinates(column, row), BlockType.Wall);
                 }
                 else if ((column % 2 == 0) && (row % 2 == 0)) {
                     // Grid blocks
-                    m_blocks.put(new Coordinates(column, row), new Wall());
+                    m_blocks.put(new Coordinates(column, row), BlockType.Wall);
                 }
             }
         }
     }
     
     private void placeRandomBlocks() {
-        m_blocks.put(new Coordinates(3, 1), new Brick());
-        m_blocks.put(new Coordinates(1, 3), new Brick());
-        m_blocks.put(new Coordinates(5, 1), new DeathBlock());
-        m_blocks.put(new Coordinates(1, 5), new DeathBlock());
+        m_blocks.put(new Coordinates(3, 1), BlockType.Brick);
+        m_blocks.put(new Coordinates(1, 3), BlockType.Brick);
+        m_blocks.put(new Coordinates(5, 1), BlockType.DeathBlock);
+        m_blocks.put(new Coordinates(1, 5), BlockType.DeathBlock);
     }
 
-    private HashMap<Coordinates, BlockAbs> m_blocks;
+    private HashMap<Coordinates, BlockType> m_blocks;
     private HashMap<Coordinates, ArrayList<MonsterType>> m_monsters;
     private HashMap<String, Coordinates> m_players;
     private HashMap<Coordinates, CollectableType> m_collectables;

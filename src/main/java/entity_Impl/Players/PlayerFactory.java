@@ -8,8 +8,8 @@ import common.Coordinates;
  */
 public class PlayerFactory {
     public Player createPlayer(String playerId, Coordinates position, String skinPath) {
-        Player player = new Player(playerId, position, 5); // TODO: make lifeCount chooseable.
-        player.setupAnimations(skinPath);
+        Player player = new Player(playerId, position, 5, skinPath); // TODO: make lifeCount chooseable.
+//        player.setupAnimations(skinPath);
         return player;
     }
 }
