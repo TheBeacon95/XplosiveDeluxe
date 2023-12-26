@@ -10,7 +10,6 @@ entity_Interfaces\PlayerEffect.class
 Level_Interfaces\MovementServiceIfc.class
 entity_Impl\Players\PlayerStatus.class
 entity_Interfaces\PlayerStatusIfc.class
-Level_Impl\Blocks\Background.class
 ui_Impl\Input.class
 Level_Impl\ModuleImpl.class
 ui_Interfaces\UiNames$Services.class
@@ -69,6 +68,7 @@ entity_Impl\Monsters\MonsterFactory.class
 ui_Impl\GamePanel.class
 Level_Impl\BlockType.class
 Level_Impl\Blocks\Brick.class
+Level_Impl\Stage.class
 entity_Impl\Monsters\Behaviors\HostileMovement.class
 Level_Impl\Blocks\Wall.class
 common\Coordinates.class

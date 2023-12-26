@@ -41,7 +41,6 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Impl\Input.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Interfaces\UiNames.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Impl\GamePanel.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\ExplosionIfc.java
-C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\Blocks\Background.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Interfaces\InputServiceIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Players\PlayerStatus.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\IdentifiableIfc.java
@@ -64,6 +63,7 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\Blocks\Wall.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\SpecialBehaviorIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\BlockAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\HostileMovement.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\Stage.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Interfaces\DisplayServiceIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Interfaces\Difficulty.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\ModuleAbs.java

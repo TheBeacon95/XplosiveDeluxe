@@ -34,4 +34,10 @@ public interface StageManagementServiceIfc extends ServiceIfc {
      * @return 
      */
     List<Coordinates> getAllFreeNeighboringCells(Coordinates position);
+    
+    /**
+     * Sets the Background sprite
+     * @param style the style where the Background is under.
+     */
+    public void setBackground(String style);
 }

@@ -1,24 +1,22 @@
 package level_Impl;
 
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import level_Impl.Blocks.*;
 import common.Coordinates;
 import entity_Interfaces.CollectableType;
 import entity_Interfaces.MonsterType;
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamWriter;
 
 /**
- *
+ * Represents the serializable template for a stage.
  * @author Yanick
  */
-public class Level {
+public class Level implements Serializable {
 
     public Level() {
         m_blocks = new HashMap<>();
@@ -26,34 +24,45 @@ public class Level {
         m_players = new HashMap<>();
         m_collectables = new HashMap<>();
     }
-
+    
     public static Level readLevelConfig() {
-        XmlMapper mapper = new XmlMapper();
-        Level level = null;
+        return readLevelConfig("C:\\Users\\Yanick\\GitHub\\XplosiveDeluxe\\src\\main\\resources\\Levels\\TestLevel.txt");
+    }
+
+    public static Level readLevelConfig(String filePath) {
+        Level readLevel = null;
+        FileInputStream fileInputStream;
         try {
-            level = mapper.readValue(Level.class.getClassLoader().getResourceAsStream("Level/TestLevel.xml"), Level.class);
+            fileInputStream = new FileInputStream(filePath);
+            try (ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+                readLevel = (Level) objectInputStream.readObject();
+            }
         }
-        catch (IOException ex) {
+        catch (Exception ex) {
             Logger.getLogger(Level.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        return level;
+        return readLevel;
     }
     
     public void writeTestLevel() {
-        XmlMapper mapper = new XmlMapper();
+        FileOutputStream outputStream;
         try {
-            //        XMLStreamWriter streamWriter = XMLOutputFactory.newFactory().createXMLStreamWriter(new FileOutputStream("Level/TestLevel.xml"));
-            mapper.writeValue(new File("C:\\Users\\Yanick\\GitHub\\XplosiveDeluxe\\src\\main\\resources\\Levels\\TestLevel.xml"), this);
+            outputStream = new FileOutputStream("C:\\Users\\Yanick\\GitHub\\XplosiveDeluxe\\src\\main\\resources\\Levels\\TestLevel.txt");
+            try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
+                objectOutputStream.writeObject(this);
+                objectOutputStream.flush();
+            }
         }
-        catch (IOException ex) {
+        catch (Exception ex) {
             Logger.getLogger(Level.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }
 
-    public void setupTestLevel() {
-        setupGrid();
+    public final void setupTestLevel() {
+//        setupGrid();
         placeRandomBlocks();
-//        writeTestLevel();
+        placeRandomMonsters();
+        writeTestLevel();
     }
 
     public HashMap<Coordinates, ArrayList<MonsterType>> getMonsters() {
@@ -79,32 +88,23 @@ public class Level {
 
         return areAllPlayersRegistered && isAtLeastOneMonsterRegistered;
     }
-
-    private void setupGrid() {
-        // Todo: get stage size from service
-        for (int column = 0; column < 19; column++) {
-            for (int row = 0; row < 15; row++) {
-                if (column == 0 || column == 18 || row == 0 || row == 14) {
-                    // Wall around the level
-                    m_blocks.put(new Coordinates(column, row), BlockType.Wall);
-                }
-                else if ((column % 2 == 0) && (row % 2 == 0)) {
-                    // Grid blocks
-                    m_blocks.put(new Coordinates(column, row), BlockType.Wall);
-                }
-            }
-        }
-    }
     
     private void placeRandomBlocks() {
         m_blocks.put(new Coordinates(3, 1), BlockType.Brick);
+        m_blocks.put(new Coordinates(2, 2), BlockType.Brick);
         m_blocks.put(new Coordinates(1, 3), BlockType.Brick);
         m_blocks.put(new Coordinates(5, 1), BlockType.DeathBlock);
         m_blocks.put(new Coordinates(1, 5), BlockType.DeathBlock);
     }
+    
+    private void placeRandomMonsters() {
+        ArrayList<MonsterType> list = new ArrayList<>();
+        list.add(MonsterType.Ghost);
+        m_monsters.put(new Coordinates(3, 9), list);
+    }
 
-    private HashMap<Coordinates, BlockType> m_blocks;
-    private HashMap<Coordinates, ArrayList<MonsterType>> m_monsters;
-    private HashMap<String, Coordinates> m_players;
-    private HashMap<Coordinates, CollectableType> m_collectables;
+    private final HashMap<Coordinates, BlockType> m_blocks;
+    private final HashMap<Coordinates, ArrayList<MonsterType>> m_monsters;
+    private final HashMap<String, Coordinates> m_players;
+    private final HashMap<Coordinates, CollectableType> m_collectables;
 }

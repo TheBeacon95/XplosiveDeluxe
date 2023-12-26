@@ -1,11 +1,14 @@
 package common;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 /**
- * USed to keep coordinates together.
+ * Used to keep coordinates together.
  *
  * @author Yanick
  */
-public final class Coordinates {
+public final class Coordinates implements Serializable {
 
     public Coordinates() {
         this(0, 0);
@@ -68,6 +71,22 @@ public final class Coordinates {
     
     public Coordinates scale(int factor) {
         return new Coordinates(x*factor, y*factor); // Todo: change to make downward scalable.
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Coordinates point = (Coordinates) o;
+        return x == point.x && y == point.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 
     public int x;
