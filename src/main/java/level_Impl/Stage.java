@@ -1,5 +1,6 @@
 package level_Impl;
 
+import level_Interfaces.Level;
 import common.Coordinates;
 import java.util.HashMap;
 import java.util.Map;

@@ -54,6 +54,11 @@ public class ScreenService implements ScreenServiceIfc {
         return STAGE_HEIGHT;
     }
 
+    @Override
+    public void initializeService() {
+        // Nothing to initialize
+    }
+
 //    public static ScreenService getInstance() {
 //        if (s_instance == null) {
 //            s_instance = new ScreenService();

@@ -1,7 +1,6 @@
 package game_Impl;
 
 import common.AgentAbs;
-import common.ServiceManager;
 
 /**
  *
@@ -15,15 +14,13 @@ public class GameManagerAgent extends AgentAbs implements Runnable {
     }
 
     @Override
-    protected void initializeServices(ServiceManager serviceManager) {
+    protected void registerServices() {
         // Do nothing
     }
 
     @Override
-    protected void start() {
-      m_stateMachine = new GameStateMachine();
+    protected void onStart() {
       startGameThread();
-      m_stateMachine.start();
     }
 
     public void startGameThread() {
@@ -33,6 +30,8 @@ public class GameManagerAgent extends AgentAbs implements Runnable {
 
     @Override
     public void run() {
+      m_stateMachine = new GameStateMachine();
+      m_stateMachine.start();
         double drawInterval = 1000 * 1000 * 1000 / FPS;
         double delta = 0;
         long lastTime = System.nanoTime();
@@ -50,7 +49,6 @@ public class GameManagerAgent extends AgentAbs implements Runnable {
 
             if (delta >= 1) {
                 update();
-//                m_gamePanel.repaint();
                 delta--;
                 drawCount++;
             }

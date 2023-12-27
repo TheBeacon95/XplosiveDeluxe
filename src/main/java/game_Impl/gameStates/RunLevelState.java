@@ -11,14 +11,15 @@ import ui_Interfaces.UiNames;
 
 /**
  * This is the state in which the level is played.
+ *
  * @author Yanick
  */
 public class RunLevelState extends StateAbs {
-    
+
     public RunLevelState() {
         super(STATE_NAME);
     }
-    
+
     @Override
     public void enter() {
         // TODO: initialise all services.
@@ -26,17 +27,19 @@ public class RunLevelState extends StateAbs {
         m_entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
         m_displayService = (DisplayServiceIfc) ServiceManager.getService(UiNames.Services.DisplayService);
     }
-    
+
     @Override
     public void run() {
-        m_stageManagementService.updateStage();
-        m_entityManagementService.updateEntities();
-        
-        m_displayService.draw();
+        if (m_stageManagementService.isReady()) {
+            m_stageManagementService.updateStage();
+            m_entityManagementService.updateEntities();
+
+            m_displayService.draw();
+        }
     }
-    
+
     public static final String STATE_NAME = "RunLevelState";
-    
+
     private StageManagementServiceIfc m_stageManagementService;
     private EntityManagementServiceIfc m_entityManagementService;
     private DisplayServiceIfc m_displayService;

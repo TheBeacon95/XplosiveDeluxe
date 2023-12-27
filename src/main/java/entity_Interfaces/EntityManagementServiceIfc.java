@@ -3,6 +3,7 @@ package entity_Interfaces;
 import common.Coordinates;
 import common.ServiceIfc;
 import java.awt.Graphics2D;
+import java.util.List;
 
 /**
  * This service allows for components to update the entities.
@@ -38,6 +39,12 @@ public interface EntityManagementServiceIfc extends ServiceIfc {
      * @throws IllegalArgumentException 
      */
     void createPlayer(String playerId, Coordinates position) throws IllegalArgumentException;
+    
+    /**
+     * Retrieves the position of all players.
+     * @return the position of all players
+     */
+    List<Coordinates> getAllPlayerPositions();
     
     /**
      * Updates all Entities.

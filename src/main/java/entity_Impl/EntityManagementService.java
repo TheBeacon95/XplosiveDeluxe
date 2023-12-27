@@ -13,6 +13,7 @@ import entity_Interfaces.MonsterType;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -23,18 +24,12 @@ public class EntityManagementService implements EntityManagementServiceIfc {
     public EntityManagementService() {
         m_players = new ArrayList<>();
         m_monsters = new ArrayList<>();
-//        m_monsters.add(new Ghost(new Coordinates(64, 64)));
         m_collectables = new ArrayList<>();
         m_monsterFactory = new MonsterFactory();
         m_collectableFactory = new CollectableFactory();
         m_playerFactory = new PlayerFactory();
         m_playerSkinPaths = new HashMap<>(); // Todo: setup skinPaths.
     }
-
-//    @Override
-//    public void registerEntity(EntityIfc entity) {
-//        m_entities.add(entity);
-//    }
     @Override
     public void createMonster(MonsterType monsterType, Coordinates position) {
         m_monsters.add(m_monsterFactory.createMonster(monsterType, position));
@@ -51,6 +46,15 @@ public class EntityManagementService implements EntityManagementServiceIfc {
         Player player = m_playerFactory.createPlayer(playerId, position, m_playerSkinPaths.get(playerId));
         m_players.add(player);
 //        m_players.put(playerId, player); // Todo
+    }
+
+    @Override
+    public List<Coordinates> getAllPlayerPositions() {
+        ArrayList<Coordinates> positions = new ArrayList<>();
+        for (EntityAbs player: m_players) {
+            positions.add(player.getPosition());
+        }
+        return positions;
     }
 
     @Override
@@ -72,6 +76,11 @@ public class EntityManagementService implements EntityManagementServiceIfc {
         for (EntityAbs player : m_players) {
             player.draw(g2);
         }
+    }
+
+    @Override
+    public void initializeService() {
+        // Nothing to do here.
     }
 
     @Override

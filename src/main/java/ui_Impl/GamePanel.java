@@ -37,7 +37,9 @@ public class GamePanel extends JPanel {
 //        EntityManagementServiceIfc entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
 //        entityManagementService.drawEntities(g2);
         StageManagementServiceIfc stageManagementService = (StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService);
-        if (stageManagementService != null) stageManagementService.draw(g2);
+        if (stageManagementService.isReady()) {
+            stageManagementService.draw(g2);
+        }
         g2.dispose();
     }
 }

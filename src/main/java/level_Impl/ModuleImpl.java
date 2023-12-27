@@ -1,7 +1,6 @@
 package level_Impl;
 
 import common.ModuleAbs;
-import common.ServiceManager;
 
 public final class ModuleImpl extends ModuleAbs {
 
@@ -15,7 +14,14 @@ public final class ModuleImpl extends ModuleAbs {
     }
 
     @Override
-    protected void initializeServices(ServiceManager serviceManager) {
-        serviceManager.registerService(new StageManagementService());
+    protected void onStart() {
+        // Do nothing.
+    }
+
+    @Override
+    protected void registerServices() {
+        registerService(new StageManagementService());
+        registerService(new MovementService());
+//        registerService(new LevelManagementService());
     }
 }

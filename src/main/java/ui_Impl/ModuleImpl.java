@@ -14,8 +14,14 @@ public final class ModuleImpl extends ModuleAbs {
     }
 
     @Override
-    protected void initializeServices(ServiceManager serviceManager) {
-        serviceManager.registerService(new ScreenService());
-        serviceManager.registerService(new DisplayService());
+    protected void onStart() {
+        // Do nothing.
+    }
+
+    @Override
+    protected void registerServices() {
+        registerService(new ScreenService());
+        registerService(new DisplayService());
+//        registerService(new InputService());
     }
 }

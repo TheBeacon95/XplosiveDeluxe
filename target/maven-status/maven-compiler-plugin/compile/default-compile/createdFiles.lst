@@ -36,13 +36,14 @@ ui_Interfaces\KeyHandlerIfc.class
 entity_Impl\Monsters\Behaviors\MovementBehaviorIfc.class
 common\Direction.class
 entity_Impl\EntityAbs.class
-Level_Impl\Level.class
 ui_Impl\ModuleImpl.class
 ui_Impl\KeyHandler.class
 ui_Interfaces\InputServiceIfc.class
 ui_Impl\KeyHandler$1.class
 ui_Impl\ScreenService.class
+Level_Interfaces\Level.class
 entity_Interfaces\EntityIfc.class
+Level_Impl\MovementService.class
 game_Impl\gameStates\ShowMenuState$MenuSettings.class
 Level_Impl\BlockAbs.class
 entity_Interfaces\EntityNames.class

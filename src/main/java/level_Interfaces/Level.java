@@ -1,4 +1,4 @@
-package level_Impl;
+package level_Interfaces;
 
 import common.Coordinates;
 import entity_Interfaces.CollectableType;
@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
+import level_Impl.BlockType;
 
 /**
  * Represents the serializable template for a stage.

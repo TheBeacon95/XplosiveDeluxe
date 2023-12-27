@@ -22,7 +22,6 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\stateMachine\StateMac
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Interfaces\ScreenServiceIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\MonsterAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\GameStateMachine.java
-C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\Level.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\EntityAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\StageManagementService.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\gameStates\RunLevelState.java
@@ -35,6 +34,7 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behavio
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Impl\ModuleImpl.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\Animation.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\PlayerStatusIfc.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\Level.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Impl\DisplayService.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\gameStates\LoadLevelState.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Impl\Input.java
@@ -69,6 +69,7 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Interfaces\Difficulty.j
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\ModuleAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\BlockType.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\LevelNames.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\MovementService.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\ModuleImpl.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\StageManagementServiceIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\Vector.java
