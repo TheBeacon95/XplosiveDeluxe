@@ -20,11 +20,13 @@ public interface MovementBehaviorIfc {
      * @return the direction, the monster will move in.
      */
     Direction getNextMovementDirection(MonsterAbs monster);
-    
-    static List<Coordinates> eliminateLastCell(List<Coordinates> cells, Coordinates currentPosition, Direction direction) {
-        ArrayList<Coordinates> newCells = new ArrayList<>();
-        for (Coordinates cell: cells) {
-            if (!currentPosition.getDirection(cell).isOpposite(direction)) {
+
+    static List<Coordinates> eliminateLastCell(List<Coordinates> nextCells, Coordinates position, Direction direction) {
+        List<Coordinates> newCells = new ArrayList<>();
+        Coordinates oppositeCell = new Coordinates(position);
+        oppositeCell.translate(direction.opposite(), 1);
+        for (Coordinates cell : nextCells) {
+            if (!cell.equals(oppositeCell)) {
                 newCells.add(cell);
             }
         }

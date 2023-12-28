@@ -27,9 +27,11 @@ public class MovementService implements MovementServiceIfc {
                 newDirection = direction;
             }
             else {
-                position = new Coordinates(position.x / 8, position.y / 8);
+                position = new Coordinates(position.x / BLOCK_SEGMENTS, position.y / BLOCK_SEGMENTS);
                 List<Coordinates> nextCells = getAllFreeNeighboringCells(position);
-                nextCells = MovementBehaviorIfc.eliminateLastCell(nextCells, position, direction);
+                if (nextCells.size() > 1) {
+                    nextCells = MovementBehaviorIfc.eliminateLastCell(nextCells, position, direction);
+                }
                 float distance = Float.MAX_VALUE;
 //                Coordinates closestPlayerPosition = getClosestPlayerPosition(position);
                 Coordinates closestPlayerPosition = new Coordinates(7, 5);
@@ -63,17 +65,10 @@ public class MovementService implements MovementServiceIfc {
     public List<Coordinates> getAllFreeNeighboringCells(Coordinates position) {
         List<Coordinates> freeNeighboringCells = new ArrayList<>();
         
-        if (isWalkable(new Coordinates(position.x + 1, position.y))) {
-            freeNeighboringCells.add(new Coordinates(position.x + 1, position.y));
-        }
-        if (isWalkable(new Coordinates(position.x, position.y + 1))) {
-            freeNeighboringCells.add(new Coordinates(position.x, position.y + 1));
-        }
-        if (isWalkable(new Coordinates(position.x - 1, position.y))) {
-            freeNeighboringCells.add(new Coordinates(position.x - 1, position.y));
-        }
-        if (isWalkable(new Coordinates(position.x, position.y - 1))) {
-            freeNeighboringCells.add(new Coordinates(position.x, position.y - 1));
+        for (Coordinates neighbor: position.getNeighboringCells()) {
+            if (isWalkable(neighbor)) {
+                freeNeighboringCells.add(neighbor);
+            }
         }
         return freeNeighboringCells;
     }

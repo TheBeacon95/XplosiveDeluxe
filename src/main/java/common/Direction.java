@@ -13,12 +13,16 @@ public enum Direction {
     Left;
 
     public boolean isOpposite(Direction direction) {
+        return direction == opposite();
+    }
+    
+    public Direction opposite() {
         return switch (this) {
-            case Up -> direction == Down;
-            case Right -> direction == Left;
-            case Down -> direction == Up;
-            case Left -> direction == Right;
-            default -> false;
+            case Up -> Down;
+            case Right -> Left;
+            case Down -> Up;
+            case Left -> Right;
+            default -> NoDirection;
         };
     }
 

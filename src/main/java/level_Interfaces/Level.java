@@ -91,6 +91,8 @@ public class Level implements Serializable {
     }
     
     private void placeRandomBlocks() {
+        m_blocks.put(new Coordinates(1, 2), BlockType.Brick);
+        m_blocks.put(new Coordinates(2, 1), BlockType.Brick);
         m_blocks.put(new Coordinates(3, 1), BlockType.Brick);
         m_blocks.put(new Coordinates(2, 2), BlockType.Brick);
         m_blocks.put(new Coordinates(1, 3), BlockType.Brick);

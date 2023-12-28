@@ -1,6 +1,8 @@
 package common;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -68,17 +70,28 @@ public final class Coordinates implements Serializable {
 
         return (float) Math.sqrt(distanceX * distanceX + distanceY * distanceY);
     }
-    
+
     public Coordinates scale(int factor) {
-        return new Coordinates(x*factor, y*factor); // Todo: change to make downward scalable.
+        return new Coordinates(x * factor, y * factor); // Todo: change to make downward scalable.
+    }
+
+    public List<Coordinates> getNeighboringCells() {
+        ArrayList<Coordinates> neighbors = new ArrayList<>();
+        neighbors.add(new Coordinates(x, y - 1));
+        neighbors.add(new Coordinates(x + 1, y));
+        neighbors.add(new Coordinates(x, y + 1));
+        neighbors.add(new Coordinates(x - 1, y));
+        return neighbors;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (o == null || getClass() != o.getClass())
+        }
+        if (o == null || getClass() != o.getClass()) {
             return false;
+        }
 
         Coordinates point = (Coordinates) o;
         return x == point.x && y == point.y;
