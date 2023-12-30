@@ -84,14 +84,12 @@ public class MovementService implements MovementServiceIfc {
             return Direction.NoDirection;
         }
     }
-
-    @Override
-    public boolean isBetweenCells(Coordinates position) {
+    
+    private boolean isBetweenCells(Coordinates position) {
         return isBetweenHorizontalCells(position) || isBetweenVerticalCells(position);
     }
 
-    @Override
-    public List<Coordinates> getAllFreeNeighboringCells(Coordinates position) {
+    private List<Coordinates> getAllFreeNeighboringCells(Coordinates position) {
         List<Coordinates> freeNeighboringCells = new ArrayList<>();
         
         for (Coordinates neighbor: position.getNeighboringCells()) {

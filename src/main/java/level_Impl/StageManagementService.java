@@ -62,6 +62,7 @@ public class StageManagementService implements StageManagementServiceIfc {
     public void initializeService() {
         m_screenService = (ScreenServiceIfc) ServiceManager.getService(UiNames.Services.ScreenService);
         m_entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
+        m_blockSegments = ((MovementServiceIfc) ServiceManager.getService(LevelNames.Services.MovementService)).getBlockSegments();
 //        Level level = new Level();
 //        level.setupTestLevel();
         setStage(Level.readLevelConfig());
@@ -77,16 +78,15 @@ public class StageManagementService implements StageManagementServiceIfc {
         // Todo: expose the levels fields.
         Map<String, Coordinates> players = level.getPlayers();
         for (Map.Entry<String, Coordinates> player : players.entrySet()) {
-            m_entityManagementService.createPlayer(player.getKey(), player.getValue().scale(8));
+            m_entityManagementService.createPlayer(player.getKey(), player.getValue().scale(m_blockSegments));
         }
 
         Map<Coordinates, ArrayList<MonsterType>> monsters = level.getMonsters();
         for (Map.Entry<Coordinates, ArrayList<MonsterType>> monsterList : monsters.entrySet()) {
             for (MonsterType monster : monsterList.getValue()) {
-                m_entityManagementService.createMonster(monster, monsterList.getKey().scale(8));
+                m_entityManagementService.createMonster(monster, monsterList.getKey().scale(m_blockSegments));
             }
         }
-        m_entityManagementService.createMonster(MonsterType.Ghost, new Coordinates(8, 8));
 
         Map<Coordinates, CollectableType> collectables = level.getCollectables();
         for (Map.Entry<Coordinates, CollectableType> collectable : collectables.entrySet()) {
@@ -130,6 +130,7 @@ public class StageManagementService implements StageManagementServiceIfc {
     private ScreenServiceIfc m_screenService;
     private BufferedImage m_backgroundSprite;
     private boolean m_isReady;
+    private int m_blockSegments;
 
     private final String DEFAULT_BACKGROUND_STYLE = "Default";
 }

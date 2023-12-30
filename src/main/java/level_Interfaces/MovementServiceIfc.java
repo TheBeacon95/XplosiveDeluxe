@@ -41,14 +41,14 @@ public interface MovementServiceIfc extends ServiceIfc {
      * @param position
      * @return 
      */
-    boolean isBetweenCells(Coordinates position);
+//    boolean isBetweenCells(Coordinates position);
     
     /**
      * Gets a list of all neighboring cells that are walkable.
      * @param position
      * @return 
      */
-    List<Coordinates> getAllFreeNeighboringCells(Coordinates position);
+//    List<Coordinates> getAllFreeNeighboringCells(Coordinates position);
     
     /**
      * Shows how many steps can be taken between two blocks.

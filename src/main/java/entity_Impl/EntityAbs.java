@@ -1,14 +1,11 @@
 package entity_Impl;
 
-import common.Animation;
-import common.Coordinates;
-import common.Direction;
-import common.ServiceManager;
+import common.*;
 import entity_Interfaces.EntityIfc;
+import level_Interfaces.*;
+import ui_Interfaces.*;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import ui_Interfaces.ScreenServiceIfc;
-import ui_Interfaces.UiNames;
 
 public abstract class EntityAbs implements EntityIfc {
 
@@ -16,6 +13,7 @@ public abstract class EntityAbs implements EntityIfc {
         m_position = position;
         m_direction = Direction.Down;
         m_screenService = (ScreenServiceIfc) ServiceManager.getService(UiNames.Services.ScreenService);
+        m_blockSegments = ((MovementServiceIfc) ServiceManager.getService(LevelNames.Services.MovementService)).getBlockSegments();
     }
 
     @Override
@@ -30,8 +28,8 @@ public abstract class EntityAbs implements EntityIfc {
     
     public final void draw(Graphics2D g2) {
         int tileSize = m_screenService.getTileSize();
-        int xDrawPosition = m_position.x * tileSize / 8;
-        int yDrawPosition = m_position.y * tileSize / 8;
+        int xDrawPosition = m_position.x * tileSize / m_blockSegments;
+        int yDrawPosition = m_position.y * tileSize / m_blockSegments;
         g2.drawImage(getSpriteToDraw(), xDrawPosition, yDrawPosition, tileSize, tileSize, null);
     }
     
@@ -51,4 +49,5 @@ public abstract class EntityAbs implements EntityIfc {
     protected Animation m_deathAnimation;
     
     private final ScreenServiceIfc m_screenService;
+    private final int m_blockSegments;
 }
