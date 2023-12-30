@@ -1,9 +1,8 @@
 package level_Impl;
 
-import common.Coordinates;
-import common.Direction;
+import common.*;
 import entity_Impl.Monsters.Behaviors.MovementBehaviorIfc;
-import entity_Interfaces.EntityManagementServiceIfc;
+import entity_Interfaces.*;
 import java.util.ArrayList;
 import java.util.List;
 import level_Interfaces.LevelNames;
@@ -27,18 +26,20 @@ public class MovementService implements MovementServiceIfc {
                 newDirection = direction;
             }
             else {
-                position = new Coordinates(position.x / BLOCK_SEGMENTS, position.y / BLOCK_SEGMENTS);
-                List<Coordinates> nextCells = getAllFreeNeighboringCells(position);
+                Coordinates gridPosition = roundDownPositionToGridValue(position);
+                List<Coordinates> nextCells = getAllFreeNeighboringCells(gridPosition);
                 if (nextCells.size() > 1) {
-                    nextCells = MovementBehaviorIfc.eliminateLastCell(nextCells, position, direction);
+                    // Todo: remove this. The MovementBehaviorIfc is in entity_Impl.
+                    nextCells = MovementBehaviorIfc.eliminateLastCell(nextCells, gridPosition, direction);
                 }
                 float distance = Float.MAX_VALUE;
-//                Coordinates closestPlayerPosition = getClosestPlayerPosition(position);
-                Coordinates closestPlayerPosition = new Coordinates(7, 5);
+                Coordinates closestPlayerPosition = getClosestPlayerPosition(position);
+//                Coordinates closestPlayerPosition = new Coordinates(7, 5);
                 for (Coordinates cell : nextCells) {
-                    float distanceToNewCell = Coordinates.getDistance(cell, closestPlayerPosition);
+                    Coordinates globalCellPosition = new Coordinates(cell.x * BLOCK_SEGMENTS, cell.y * BLOCK_SEGMENTS);
+                    float distanceToNewCell = Coordinates.getDistance(globalCellPosition, closestPlayerPosition);
                     if (distance > distanceToNewCell) {
-                        newDirection = position.getDirection(cell);
+                        newDirection = gridPosition.getDirection(cell);
                         distance = distanceToNewCell;
                     }
                 }
@@ -52,8 +53,36 @@ public class MovementService implements MovementServiceIfc {
     }
 
     @Override
-    public Direction convertDesiredDirection(Coordinates position, Direction direction) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Direction convertDesiredDirection(Coordinates position, Direction desiredDirection, boolean isGhost) {
+        boolean isTryingToMoveVertically = desiredDirection.isVertical();
+        boolean isTryingToMoveHorizontally = desiredDirection.isHorizontal();
+        boolean isBetweenHorizontalCells = isBetweenHorizontalCells(position);
+        boolean isBetweenVerticalCells = isBetweenVerticalCells(position);
+
+        // If the player is between horizontal cells and trying to move horizontally, they may always move. (and vice versa)
+        if ((isTryingToMoveHorizontally && isBetweenHorizontalCells) || (isTryingToMoveVertically && isBetweenVerticalCells)) {
+            return desiredDirection;
+        }
+        // If the player is horizontal cells and trying to move perpendicularly to them, move them into the direction of the free cell if there is one.
+        else if ((isTryingToMoveHorizontally && isBetweenVerticalCells) || (isTryingToMoveVertically && isBetweenHorizontalCells)) {
+            Coordinates floorCell = roundDownPositionToGridValue(position);
+            floorCell.translate(desiredDirection, 1);
+            Coordinates ceilCell = roundUpPositionToGridValue(position);
+            ceilCell.translate(desiredDirection, 1);
+            return getFreeDirection(floorCell, ceilCell, isGhost, isBetweenVerticalCells);
+        }
+        // If the player is not between cells, move them in the desired direction, if its free.
+        else if (!isBetweenHorizontalCells && !isBetweenVerticalCells) {
+            Coordinates gridPosition = roundDownPositionToGridValue(position);
+            Coordinates nextTile = new Coordinates(gridPosition);
+            nextTile.translate(desiredDirection, 1);
+            return (isWalkable(nextTile) || (isGhost && isPhaseable(nextTile))) ? desiredDirection : Direction.NoDirection;
+        }
+        // Unexpected case: The direction is neither horizontal nor vertical.
+        else {
+            // Todo: "Assert go"
+            return Direction.NoDirection;
+        }
     }
 
     @Override
@@ -80,7 +109,7 @@ public class MovementService implements MovementServiceIfc {
 
     @Override
     public void initializeService() {
-        // Nothing to do here.
+        m_entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
     }
 
     @Override
@@ -107,7 +136,7 @@ public class MovementService implements MovementServiceIfc {
     private Coordinates getClosestPlayerPosition(Coordinates position) {
         Coordinates closestPlayerPosition = null;
         float shortestDistance = Float.MAX_VALUE;
-        for (Coordinates playerPosition: m_entityManagementServiceIfc.getAllPlayerPositions()) {
+        for (Coordinates playerPosition: m_entityManagementService.getAllPlayerPositions()) {
             float currentDistance = Coordinates.getDistance(position, playerPosition);
             if (currentDistance < shortestDistance) {
                 shortestDistance = currentDistance;
@@ -116,14 +145,49 @@ public class MovementService implements MovementServiceIfc {
         }
         return closestPlayerPosition;
     }
+
+    private Direction getFreeDirection(Coordinates floorCell, Coordinates ceilCell, boolean isGhost, boolean isBetweenVerticalCells) {
+        boolean isFloorCellWalkable = isGhost ? isPhaseable(floorCell) : isWalkable(floorCell);
+        boolean isCeilCellWalkable = isGhost ? isPhaseable(ceilCell) : isWalkable(ceilCell);
+
+        Direction direction;
+        if (isFloorCellWalkable) {
+            direction = isBetweenVerticalCells ? Direction.Up : Direction.Left;
+        }
+        else if (isCeilCellWalkable) {
+            direction = isBetweenVerticalCells ? Direction.Down : Direction.Right;
+        }
+        else {
+            direction = Direction.NoDirection;
+        }
+        return direction;
+    }
     
     private boolean isWalkable(Coordinates cell) {
         var blocks = m_stage.getBlocks();
         return !blocks.containsKey(cell) || blocks.get(cell).isWalkable();
     }
     
+    private boolean isPhaseable(Coordinates cell) {
+        var blocks = m_stage.getBlocks();
+        return !blocks.containsKey(cell) || blocks.get(cell).isPhaseable();
+    }
+    
+    private Coordinates roundUpPositionToGridValue(Coordinates position) {
+        boolean isXOnGrid = (position.x / BLOCK_SEGMENTS) * 8 == position.x;
+        boolean isYOnGrid = (position.y / BLOCK_SEGMENTS) * 8 == position.y;
+        
+        int gridValueX = isXOnGrid ? position.x / BLOCK_SEGMENTS : (position.x / BLOCK_SEGMENTS) + 1;
+        int gridValueY = isYOnGrid ? position.y / BLOCK_SEGMENTS : (position.y / BLOCK_SEGMENTS) + 1;
+        return new Coordinates(gridValueX, gridValueY);
+    }
+    
+    private Coordinates roundDownPositionToGridValue(Coordinates position) {
+        return new Coordinates(position.x / BLOCK_SEGMENTS, position.y / BLOCK_SEGMENTS);
+    }
+    
     private Stage m_stage;
-    private EntityManagementServiceIfc m_entityManagementServiceIfc;
+    private EntityManagementServiceIfc m_entityManagementService;
     
     private static MovementService s_instance;
     

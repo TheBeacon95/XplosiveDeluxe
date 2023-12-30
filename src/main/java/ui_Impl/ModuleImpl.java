@@ -22,6 +22,6 @@ public final class ModuleImpl extends ModuleAbs {
     protected void registerServices() {
         registerService(new ScreenService());
         registerService(new DisplayService());
-//        registerService(new InputService());
+        registerService(new InputService());
     }
 }

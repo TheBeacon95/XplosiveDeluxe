@@ -28,7 +28,12 @@ public class EntityManagementService implements EntityManagementServiceIfc {
         m_monsterFactory = new MonsterFactory();
         m_collectableFactory = new CollectableFactory();
         m_playerFactory = new PlayerFactory();
-        m_playerSkinPaths = new HashMap<>(); // Todo: setup skinPaths.
+        m_playerSkinPaths = new HashMap<>();
+        // Todo: setup skinPaths.
+        m_playerSkinPaths.put("Player_1", "Sprites/Players/Skin_0/");
+        m_playerSkinPaths.put("Player_2", "Sprites/Players/Skin_1/");
+        m_playerSkinPaths.put("Player_3", "Sprites/Players/Skin_2/");
+        m_playerSkinPaths.put("Player_4", "Sprites/Players/Skin_3/");
     }
     @Override
     public void createMonster(MonsterType monsterType, Coordinates position) {

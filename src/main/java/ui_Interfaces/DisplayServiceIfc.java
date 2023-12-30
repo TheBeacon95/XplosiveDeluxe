@@ -8,4 +8,6 @@ import common.ServiceIfc;
  */
 public interface DisplayServiceIfc extends ServiceIfc {
     void draw();
+    
+    void attachKeyHandler(KeyHandlerIfc keyHandler);
 }

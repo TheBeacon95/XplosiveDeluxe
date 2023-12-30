@@ -69,11 +69,21 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
         m_status.setEffect(effect);
         m_effectEndTime = System.nanoTime() + effectTime * 1000 * 1000 * 1000;
     }
+    
+    @Override
+    protected int getSpeed() {
+        return m_status.getSpeed();
+    }
 
     @Override
     protected Direction getMovementDirection() {
         Direction desiredDirection = m_keyHandler.getPressedDirection();
-        return m_movementService.convertDesiredDirection(m_position, desiredDirection);
+        if (desiredDirection == Direction.NoDirection) {
+            return desiredDirection;
+        }
+        else {
+            return m_movementService.convertDesiredDirection(m_position, desiredDirection, m_status.getEffect() == PlayerEffect.Ghost);
+        }
     }
 
     @Override

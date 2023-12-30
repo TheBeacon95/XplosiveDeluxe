@@ -31,9 +31,10 @@ public interface MovementServiceIfc extends ServiceIfc {
      * Converts the input direction into another direction, so corners can be rounded.
      * @param position position of the entity
      * @param direction the desired direction of the entity
+     * @param isGhost true if the entity is able to phase through blocks.
      * @return the actual direction the entity will move in.
      */
-    public Direction convertDesiredDirection(Coordinates position, Direction direction);
+    public Direction convertDesiredDirection(Coordinates position, Direction direction, boolean isGhost);
     
     /**
      * Shows whether a position is between blocks either horizontally or vertically.

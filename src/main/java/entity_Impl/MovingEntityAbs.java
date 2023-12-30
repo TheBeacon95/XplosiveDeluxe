@@ -6,7 +6,6 @@ import common.Animation;
 import common.Coordinates;
 import common.Direction;
 import common.ServiceManager;
-import entity_Impl.Monsters.MonsterEntities.Ghost;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -100,9 +99,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
         }
     }
 
-    protected int getSpeed() {
-        return m_speed;
-    }
+    protected abstract int getSpeed();
 
     private Animation createAnimation(boolean isIdleAnimation, Direction direction) {
         String idleString = isIdleAnimation ? "Idle" : "Moving";
@@ -136,7 +133,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
     }
 
     private void tryMove() {
-        int speed = 1;
+        int speed = getSpeed();
         int fps = 240; // Todo: get from GameManagementService or something.
         boolean isMovementFrame = m_framesSinceLastMovement >= fps / (speed * 12); // Todo: create a constant for 12. (scale factor or so)
         boolean hasMoved = false;
@@ -218,7 +215,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
     private BufferedImage m_lastUsedAnimationSprite;
     private String m_skinPath;
 
-    protected int m_speed;
+//    protected int m_speed;
     private static final int STEP_SIZE = 1;
     private int m_framesSinceLastMovement;
     protected final HashMap<Direction, Animation> m_idleAnimations;

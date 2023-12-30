@@ -24,6 +24,8 @@ public class StageManagementService implements StageManagementServiceIfc {
         // Todo: put in low prio task so it can be loaded duric active.
         m_isReady = false;
         m_stage = new Stage(level);
+        // Todo: Move this
+        ((InputServiceIfc) ServiceManager.getService(UiNames.Services.InputService)).loadKeyInputs();
         createStage(level);
         MovementService.getInstance().setStage(m_stage);
         m_isReady = true;
@@ -75,7 +77,7 @@ public class StageManagementService implements StageManagementServiceIfc {
         // Todo: expose the levels fields.
         Map<String, Coordinates> players = level.getPlayers();
         for (Map.Entry<String, Coordinates> player : players.entrySet()) {
-            m_entityManagementService.createPlayer(player.getKey(), player.getValue());
+            m_entityManagementService.createPlayer(player.getKey(), player.getValue().scale(8));
         }
 
         Map<Coordinates, ArrayList<MonsterType>> monsters = level.getMonsters();

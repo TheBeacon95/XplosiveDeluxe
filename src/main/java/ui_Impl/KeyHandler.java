@@ -2,9 +2,14 @@ package ui_Impl;
 
 import common.Direction;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 import ui_Interfaces.KeyHandlerIfc;
 
-public class KeyHandler implements KeyHandlerIfc {
+public class KeyHandler implements KeyHandlerIfc, Serializable {
+    
+    public KeyHandler() {
+        int i = 0;
+    }
     
     @Override
     public Direction getPressedDirection() {
@@ -129,13 +134,13 @@ public class KeyHandler implements KeyHandlerIfc {
         return input;
     }
 
-    private boolean m_isUpPressed;
-    private boolean m_isRightPressed;
-    private boolean m_isDownPressed;
-    private boolean m_isLeftPressed;
-    private boolean m_isFirePressed;
+    private transient boolean m_isUpPressed;
+    private transient boolean m_isRightPressed;
+    private transient boolean m_isDownPressed;
+    private transient boolean m_isLeftPressed;
+    private transient boolean m_isFirePressed;
     
-    private Direction m_lastPressedDirection = Direction.NoDirection;
+    private transient Direction m_lastPressedDirection = Direction.NoDirection;
     
     private int m_upKey = KeyEvent.VK_W;
     private int m_rightKey = KeyEvent.VK_D;

@@ -24,8 +24,8 @@ public class GamePanel extends JPanel {
         setPreferredSize(new Dimension(m_screenService.getStageWidth(), m_screenService.getStageHeight()));
         setBackground(Color.black);
         setDoubleBuffered(true);
-        m_keyHandler = new KeyHandler();
-        addKeyListener(m_keyHandler);
+//        m_keyHandler = new KeyHandler();
+//        addKeyListener(m_keyHandler);
         setFocusable(true);
     }
 

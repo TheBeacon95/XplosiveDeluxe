@@ -63,6 +63,7 @@ public class Level implements Serializable {
 //        setupGrid();
         placeRandomBlocks();
         placeRandomMonsters();
+        placePlayers();
         writeTestLevel();
     }
 
@@ -104,6 +105,13 @@ public class Level implements Serializable {
         ArrayList<MonsterType> list = new ArrayList<>();
         list.add(MonsterType.Ghost);
         m_monsters.put(new Coordinates(3, 9), list);
+    }
+    
+    private void placePlayers() {
+        m_players.put("Player_1", new Coordinates(3, 3));
+        m_players.put("Player_2", new Coordinates(15, 3));
+        m_players.put("Player_3", new Coordinates(3, 13));
+        m_players.put("Player_4", new Coordinates(15, 13));
     }
 
     private final HashMap<Coordinates, BlockType> m_blocks;
