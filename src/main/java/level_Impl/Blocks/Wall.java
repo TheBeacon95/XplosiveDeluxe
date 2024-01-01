@@ -1,7 +1,7 @@
 package level_Impl.Blocks;
 
 import level_Impl.BlockAbs;
-import level_Impl.BlockType;
+import level_Interfaces.BlockType;
 
 /**
  *
@@ -21,5 +21,10 @@ public class Wall extends BlockAbs {
     @Override
     public boolean isPhaseable() {
         return false;
+    }
+    
+    @Override
+    public void explode() {
+        // Do nothing.
     }
 }

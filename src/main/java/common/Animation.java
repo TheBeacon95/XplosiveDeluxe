@@ -38,10 +38,13 @@ public class Animation {
      * @return the next sprite in the animation.
      */
     public BufferedImage getSpriteToDraw() {
-        BufferedImage spriteToDraw = m_animationSprites.get(m_currentSpriteCounter / m_spriteDuration);
-        m_currentSpriteCounter++;
-        if (m_currentSpriteCounter >= m_spriteCount * m_spriteDuration) {
-            m_currentSpriteCounter = 0;
+        BufferedImage spriteToDraw = null;
+        if (!m_animationSprites.isEmpty()) {
+            spriteToDraw = m_animationSprites.get(m_currentSpriteCounter / m_spriteDuration);
+            m_currentSpriteCounter++;
+            if (m_currentSpriteCounter >= m_spriteCount * m_spriteDuration) {
+                m_currentSpriteCounter = 0;
+            }
         }
         return spriteToDraw;
     }
@@ -50,5 +53,5 @@ public class Animation {
     private final int m_spriteCount;    // Represents the number of sprites there are.
     private int m_currentSpriteCounter; // Acts as an index for the animation.
     private final ArrayList<BufferedImage> m_animationSprites;
-    private static final int DEFAULT_SPRITE_DURATION = 15; // Duration of each sprite in frames.
+    private static final int DEFAULT_SPRITE_DURATION = 10; // Duration of each sprite in frames.
 }

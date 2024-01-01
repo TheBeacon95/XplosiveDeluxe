@@ -11,7 +11,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
-import level_Impl.BlockType;
 
 /**
  * Represents the serializable template for a stage.
@@ -99,6 +98,8 @@ public class Level implements Serializable {
         m_blocks.put(new Coordinates(1, 3), BlockType.Brick);
         m_blocks.put(new Coordinates(5, 1), BlockType.DeathBlock);
         m_blocks.put(new Coordinates(1, 5), BlockType.DeathBlock);
+        m_blocks.put(new Coordinates(8, 7), BlockType.Bomb);
+        m_blocks.put(new Coordinates(7, 6), BlockType.Bomb);
     }
     
     private void placeRandomMonsters() {

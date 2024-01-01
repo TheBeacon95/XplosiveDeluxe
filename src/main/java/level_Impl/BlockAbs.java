@@ -1,9 +1,12 @@
 package level_Impl;
 
+import level_Interfaces.BlockType;
 import common.Animation;
 import entity_Interfaces.ExplosionIfc;
 import java.awt.image.BufferedImage;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -13,9 +16,10 @@ import javax.imageio.ImageIO;
 public abstract class BlockAbs {
 
     public BlockAbs(BlockType type) {
+        m_type = type;
         loadSprites(type.name());
     }
-    
+
     /**
      * Shows if the block can be walked over.
      *
@@ -55,24 +59,39 @@ public abstract class BlockAbs {
 
     /**
      * Gets called, whenever an explosion (of any kind) hits the block.
-     *
-     * @param explosion the explosion that hit the block
      */
-    public void explode(ExplosionIfc explosion) {
+    public void explode() {
         m_isBeingDestroyed = true;
         m_explosionStartTime = System.nanoTime();
+        onExplode();
     }
 
     /**
      * Updates the Block.
      */
-    public void update() {
+    public final void update() {
         if (m_isBeingDestroyed) {
             long currentTime = System.nanoTime();
             if (currentTime >= m_explosionStartTime + EXPLOSION_TIME) {
                 m_isDestroyed = true;
             }
         }
+        onUpdate();
+    }
+    
+    /**
+     * Destroys this block.
+     */
+    public final void destroy() {
+        m_isDestroyed = true;
+    }
+    
+    protected void onUpdate() {
+        // Do nothing.
+    }
+    
+    protected void onExplode() {
+        // Do nothing.
     }
 
     /**
@@ -82,7 +101,7 @@ public abstract class BlockAbs {
      */
     public BufferedImage getSpriteToDraw() {
         if (!m_isBeingDestroyed) {
-            return m_idleSprite;
+            return m_idleAnimation.getSpriteToDraw();
         }
         else {
             return m_explosionAnimation.getSpriteToDraw();
@@ -92,46 +111,56 @@ public abstract class BlockAbs {
     public boolean isDestroyed() {
         return m_isDestroyed;
     }
-
-    private final void loadSprites(String folderName) {
-        // Todo implement: this gets the sprites and then creates an ExplosionAnimation and an Idle Sprite.
-        // Then set setIdleSprite and setExplosionAnimation to private.
-        try {
-            m_idleSprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/" + folderName + "_Idle.png"));
-
-            m_explosionAnimation = createExplosionAnimation(folderName);
-        }
-        catch (Exception ex) {
-
-        }
+    
+    public BlockType getType() {
+        return m_type;
     }
 
-//    private final void setIdleSprite(BufferedImage sprite) {
-//        m_idleSprite = sprite;
-//    }
-//    
-    private final Animation createExplosionAnimation(String folderName) {
-        ArrayList<BufferedImage> explosionSprites = new ArrayList<>();
+    private void loadSprites(String folderName) {
+        m_idleAnimation = createIdleAnimation(folderName);
+        m_explosionAnimation = createExplosionAnimation(folderName);
+    }
+    
+    private Animation createIdleAnimation(String folderName) {
+        ArrayList<BufferedImage> idleSprites = new ArrayList<>();
         int i = 0;
+        InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/Idle_" + i + ".png");
         try {
-            BufferedImage explosionSprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/" + folderName + "_Explosion_" + i + ".png"));
-            while (explosionSprite != null) {
+            while (fileInputStream != null) {
+                idleSprites.add(ImageIO.read(fileInputStream));
                 i++;
-                explosionSprites.add(explosionSprite);
-                explosionSprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/" + folderName + "_Explosion_" + i + ".png"));
+                fileInputStream = getClass().getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/Idle_" + i + ".png");
             }
         }
         catch (Exception e) {
-            
+            Logger.getLogger(BlockAbs.class.getName()).log(java.util.logging.Level.SEVERE, null, e);
+        }
+        return new Animation(idleSprites);
+    }
+    
+    private Animation createExplosionAnimation(String folderName) {
+        ArrayList<BufferedImage> explosionSprites = new ArrayList<>();
+        int i = 0;
+        InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/Exploding_" + i + ".png");
+        try {
+            while (fileInputStream != null) {
+                explosionSprites.add(ImageIO.read(fileInputStream));
+                i++;
+                fileInputStream = getClass().getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/Exploding_" + i + ".png");
+            }
+        }
+        catch (Exception e) {
+            Logger.getLogger(BlockAbs.class.getName()).log(java.util.logging.Level.SEVERE, null, e);
         }
         return new Animation(explosionSprites);
     }
 
-    private BufferedImage m_idleSprite;
+    private Animation m_idleAnimation;
     private Animation m_explosionAnimation;
     private boolean m_isBeingDestroyed;
     private boolean m_isDestroyed;
     private long m_explosionStartTime;
+    private final BlockType m_type;
 
     private static final long EXPLOSION_TIME = 1 * 1000 * 1000 * 1000; // Explosion animation time in nanoseconds.
 }

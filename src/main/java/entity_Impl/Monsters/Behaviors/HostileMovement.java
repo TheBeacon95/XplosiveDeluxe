@@ -19,7 +19,7 @@ public class HostileMovement implements MovementBehaviorIfc {
 
     @Override
     public Direction getNextMovementDirection(MonsterAbs monster) {
-        return m_movementService.getNextHostileDirection(monster.getPosition(), monster.getDirection());
+        return m_movementService.getNextHostileDirection(monster.getGlobalPosition(), monster.getDirection());
     }
 
     private final MovementServiceIfc m_movementService;

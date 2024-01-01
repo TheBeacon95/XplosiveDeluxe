@@ -16,9 +16,6 @@ public abstract class AgentAbs {
         m_serviceManager = ServiceManager.getInstance();
         initializeAgents();
         registerServices();
-        for (ServiceIfc service: m_services) {
-            service.initializeService();
-        }
     }
     
     protected final void addAgent(AgentAbs agent) {
@@ -30,6 +27,12 @@ public abstract class AgentAbs {
         for (AgentAbs agent: m_children) {
             agent.start();
             agent.onStart();
+        }
+    }
+    
+    public final void initializeServices() {
+        for (ServiceIfc service: m_services) {
+            service.initializeService();
         }
     }
     

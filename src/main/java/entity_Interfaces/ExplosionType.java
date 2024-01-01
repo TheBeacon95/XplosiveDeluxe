@@ -5,7 +5,7 @@ package entity_Interfaces;
  * @author Yanick
  */
 public enum ExplosionType {
-    NormalExplosion,
+    FireExplosion,
     BrickExplosion,
     Fire
 }

@@ -26,9 +26,8 @@ public abstract class MonsterAbs extends MovingEntityAbs {
     }
 
     @Override
-    public final void update() {
+    protected final void onUpdate() {
         // Todo: do something like this
-        super.update();
 //        for (EntityAbs entity : getCollisions()) {
 //            m_collisionBehavior.react(entity);
 //        }

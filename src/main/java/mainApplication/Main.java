@@ -17,15 +17,11 @@ public class Main {
         }
 
         for (ModuleAbs module : modules) {
-            module.start();
+            module.initializeServices();
         }
 
-//        s_uiImpl = new ui_Impl.ModuleImpl();
-//        s_entityImpl = new entity_Impl.ModuleImpl();
-//        
-//        s_uiImpl.initializeAgent();
-//        
-//        s_uiImpl.startAgent();
+        for (ModuleAbs module : modules) {
+            module.start();
+        }
     }
-
 }

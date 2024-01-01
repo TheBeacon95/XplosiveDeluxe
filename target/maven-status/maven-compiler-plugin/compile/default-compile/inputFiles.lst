@@ -1,6 +1,7 @@
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\Direction.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\MovingEntityAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\ExplosionType.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\BombType.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\stateMachine\TransitionAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\EntityNames.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\BlockFactory.java
@@ -12,12 +13,15 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\ServiceIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\MonsterEntities\Ghost.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Players\Player.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\EntityManagementServiceIfc.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\StillEntityAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\MovementBehaviorIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Players\PlayerFactory.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\mainApplication\Main.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Explosions\Explosion.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Interfaces\GameMode.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Impl\KeyHandler.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\ModuleImpl.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\BlockType.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\stateMachine\StateMachineAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Interfaces\ScreenServiceIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\MonsterAbs.java
@@ -31,9 +35,11 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\PlayerIfc.
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\CollectableType.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\Blocks\DeathBlock.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\CollisionBehaviorIfc.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\Blocks\Bomb.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Impl\ModuleImpl.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\Animation.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\PlayerStatusIfc.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Explosions\ExplosionFactory.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\Level.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Impl\DisplayService.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\gameStates\LoadLevelState.java
@@ -48,7 +54,6 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\PlayerCont
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\MonsterType.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Interfaces\ActivePlayers.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\Coordinates.java
-C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\MovingEntityIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\GameManagerAgent.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Collectables\CollectableAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Collectables\CollectableFactory.java
@@ -68,7 +73,6 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\Stage.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Interfaces\DisplayServiceIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Interfaces\Difficulty.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\ModuleAbs.java
-C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\BlockType.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\LevelNames.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\MovementService.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\ModuleImpl.java

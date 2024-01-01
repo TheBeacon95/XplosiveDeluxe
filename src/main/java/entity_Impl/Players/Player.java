@@ -1,18 +1,10 @@
 package entity_Impl.Players;
 
-import common.Coordinates;
-import common.Direction;
-import common.IdentifiableIfc;
-import common.ServiceManager;
-import entity_Impl.MovingEntityAbs;
-import entity_Interfaces.ExplosionIfc;
-import entity_Interfaces.PlayerControls;
-import entity_Interfaces.PlayerEffect;
-import entity_Interfaces.PlayerIfc;
-import entity_Interfaces.PlayerStatusIfc;
-import ui_Interfaces.InputServiceIfc;
-import ui_Interfaces.KeyHandlerIfc;
-import ui_Interfaces.UiNames;
+import common.*;
+import entity_Impl.MovingEntityAbs; // Todo: this class shouldn't reference a higher package.
+import entity_Interfaces.*;
+import level_Interfaces.*;
+import ui_Interfaces.*;
 
 /**
  * Represents a Player entity.
@@ -27,6 +19,7 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
         m_controls = new PlayerControls();
         InputServiceIfc inputService = (InputServiceIfc) ServiceManager.getService(UiNames.Services.InputService);
         m_keyHandler = inputService.getInput(getId());
+        m_stageManagementService = (StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService);
     }
     
     @Override
@@ -82,25 +75,43 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
             return desiredDirection;
         }
         else {
-            return m_movementService.convertDesiredDirection(m_position, desiredDirection, m_status.getEffect() == PlayerEffect.Ghost);
+            return m_movementService.convertDesiredDirection(getGlobalPosition(), desiredDirection, m_status.getEffect() == PlayerEffect.Ghost);
         }
+    }
+    
+    @Override
+    protected final void onUpdate() {
+        // Todo: implement fire.
+        placeBomb();
     }
 
     @Override
-    public String getId() {
+    public final String getId() {
         return m_playerId;
     }
     
-    private void clearEvent() {
-        if(m_status.getEffect() != PlayerEffect.None && System.nanoTime() >= m_effectEndTime) {
+    private void placeBomb() {
+        boolean isFirePressed = m_keyHandler.isFirePressed();
+        boolean areBombsAvailable = m_activeBombCount < m_status.getBombCount();
+        
+        if (isFirePressed && areBombsAvailable) {
+            m_stageManagementService.placeBomb(BombType.FireBomb, getGridPosition(), m_status.getStrength());
+        }
+    }
+    
+    private void clearEffect() {
+        if (m_status.getEffect() != PlayerEffect.None && System.nanoTime() >= m_effectEndTime) {
             m_status.setEffect(PlayerEffect.None);
         }
     }
     
     private final String m_playerId;
-    private PlayerControls m_controls;
-    private PlayerStatus m_status;
+    private final PlayerControls m_controls;
+    private final PlayerStatus m_status;
     
     private long m_effectEndTime;
-    private KeyHandlerIfc m_keyHandler;
+    private final KeyHandlerIfc m_keyHandler;
+    
+    private int m_activeBombCount;
+    private final StageManagementServiceIfc m_stageManagementService;
 }

@@ -33,7 +33,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
     }
 
     public final void Teleport(Coordinates newPosition) {
-        m_position = newPosition;
+        m_globalPosition = newPosition;
     }
 
     /**
@@ -69,12 +69,13 @@ public abstract class MovingEntityAbs extends EntityAbs {
     }
 
     @Override
-    public void update() {
+    public final void update() {
         if (m_isStalled) {
             boolean isStallTimerUp = System.nanoTime() >= m_stallStartTime + m_stallDuration * 1000 * 1000 * 1000;
             m_isStalled = !isStallTimerUp;
         }
         tryMove();
+        onUpdate();
     }
 
     public final void setupAnimations(String skinPath) {
@@ -90,9 +91,8 @@ public abstract class MovingEntityAbs extends EntityAbs {
         
         m_deathAnimation = createDeathAnimation();
         
-        // Todo: Improve and put this in a better spot.
         try {
-            m_lastUsedAnimationSprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream("Sprites/Monsters/Ghost/Skin_0/Idle_Down_0.png"));
+            m_lastUsedAnimationSprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(skinPath + "Idle_Down_0.png"));
         }
         catch (IOException ex) {
             Logger.getLogger(MovingEntityAbs.class.getName()).log(Level.SEVERE, null, ex);
@@ -100,6 +100,10 @@ public abstract class MovingEntityAbs extends EntityAbs {
     }
 
     protected abstract int getSpeed();
+    
+    protected void onUpdate() {
+        // Do nothing.
+    }
 
     private Animation createAnimation(boolean isIdleAnimation, Direction direction) {
         String idleString = isIdleAnimation ? "Idle" : "Moving";
@@ -141,7 +145,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
             Direction direction = getMovementDirection();
             m_isIdle = direction == Direction.NoDirection;
             if (!m_isIdle) {
-                m_position.translate(direction, STEP_SIZE);
+                m_globalPosition.translate(direction, STEP_SIZE);
                 hasMoved = true;
                 m_direction = direction;
             }
@@ -154,45 +158,8 @@ public abstract class MovingEntityAbs extends EntityAbs {
             m_framesSinceLastMovement++;
         }
     }
-    
-    // Todo: move this to MovingEntityAbs
-//    private void initSprites(){
-//        ArrayList<BufferedImage> idleUpSprites = new ArrayList();
-//        ArrayList<BufferedImage> idleRightSprites = new ArrayList();
-//        ArrayList<BufferedImage> idleDownSprites = new ArrayList();
-//        ArrayList<BufferedImage> idleLeftSprites = new ArrayList();
-//        // Todo: get all sprites.
-//        try {
-//            idleUpSprites.add(ImageIO.read(getClass().getClassLoader().getResourceAsStream(m_skinPath + "_Idle_Up_0.png")));
-//            idleRightSprites.add(ImageIO.read(getClass().getClassLoader().getResourceAsStream(m_skinPath + "_Idle_Right_0.png")));
-//            idleDownSprites.add(ImageIO.read(getClass().getClassLoader().getResourceAsStream(m_skinPath + "_Idle_Down_0.png")));
-//            idleLeftSprites.add(ImageIO.read(getClass().getClassLoader().getResourceAsStream(m_skinPath + "_Idle_Left_0.png")));
-//        }
-//        catch (IOException ex) {
-//            Logger.getLogger(Ghost.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        m_idleAnimations.put(Direction.Up, new Animation(idleUpSprites));
-//        m_idleAnimations.put(Direction.Right, new Animation(idleRightSprites));
-//        m_idleAnimations.put(Direction.Down, new Animation(idleDownSprites));
-//        m_idleAnimations.put(Direction.Left, new Animation(idleLeftSprites));
-//        
-//        m_movementAnimations.put(Direction.Up, new Animation(idleUpSprites));
-//        m_movementAnimations.put(Direction.Right, new Animation(idleRightSprites));
-//        m_movementAnimations.put(Direction.Down, new Animation(idleDownSprites));
-//        m_movementAnimations.put(Direction.Left, new Animation(idleLeftSprites));
-//    }
 
     // Todo: find appropriate existing methods.
-    private BufferedImage load(InputStream fileStream) {
-        BufferedImage sprite = null;
-        try {
-            sprite = ImageIO.read(fileStream);
-        }
-        catch (IOException ex) {
-            Logger.getLogger(MovingEntityAbs.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return sprite;
-    }
 
     protected ArrayList<EntityAbs> getCollisions() {
         // todo: implement this.

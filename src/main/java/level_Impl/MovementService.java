@@ -93,11 +93,15 @@ public class MovementService implements MovementServiceIfc {
         List<Coordinates> freeNeighboringCells = new ArrayList<>();
         
         for (Coordinates neighbor: position.getNeighboringCells()) {
-            if (isWalkable(neighbor)) {
+            if (isWalkable(neighbor) && !hasExplosion(neighbor)) {
                 freeNeighboringCells.add(neighbor);
             }
         }
         return freeNeighboringCells;
+    }
+    
+    private boolean hasExplosion(Coordinates position) {
+        return m_entityManagementService.isExplosionHere(position);
     }
     
     @Override

@@ -6,19 +6,30 @@ import level_Interfaces.*;
 import ui_Interfaces.*;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 public abstract class EntityAbs implements EntityIfc {
 
     public EntityAbs(Coordinates position) {
-        m_position = position;
         m_direction = Direction.Down;
         m_screenService = (ScreenServiceIfc) ServiceManager.getService(UiNames.Services.ScreenService);
-        m_blockSegments = ((MovementServiceIfc) ServiceManager.getService(LevelNames.Services.MovementService)).getBlockSegments();
+        m_movementService = ((MovementServiceIfc) ServiceManager.getService(LevelNames.Services.MovementService));
+        m_stageManagementService = ((StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService));
+        m_blockSegments = m_movementService.getBlockSegments();
+        m_globalPosition = new Coordinates(position).scale(m_blockSegments);
     }
 
     @Override
-    public Coordinates getPosition() {
-        return new Coordinates(m_position);
+    public Coordinates getGlobalPosition() {
+        return new Coordinates(m_globalPosition);
+    }
+
+    @Override
+    public Coordinates getGridPosition() {
+        return m_stageManagementService.roundToGridPosition(m_globalPosition);
     }
 
     @Override
@@ -28,8 +39,8 @@ public abstract class EntityAbs implements EntityIfc {
     
     public final void draw(Graphics2D g2) {
         int tileSize = m_screenService.getTileSize();
-        int xDrawPosition = m_position.x * tileSize / m_blockSegments;
-        int yDrawPosition = m_position.y * tileSize / m_blockSegments;
+        int xDrawPosition = getGlobalPosition().x * tileSize / m_blockSegments;
+        int yDrawPosition = getGlobalPosition().y * tileSize / m_blockSegments;
         g2.drawImage(getSpriteToDraw(), xDrawPosition, yDrawPosition, tileSize, tileSize, null);
     }
     
@@ -40,14 +51,27 @@ public abstract class EntityAbs implements EntityIfc {
         // Disable behaviors
         // Start playing death animation
     }
+            
+    protected final BufferedImage load(InputStream fileStream) {
+        BufferedImage sprite = null;
+        try {
+            sprite = ImageIO.read(fileStream);
+        }
+        catch (IOException ex) {
+            Logger.getLogger(MovingEntityAbs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        return sprite;
+    }
 
     protected abstract BufferedImage getSpriteToDraw();
     
-    protected Coordinates m_position;
+    protected Coordinates m_globalPosition;
     protected Direction m_direction;
     protected boolean m_isDieing;
     protected Animation m_deathAnimation;
     
     private final ScreenServiceIfc m_screenService;
-    private final int m_blockSegments;
+    private final MovementServiceIfc m_movementService;
+    private final StageManagementServiceIfc m_stageManagementService;
+    protected final int m_blockSegments;
 }

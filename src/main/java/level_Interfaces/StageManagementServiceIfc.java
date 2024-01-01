@@ -1,6 +1,6 @@
 package level_Interfaces;
 
-import common.ServiceIfc;
+import common.*;
 import java.awt.Graphics2D;
 
 /**
@@ -37,4 +37,32 @@ public interface StageManagementServiceIfc extends ServiceIfc {
      * @return 
      */
     boolean isReady();
+    
+    /**
+     * Places a bomb at a specific position.
+     * @param bombType the type of the bomb
+     * @param position where the bomb will be placed
+     * @param strength how far the explosion will reach
+     */
+    void placeBomb(BombType bombType, Coordinates position, int strength);
+    
+    /**
+     * Rounds the position up or down to grid position.
+     * @param position position to be rounded
+     * @return 
+     */
+    Coordinates roundToGridPosition(Coordinates position);
+
+    /**
+     * Explodes the block if there is one.
+     * @param gridPosition
+     */
+    void explode(Coordinates gridPosition);
+    
+    /**
+     * Shows if a space is occupied by a block that stops explosions.
+     * @param gridPosition
+     * @return true if there's an explosion stopper. false otherwise.
+     */
+    boolean isExplosionStopper(Coordinates gridPosition);
 }

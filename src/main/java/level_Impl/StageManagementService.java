@@ -9,9 +9,11 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import level_Impl.Blocks.Bomb;
 
 /**
  *
@@ -33,7 +35,7 @@ public class StageManagementService implements StageManagementServiceIfc {
 
     @Override
     public void updateStage() {
-
+        updateBlocks();
     }
 
     @Override
@@ -68,6 +70,40 @@ public class StageManagementService implements StageManagementServiceIfc {
         setStage(Level.readLevelConfig());
         setBackground();
     }
+    
+    @Override
+    public void placeBomb(BombType bombType, Coordinates position, int strength) {
+        if (!isBombHere(position)) {   
+            Bomb newBomb = (Bomb) m_stage.createBomb(position);
+            newBomb.activate(strength, ExplosionType.FireExplosion);
+        }
+    }
+    
+    @Override
+    public Coordinates roundToGridPosition(Coordinates position) {
+        int gridX = position.x % m_blockSegments < 4 ? position.x / m_blockSegments : position.x / m_blockSegments + 1;
+        int gridY = position.y % m_blockSegments < 4 ? position.y / m_blockSegments : position.y / m_blockSegments + 1;
+        return new Coordinates(gridX, gridY);
+    }
+    
+    @Override
+    public void explode(Coordinates gridPosition) {
+        HashMap<Coordinates, BlockAbs> blocks = m_stage.getBlocks();
+        if (blocks.containsKey(gridPosition)) {
+            blocks.get(gridPosition).explode();
+        }
+    }
+    
+    @Override
+    public boolean isExplosionStopper(Coordinates gridPosition) {
+        HashMap<Coordinates, BlockAbs> blocks = m_stage.getBlocks();
+        if (blocks.containsKey(gridPosition)) {
+            return blocks.get(gridPosition).canBlockExplosions();
+        }
+        else {
+            return false;
+        }
+    }
 
     @Override
     public String getId() {
@@ -78,13 +114,13 @@ public class StageManagementService implements StageManagementServiceIfc {
         // Todo: expose the levels fields.
         Map<String, Coordinates> players = level.getPlayers();
         for (Map.Entry<String, Coordinates> player : players.entrySet()) {
-            m_entityManagementService.createPlayer(player.getKey(), player.getValue().scale(m_blockSegments));
+            m_entityManagementService.createPlayer(player.getKey(), player.getValue());
         }
 
         Map<Coordinates, ArrayList<MonsterType>> monsters = level.getMonsters();
         for (Map.Entry<Coordinates, ArrayList<MonsterType>> monsterList : monsters.entrySet()) {
             for (MonsterType monster : monsterList.getValue()) {
-                m_entityManagementService.createMonster(monster, monsterList.getKey().scale(m_blockSegments));
+                m_entityManagementService.createMonster(monster, monsterList.getKey());
             }
         }
 
@@ -92,6 +128,27 @@ public class StageManagementService implements StageManagementServiceIfc {
         for (Map.Entry<Coordinates, CollectableType> collectable : collectables.entrySet()) {
             m_entityManagementService.createCollectable(collectable.getValue(), collectable.getKey());
         }
+    }
+    
+    private void updateBlocks() {
+        for (Map.Entry<Coordinates, BlockAbs> entry: m_stage.getBlocks().entrySet()) {
+            entry.getValue().update();
+            if (entry.getValue().isDestroyed()) {
+                m_stage.removeBlock(entry.getKey());
+            }
+        }
+    }
+    
+    private boolean isBombHere(Coordinates position) {
+        BlockAbs block;
+        HashMap<Coordinates, BlockAbs> stageBlocks = m_stage.getBlocks();
+        if (stageBlocks.containsKey(position)) {
+            block = stageBlocks.get(position);
+            if (block.getType() == BlockType.Bomb) {
+                return ((Bomb) block).isActive();
+            }
+        }
+        return false;
     }
 
     private void drawBackground(Graphics2D g2) {
@@ -106,7 +163,8 @@ public class StageManagementService implements StageManagementServiceIfc {
     }
 
     private void drawBlocks(Graphics2D g2) {
-        for (Map.Entry<Coordinates, BlockAbs> block : m_stage.getBlocks().entrySet()) {
+        Map<Coordinates, BlockAbs> blocks = m_stage.getBlocks();
+        for (Map.Entry<Coordinates, BlockAbs> block : blocks.entrySet()) {
             BufferedImage sprite = block.getValue().getSpriteToDraw();
             int tileSize = m_screenService.getTileSize();
             int xPosition = block.getKey().x * tileSize;
@@ -123,7 +181,6 @@ public class StageManagementService implements StageManagementServiceIfc {
         setBackground(DEFAULT_BACKGROUND_STYLE);
     }
 
-    private BlockFactory m_blockFactory;
     private EntityManagementServiceIfc m_entityManagementService;
     private ArrayList<Coordinates> m_explosions;
     private Stage m_stage;

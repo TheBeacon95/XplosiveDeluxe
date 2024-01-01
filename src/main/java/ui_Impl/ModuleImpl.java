@@ -1,7 +1,6 @@
 package ui_Impl;
 
 import common.ModuleAbs;
-import common.ServiceManager;
 
 public final class ModuleImpl extends ModuleAbs {
 

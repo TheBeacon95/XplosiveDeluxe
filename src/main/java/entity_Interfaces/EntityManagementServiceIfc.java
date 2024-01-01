@@ -41,10 +41,31 @@ public interface EntityManagementServiceIfc extends ServiceIfc {
     void createPlayer(String playerId, Coordinates position) throws IllegalArgumentException;
     
     /**
+     * Creates an explosion of any type.
+     * @param explosionType the type of the explosion
+     * @param strength it range of the explosion
+     * @param position where the explosion originates
+     */
+    void createExplosion(ExplosionType explosionType, int strength, Coordinates position);
+    
+    /**
+     * todo
+     * @param position 
+     */
+    public void removeExplosion(Coordinates position);
+    
+    /**
      * Retrieves the position of all players.
      * @return the position of all players
      */
     List<Coordinates> getAllPlayerPositions();
+
+    /**
+     * Shows if a specific cell currently has an explosion in it.
+     * @param position
+     * @return 
+     */
+    boolean isExplosionHere(Coordinates position);
     
     /**
      * Updates all Entities.
