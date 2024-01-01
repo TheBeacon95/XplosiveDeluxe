@@ -2,6 +2,7 @@ package level_Interfaces;
 
 import common.*;
 import java.awt.Graphics2D;
+import level_Impl.*;
 
 /**
  *
@@ -43,8 +44,9 @@ public interface StageManagementServiceIfc extends ServiceIfc {
      * @param bombType the type of the bomb
      * @param position where the bomb will be placed
      * @param strength how far the explosion will reach
+     * @param listener 
      */
-    void placeBomb(BombType bombType, Coordinates position, int strength);
+    void placeBomb(BombType bombType, Coordinates position, int strength, BombListenerIfc listener);
     
     /**
      * Rounds the position up or down to grid position.

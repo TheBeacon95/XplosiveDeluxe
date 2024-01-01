@@ -1,6 +1,8 @@
 package entity_Interfaces;
 
-public interface PlayerIfc extends EntityIfc {
+import level_Interfaces.*;
+
+public interface PlayerIfc extends EntityIfc, BombListenerIfc {
     /**
      * Shows the status of the player.
      * @return player status

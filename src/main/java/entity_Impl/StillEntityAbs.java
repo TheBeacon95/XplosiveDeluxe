@@ -35,6 +35,19 @@ public abstract class StillEntityAbs extends EntityAbs {
         // Do nothing.
     }
     
+    protected static Animation loadAnimation(String folderPath) {
+        ArrayList<BufferedImage> sprites = new ArrayList<>();
+        int i = 0;
+        InputStream resourceStream = StillEntityAbs.class.getClassLoader().getResourceAsStream(folderPath + "/Idle_" + i + ".png");
+        while (resourceStream != null) {
+            BufferedImage nextSprite = load(resourceStream);
+            sprites.add(nextSprite);
+            i++;
+            resourceStream = StillEntityAbs.class.getClassLoader().getResourceAsStream(folderPath + "/Idle_" + i + ".png");
+        }
+        return new Animation(sprites);
+    }
+    
     protected final void setDefaultAnimation(String folderPath) {
         ArrayList<BufferedImage> sprites = new ArrayList<>();
         int i = 0;

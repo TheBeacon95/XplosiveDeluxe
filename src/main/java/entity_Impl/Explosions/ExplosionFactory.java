@@ -14,6 +14,7 @@ public class ExplosionFactory {
     
     public ExplosionFactory() {
         m_stageManagementService = (StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService);
+        Explosion.loadSprites();
     }
     
     public ArrayList<EntityAbs> createExplosion(Coordinates position, ExplosionType explosionType, int strength) {
@@ -33,9 +34,9 @@ public class ExplosionFactory {
         ArrayList<EntityAbs> newExplosions = new ArrayList<>();
         do {
             nextPosition.translate(direction, 1);
+            isExplosionStopper = m_stageManagementService.isExplosionStopper(nextPosition);
             m_stageManagementService.explode(nextPosition);
             remainingStrength--;
-            isExplosionStopper = m_stageManagementService.isExplosionStopper(nextPosition);
             if (!isExplosionStopper) {
                 newExplosions.add(new Explosion(nextPosition, explosionType));
             }

@@ -20,6 +20,7 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\mainApplication\Main.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Explosions\Explosion.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Interfaces\GameMode.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Impl\KeyHandler.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\BombListenerIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\ModuleImpl.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\BlockType.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\stateMachine\StateMachineAbs.java
@@ -76,6 +77,7 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\ModuleAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\LevelNames.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\MovementService.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\ModuleImpl.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\BombIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\StageManagementServiceIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\Vector.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\EntityManagementService.java

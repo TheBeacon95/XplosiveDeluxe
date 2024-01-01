@@ -1,5 +1,6 @@
 package level_Impl;
 
+import level_Interfaces.BombIfc;
 import level_Interfaces.*;
 import common.Coordinates;
 import common.ServiceManager;
@@ -72,9 +73,11 @@ public class StageManagementService implements StageManagementServiceIfc {
     }
     
     @Override
-    public void placeBomb(BombType bombType, Coordinates position, int strength) {
+    public void placeBomb(BombType bombType, Coordinates position, int strength, BombListenerIfc listener) {
+        Bomb newBomb = null;
         if (!isBombHere(position)) {   
-            Bomb newBomb = (Bomb) m_stage.createBomb(position);
+            newBomb = (Bomb) m_stage.createBomb(position);
+            newBomb.AttachListener(listener);
             newBomb.activate(strength, ExplosionType.FireExplosion);
         }
     }

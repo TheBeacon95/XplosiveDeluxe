@@ -14,11 +14,19 @@ public class Animation {
     public Animation(List<BufferedImage> animationSprites, int spriteDuration) {
         m_animationSprites = new ArrayList<>(animationSprites);
         m_spriteCount = animationSprites.size();
-        m_spriteDuration = spriteDuration;
+        m_spriteDuration = spriteDuration > 0 ? spriteDuration : DEFAULT_SPRITE_DURATION;
+        m_isRepeating = true;
     }
     
     public Animation(List<BufferedImage> animationSprites) {
         this(animationSprites, DEFAULT_SPRITE_DURATION);
+    }
+    
+    public Animation(Animation animationToCopy) {
+        m_animationSprites = animationToCopy.m_animationSprites;
+        m_spriteCount = animationToCopy.m_spriteCount;
+        m_spriteDuration = animationToCopy.m_spriteDuration;
+        m_isRepeating = animationToCopy.m_isRepeating;
     }
     
     /**
@@ -39,16 +47,33 @@ public class Animation {
      */
     public BufferedImage getSpriteToDraw() {
         BufferedImage spriteToDraw = null;
-        if (!m_animationSprites.isEmpty()) {
+        if (!m_isDone && !m_animationSprites.isEmpty()) {
             spriteToDraw = m_animationSprites.get(m_currentSpriteCounter / m_spriteDuration);
             m_currentSpriteCounter++;
             if (m_currentSpriteCounter >= m_spriteCount * m_spriteDuration) {
                 m_currentSpriteCounter = 0;
+                m_isDone = !m_isRepeating;
             }
         }
         return spriteToDraw;
     }
     
+    public void setSpriteDuration(int duration) {
+        if (duration > 0) {
+            m_spriteDuration = duration;
+        }
+    }
+    
+    public void setRepeatingAnimation() {
+        m_isRepeating = true;
+    }
+    
+    public void setSingleAnimation() {
+        m_isRepeating = false;
+    }
+    
+    private boolean m_isRepeating;
+    private boolean m_isDone;
     private int m_spriteDuration;       // Represents the amount of frames an animationSprite is shown for.
     private final int m_spriteCount;    // Represents the number of sprites there are.
     private int m_currentSpriteCounter; // Acts as an index for the animation.

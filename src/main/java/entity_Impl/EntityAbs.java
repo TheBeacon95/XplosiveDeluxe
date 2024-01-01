@@ -52,7 +52,7 @@ public abstract class EntityAbs implements EntityIfc {
         // Start playing death animation
     }
             
-    protected final BufferedImage load(InputStream fileStream) {
+    protected static BufferedImage load(InputStream fileStream) {
         BufferedImage sprite = null;
         try {
             sprite = ImageIO.read(fileStream);

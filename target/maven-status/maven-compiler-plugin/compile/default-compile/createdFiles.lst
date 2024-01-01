@@ -11,6 +11,7 @@ ui_Interfaces\ScreenServiceIfc.class
 entity_Impl\Monsters\Behaviors\CollisionBehaviorIfc.class
 entity_Interfaces\ExplosionType.class
 entity_Interfaces\EntityManagementServiceIfc.class
+level_Interfaces\BombListenerIfc.class
 common\Animation.class
 entity_Impl\Monsters\Behaviors\ExplosionBehaviorIfc.class
 entity_Impl\StillEntityAbs.class
@@ -54,6 +55,7 @@ ui_Impl\InputService.class
 game_Interfaces\ActivePlayers.class
 entity_Interfaces\EntityNames$Services.class
 game_Impl\gameStates\ShowMenuState.class
+level_Interfaces\BombIfc.class
 ui_Impl\DisplayService.class
 entity_Impl\Collectables\CollectableFactory.class
 common\AgentAbs.class

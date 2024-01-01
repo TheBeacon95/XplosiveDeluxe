@@ -2,7 +2,6 @@ package level_Impl;
 
 import level_Interfaces.BlockType;
 import common.Animation;
-import entity_Interfaces.ExplosionIfc;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -63,6 +62,8 @@ public abstract class BlockAbs {
     public void explode() {
         m_isBeingDestroyed = true;
         m_explosionStartTime = System.nanoTime();
+        m_explosionAnimation.setSingleAnimation();
+        m_explosionAnimation.setSpriteDuration(40);
         onExplode();
     }
 
@@ -73,7 +74,7 @@ public abstract class BlockAbs {
         if (m_isBeingDestroyed) {
             long currentTime = System.nanoTime();
             if (currentTime >= m_explosionStartTime + EXPLOSION_TIME) {
-                m_isDestroyed = true;
+                destroy();
             }
         }
         onUpdate();
@@ -82,8 +83,9 @@ public abstract class BlockAbs {
     /**
      * Destroys this block.
      */
-    public final void destroy() {
+    protected final void destroy() {
         m_isDestroyed = true;
+        onDestroyed();
     }
     
     protected void onUpdate() {
@@ -91,6 +93,10 @@ public abstract class BlockAbs {
     }
     
     protected void onExplode() {
+        // Do nothing.
+    }
+    
+    protected void onDestroyed() {
         // Do nothing.
     }
 
@@ -162,5 +168,5 @@ public abstract class BlockAbs {
     private long m_explosionStartTime;
     private final BlockType m_type;
 
-    private static final long EXPLOSION_TIME = 1 * 1000 * 1000 * 1000; // Explosion animation time in nanoseconds.
+    private static final long EXPLOSION_TIME = 250 * 1000 * 1000; // Explosion animation time in nanoseconds.
 }

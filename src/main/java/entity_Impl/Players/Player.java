@@ -86,6 +86,21 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
     }
 
     @Override
+    public void onBombPlaced() {
+        m_activeBombCount++;
+    }
+
+    @Override
+    public void onBombExploded() {
+        // Do nothing
+    }
+
+    @Override
+    public void onBombDestroyed() {
+        m_activeBombCount--;
+    }
+
+    @Override
     public final String getId() {
         return m_playerId;
     }
@@ -95,7 +110,7 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
         boolean areBombsAvailable = m_activeBombCount < m_status.getBombCount();
         
         if (isFirePressed && areBombsAvailable) {
-            m_stageManagementService.placeBomb(BombType.FireBomb, getGridPosition(), m_status.getStrength());
+            m_stageManagementService.placeBomb(BombType.FireBomb, getGridPosition(), m_status.getStrength(), this);
         }
     }
     
