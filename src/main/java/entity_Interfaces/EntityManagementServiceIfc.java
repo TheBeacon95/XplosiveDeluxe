@@ -68,6 +68,11 @@ public interface EntityManagementServiceIfc extends ServiceIfc {
     boolean isExplosionHere(Coordinates position);
     
     /**
+     * todo
+     */
+    void onPlayerDied(EntityIfc entity);
+    
+    /**
      * Updates all Entities.
      */
     void updateEntities();

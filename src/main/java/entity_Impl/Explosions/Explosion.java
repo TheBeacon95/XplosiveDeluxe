@@ -1,7 +1,7 @@
 package entity_Impl.Explosions;
 
 import common.*;
-import entity_Impl.StillEntityAbs;
+import entity_Impl.*;
 import entity_Interfaces.*;
 import java.awt.image.BufferedImage;
 
@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
  *
  * @author Yanick
  */
-public class Explosion extends StillEntityAbs {
+public class Explosion extends StillEntityAbs implements ExplosionIfc {
 
     public Explosion(Coordinates position, ExplosionType type) {
         super(position);
@@ -34,6 +34,16 @@ public class Explosion extends StillEntityAbs {
     @Override
     protected BufferedImage getSpriteToDraw() {
         return m_animation.getSpriteToDraw();
+    }
+    
+    @Override
+    public void collide(EntityAbs otherEntity) {
+        otherEntity.explode(this);
+    }
+
+    @Override
+    public ExplosionType getType() {
+        return m_type;
     }
     
     public static void loadSprites() {
