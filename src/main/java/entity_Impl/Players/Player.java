@@ -24,7 +24,9 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
     
     @Override
     public void explode(ExplosionIfc explosion) {
-        throw new UnsupportedOperationException("Not supported yet.");
+//        kill(); // Todo: implement kill.
+        EntityManagementServiceIfc entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
+        entityManagementService.onPlayerDied(this);
     }
 
     @Override

@@ -44,6 +44,21 @@ public abstract class EntityAbs implements EntityIfc {
         g2.drawImage(getSpriteToDraw(), xDrawPosition, yDrawPosition, tileSize, tileSize, null);
     }
     
+    public final boolean isColliding(EntityAbs otherEntity) {
+        Coordinates myPosition = getGlobalPosition();
+        Coordinates otherPosition = otherEntity.getGlobalPosition();
+        int tileSize = m_screenService.getTileSize();
+        boolean isXCloseEnough = Math.abs(otherPosition.x - myPosition.x) < tileSize / m_blockSegments;
+        boolean isYCloseEnough = Math.abs(otherPosition.y - myPosition.y) < tileSize / m_blockSegments;
+        
+        // Since we are working with grid movement, if x and y are both close, either both x's or boty y's are equal.
+        return isXCloseEnough && isYCloseEnough;
+    }
+    
+    public void collide(EntityAbs otherEntity) {
+        // Do nothing
+    }
+    
     public final void kill() {
         // Todo: Implement
         // Unregister from everywhere

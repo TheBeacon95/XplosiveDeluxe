@@ -74,6 +74,13 @@ public class EntityManagementService implements EntityManagementServiceIfc {
 //        m_explosions.get
         return false;
     }
+    
+    @Override
+    public void onPlayerDied(EntityIfc entity) {
+        if (m_players.contains((EntityAbs) entity)) {
+            m_players.remove((EntityAbs) entity);
+        }
+    }
 
     @Override
     public void updateEntities() {
@@ -81,6 +88,24 @@ public class EntityManagementService implements EntityManagementServiceIfc {
         updateMonsters();
         updateCollectables();
         updateExplosions();
+        checkCollisions();
+    }
+    
+    private void checkCollisions() {
+//        for (EntityAbs monster: new ArrayList<>(m_monsters)) {
+//            for (EntityAbs player: new ArrayList<>(m_players)) {
+//                if (monster.isColliding(player)) {
+//                    monster.collide(player);
+//                }
+//            }
+//        }
+        for (EntityAbs explosion: new ArrayList<>(m_explosions.values())) {
+            for (EntityAbs player: new ArrayList<>(m_players)) {
+                if (explosion.isColliding(player)) {
+                    explosion.collide(player);
+                }
+            }
+        }
     }
 
     @Override
