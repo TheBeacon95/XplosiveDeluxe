@@ -67,4 +67,10 @@ public interface StageManagementServiceIfc extends ServiceIfc {
      * @return true if there's an explosion stopper. false otherwise.
      */
     boolean isExplosionStopper(Coordinates gridPosition);
+
+    /**
+     * 
+     * @param gridPosition 
+     */
+    public void placeDeathBlock(Coordinates gridPosition);
 }

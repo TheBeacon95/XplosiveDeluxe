@@ -56,10 +56,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
         if (m_isDieing) {
             return m_deathAnimation.getSpriteToDraw();
         }
-        if (m_isIdle) {
-            return m_lastUsedAnimationSprite;
-        }
-        Animation animationToUse = m_isIdle ? m_idleAnimations.get(m_direction) : m_movementAnimations.get(m_direction);
+        Animation animationToUse = m_isIdle ? m_idleAnimations.get(getDisplayDirection()) : m_movementAnimations.get(getDisplayDirection());
         if (m_lastAnimation != null && m_lastAnimation != animationToUse) {
             animationToUse.continueFromAnimation(m_lastAnimation);
         }
@@ -173,6 +170,12 @@ public abstract class MovingEntityAbs extends EntityAbs {
      * @return next direction the player moves in.
      */
     protected abstract Direction getMovementDirection();
+    
+    /**
+     * Gets the direction the entity is facing.
+     * @return 
+     */
+    protected abstract Direction getDisplayDirection();
 
     private boolean m_isIdle;
     private boolean m_isStalled;

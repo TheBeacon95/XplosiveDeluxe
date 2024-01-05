@@ -1,4 +1,4 @@
-package entity_Impl.Monsters.Behaviors;
+package entity_Impl.Monsters.Behaviors.MovementBehaviors;
 
 import common.Coordinates;
 import common.Direction;

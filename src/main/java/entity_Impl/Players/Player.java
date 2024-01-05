@@ -20,13 +20,21 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
         InputServiceIfc inputService = (InputServiceIfc) ServiceManager.getService(UiNames.Services.InputService);
         m_keyHandler = inputService.getInput(getId());
         m_stageManagementService = (StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService);
+        m_facingDirection = Direction.Down;
     }
     
     @Override
     public void explode(ExplosionIfc explosion) {
-//        kill(); // Todo: implement kill.
+        if (m_status.getEffect() != PlayerEffect.Shield) {
+            kill();
+        }
+    }
+    
+    @Override
+    public void kill() {
         EntityManagementServiceIfc entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
-        entityManagementService.onPlayerDied(this);
+        entityManagementService.onEntityDied(this);
+        m_stageManagementService.placeDeathBlock(getGridPosition());
     }
 
     @Override
@@ -77,8 +85,15 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
             return desiredDirection;
         }
         else {
-            return m_movementService.convertDesiredDirection(getGlobalPosition(), desiredDirection, m_status.getEffect() == PlayerEffect.Ghost);
+            Direction convertedDirection = m_movementService.convertDesiredDirection(getGlobalPosition(), desiredDirection, m_status.getEffect() == PlayerEffect.Ghost);
+            m_facingDirection = convertedDirection == Direction.NoDirection ? desiredDirection : convertedDirection;
+            return convertedDirection;
         }
+    }
+
+    @Override
+    protected Direction getDisplayDirection() {
+        return m_facingDirection;
     }
     
     @Override
@@ -125,6 +140,8 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
     private final String m_playerId;
     private final PlayerControls m_controls;
     private final PlayerStatus m_status;
+    
+    private Direction m_facingDirection;
     
     private long m_effectEndTime;
     private final KeyHandlerIfc m_keyHandler;
