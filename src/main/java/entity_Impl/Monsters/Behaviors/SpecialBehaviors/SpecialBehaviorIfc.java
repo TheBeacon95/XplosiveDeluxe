@@ -1,4 +1,4 @@
-package entity_Impl.Monsters.Behaviors;
+package entity_Impl.Monsters.Behaviors.SpecialBehaviors;
 
 import entity_Impl.Monsters.MonsterAbs;
 

@@ -1,4 +1,4 @@
-package entity_Impl.Monsters.Behaviors;
+package entity_Impl.Monsters.Behaviors.MovementBehaviors;
 
 import level_Interfaces.LevelNames;
 import common.Direction;

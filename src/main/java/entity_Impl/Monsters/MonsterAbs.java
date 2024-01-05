@@ -1,21 +1,21 @@
 package entity_Impl.Monsters;
 
-import entity_Impl.Monsters.Behaviors.CollisionBehaviorIfc;
-import entity_Impl.Monsters.Behaviors.ExplosionBehaviorIfc;
-import entity_Impl.Monsters.Behaviors.MovementBehaviorIfc;
-import entity_Impl.Monsters.Behaviors.SpecialBehaviorIfc;
+import entity_Impl.Monsters.Behaviors.CollisionBehaviors.CollisionBehaviorIfc;
+import entity_Impl.Monsters.Behaviors.ExplosionBehaviors.ExplosionBehaviorIfc;
+import entity_Impl.Monsters.Behaviors.MovementBehaviors.MovementBehaviorIfc;
+import entity_Impl.Monsters.Behaviors.SpecialBehaviors.SpecialBehaviorIfc;
 import common.Coordinates;
 import common.Direction;
-import entity_Impl.MovingEntityAbs;
-import entity_Interfaces.ExplosionIfc;
-import entity_Interfaces.MonsterType;
+import common.ServiceManager;
+import entity_Impl.*;
+import entity_Interfaces.*;
 import java.util.List;
 
 /**
  *
  * @author Yanick
  */
-public abstract class MonsterAbs extends MovingEntityAbs {
+public abstract class MonsterAbs extends MovingEntityAbs implements MonsterIfc {
 
     protected MonsterAbs(Coordinates position, MonsterType monsterType) {
         super(position, "Sprites/Monsters/" + monsterType.name() + "/Skin_0/");
@@ -29,10 +29,26 @@ public abstract class MonsterAbs extends MovingEntityAbs {
     public final void explode(ExplosionIfc explosion) {
         m_explosionBehavior.onExplode(this, explosion);
     }
+    
+    @Override
+    public final void collide(EntityAbs otherEntity) {
+        m_collisionBehavior.collide(otherEntity);
+    }
 
     @Override
     protected final Direction getMovementDirection() {
         return m_movementBehavior.getNextMovementDirection(this);
+    }
+
+    @Override
+    protected final Direction getDisplayDirection() {
+        return m_direction;
+    }
+    
+    @Override
+    public final void kill() {
+        EntityManagementServiceIfc entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
+        entityManagementService.onEntityDied(this);
     }
     
     protected void setMovementBehavior(MovementBehaviorIfc movementBehavior) {

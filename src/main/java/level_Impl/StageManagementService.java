@@ -193,4 +193,9 @@ public class StageManagementService implements StageManagementServiceIfc {
     private int m_blockSegments;
 
     private final String DEFAULT_BACKGROUND_STYLE = "Default";
+
+    @Override
+    public void placeDeathBlock(Coordinates gridPosition) {
+        m_stage.createBlock(BlockType.DeathBlock, gridPosition);
+    }
 }

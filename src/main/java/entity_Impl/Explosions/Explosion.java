@@ -62,4 +62,9 @@ public class Explosion extends StillEntityAbs implements ExplosionIfc {
 
     private final long m_startTime;
     private final static long LIFE_SPAN = 250 * 1000 * 1000;
+
+    @Override
+    public void kill() {
+        // Do nothing for now.
+    }
 }

@@ -1,7 +1,7 @@
 package level_Impl;
 
 import common.*;
-import entity_Impl.Monsters.Behaviors.MovementBehaviorIfc;
+import entity_Impl.Monsters.Behaviors.MovementBehaviors.MovementBehaviorIfc;
 import entity_Interfaces.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -136,7 +136,7 @@ public class MovementService implements MovementServiceIfc {
     }
 
     private Coordinates getClosestPlayerPosition(Coordinates position) {
-        Coordinates closestPlayerPosition = null;
+        Coordinates closestPlayerPosition = new Coordinates();
         float shortestDistance = Float.MAX_VALUE;
         for (Coordinates playerPosition: m_entityManagementService.getAllPlayerPositions()) {
             float currentDistance = Coordinates.getDistance(position, playerPosition);

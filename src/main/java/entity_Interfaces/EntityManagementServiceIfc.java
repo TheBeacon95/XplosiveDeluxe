@@ -70,7 +70,12 @@ public interface EntityManagementServiceIfc extends ServiceIfc {
     /**
      * todo
      */
-    void onPlayerDied(EntityIfc entity);
+    void onEntityDied(PlayerIfc entity);
+    
+    /**
+     * todo
+     */
+    void onEntityDied(MonsterIfc entity);
     
     /**
      * Updates all Entities.

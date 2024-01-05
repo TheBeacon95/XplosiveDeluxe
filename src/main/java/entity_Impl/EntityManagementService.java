@@ -76,9 +76,26 @@ public class EntityManagementService implements EntityManagementServiceIfc {
     }
     
     @Override
-    public void onPlayerDied(EntityIfc entity) {
+//    public void onEntityDied(EntityIfc entity) {
+//        if (entity != null) {
+//            onPlayerDied((EntityAbs) entity);
+//        }
+//        else if ((MonsterAbs) entity != null) {
+//            onMonstererDied((EntityAbs) entity);
+//        }
+//        
+//    }
+//
+    public void onEntityDied(PlayerIfc entity) {
         if (m_players.contains((EntityAbs) entity)) {
             m_players.remove((EntityAbs) entity);
+        }
+    }
+
+    @Override
+    public void onEntityDied(MonsterIfc entity) {
+        if (m_monsters.contains((EntityAbs) entity)) {
+            m_monsters.remove((EntityAbs) entity);
         }
     }
 
@@ -92,17 +109,24 @@ public class EntityManagementService implements EntityManagementServiceIfc {
     }
     
     private void checkCollisions() {
-//        for (EntityAbs monster: new ArrayList<>(m_monsters)) {
-//            for (EntityAbs player: new ArrayList<>(m_players)) {
-//                if (monster.isColliding(player)) {
-//                    monster.collide(player);
-//                }
-//            }
-//        }
+        for (EntityAbs monster: new ArrayList<>(m_monsters)) {
+            for (EntityAbs player: new ArrayList<>(m_players)) {
+                if (monster.isColliding(player)) {
+                    monster.collide(player);
+                }
+            }
+        }
         for (EntityAbs explosion: new ArrayList<>(m_explosions.values())) {
             for (EntityAbs player: new ArrayList<>(m_players)) {
                 if (explosion.isColliding(player)) {
                     explosion.collide(player);
+                }
+            }
+        }
+        for (EntityAbs explosion: new ArrayList<>(m_explosions.values())) {
+            for (EntityAbs monster: new ArrayList<>(m_monsters)) {
+                if (explosion.isColliding(monster)) {
+                    explosion.collide(monster);
                 }
             }
         }

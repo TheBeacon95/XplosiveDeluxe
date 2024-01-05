@@ -59,12 +59,10 @@ public abstract class EntityAbs implements EntityIfc {
         // Do nothing
     }
     
-    public final void kill() {
-        // Todo: Implement
-        // Unregister from everywhere
-        // Disable movement
-        // Disable behaviors
-        // Start playing death animation
+    public abstract void kill();
+    
+    public void explode() {
+        // Do nothing
     }
             
     protected static BufferedImage load(InputStream fileStream) {

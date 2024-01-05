@@ -1,4 +1,4 @@
-package entity_Impl.Monsters.Behaviors;
+package entity_Impl.Monsters.Behaviors.CollisionBehaviors;
 
 import entity_Impl.EntityAbs;
 
@@ -11,5 +11,5 @@ public interface CollisionBehaviorIfc {
      * Gets called, when the monster collides with another entity.
      * @param entity the entity that collided with the monster.
      */
-    void react(EntityAbs entity);
+    void collide(EntityAbs entity);
 }
