@@ -26,15 +26,6 @@ public abstract class StillEntityAbs extends EntityAbs {
         }
     }
     
-    @Override
-    public final void update() {
-        onUpdate();
-    }
-    
-    protected void onUpdate() {
-        // Do nothing.
-    }
-    
     protected static Animation loadAnimation(String folderPath) {
         ArrayList<BufferedImage> sprites = new ArrayList<>();
         int i = 0;

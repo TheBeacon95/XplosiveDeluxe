@@ -66,13 +66,15 @@ public abstract class MovingEntityAbs extends EntityAbs {
     }
 
     @Override
-    public final void update() {
-        if (m_isStalled) {
-            boolean isStallTimerUp = System.nanoTime() >= m_stallStartTime + m_stallDuration * 1000 * 1000 * 1000;
-            m_isStalled = !isStallTimerUp;
+    protected void onUpdate() {
+        if (!isDieing() && !isDead()) {
+            if (m_isStalled) {
+                boolean isStallTimerUp = System.nanoTime() >= m_stallStartTime + m_stallDuration * 1000 * 1000 * 1000;
+                m_isStalled = !isStallTimerUp;
+            }
+            tryMove();
+            act();
         }
-        tryMove();
-        onUpdate();
     }
 
     public final void setupAnimations(String skinPath) {
@@ -97,11 +99,11 @@ public abstract class MovingEntityAbs extends EntityAbs {
     }
 
     protected abstract int getSpeed();
-    
-    protected void onUpdate() {
+
+    protected void act() {
         // Do nothing.
     }
-
+    
     private Animation createAnimation(boolean isIdleAnimation, Direction direction) {
         String idleString = isIdleAnimation ? "Idle" : "Moving";
         String spriteFilePath = m_skinPath + idleString + "_" + direction;
@@ -181,7 +183,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
     private boolean m_isStalled;
     private long m_stallStartTime;
     private int m_stallDuration;
-    private Animation m_lastAnimation = null;
+    private Animation m_lastAnimation;
     private BufferedImage m_lastUsedAnimationSprite;
     private String m_skinPath;
 

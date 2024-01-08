@@ -1,8 +1,7 @@
 package entity_Impl.Collectables;
 
 import common.Coordinates;
-import entity_Interfaces.CollectableType;
-import entity_Interfaces.EntityIfc;
+import entity_Interfaces.*;
 
 /**
  *

@@ -4,9 +4,7 @@ import entity_Impl.Monsters.Behaviors.CollisionBehaviors.CollisionBehaviorIfc;
 import entity_Impl.Monsters.Behaviors.ExplosionBehaviors.ExplosionBehaviorIfc;
 import entity_Impl.Monsters.Behaviors.MovementBehaviors.MovementBehaviorIfc;
 import entity_Impl.Monsters.Behaviors.SpecialBehaviors.SpecialBehaviorIfc;
-import common.Coordinates;
-import common.Direction;
-import common.ServiceManager;
+import common.*;
 import entity_Impl.*;
 import entity_Interfaces.*;
 import java.util.List;
@@ -29,6 +27,11 @@ public abstract class MonsterAbs extends MovingEntityAbs implements MonsterIfc {
     public final void explode(ExplosionIfc explosion) {
         m_explosionBehavior.onExplode(this, explosion);
     }
+
+    @Override
+    protected boolean canBeKilled() {
+        return true;
+    }
     
     @Override
     public final void collide(EntityAbs otherEntity) {
@@ -42,13 +45,7 @@ public abstract class MonsterAbs extends MovingEntityAbs implements MonsterIfc {
 
     @Override
     protected final Direction getDisplayDirection() {
-        return m_direction;
-    }
-    
-    @Override
-    public final void kill() {
-        EntityManagementServiceIfc entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
-        entityManagementService.onEntityDied(this);
+        return m_direction == Direction.NoDirection ? Direction.Down : m_direction;
     }
     
     protected void setMovementBehavior(MovementBehaviorIfc movementBehavior) {

@@ -14,21 +14,19 @@ public class Explosion extends StillEntityAbs implements ExplosionIfc {
     public Explosion(Coordinates position, ExplosionType type) {
         super(position);
         m_type = type;
-//        setDefaultAnimation("Sprites/Explosions/Normal");
-        m_startTime = System.nanoTime();
         m_animation = new Animation(s_animation);
+        m_deathDuration = LIFE_SPAN;
+        kill();
     }
     
     @Override
     public void explode(ExplosionIfc explosion) {
         // Do nothing
     }
-    
+
     @Override
-    protected void onUpdate() {
-        if (m_startTime + LIFE_SPAN <= System.nanoTime()) {
-            finish();
-        }
+    protected boolean canBeKilled() {
+        return true;
     }
 
     @Override
@@ -51,20 +49,10 @@ public class Explosion extends StillEntityAbs implements ExplosionIfc {
         s_animation.setSpriteDuration(5);
         s_animation.setSingleAnimation();
     }
-    
-    private void finish() {
-        ((EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService)).removeExplosion(getGridPosition());
-    }
 
     private final ExplosionType m_type;
     private static Animation s_animation;
     private Animation m_animation;
 
-    private final long m_startTime;
-    private final static long LIFE_SPAN = 250 * 1000 * 1000;
-
-    @Override
-    public void kill() {
-        // Do nothing for now.
-    }
+    private final static long LIFE_SPAN = 1000 * 1000 * 1000;
 }
