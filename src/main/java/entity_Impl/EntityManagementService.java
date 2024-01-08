@@ -4,11 +4,11 @@ import entity_Impl.Monsters.*;
 import common.*;
 import entity_Impl.Collectables.*;
 import entity_Impl.Explosions.*;
-//import entity_Impl.Monsters.MonsterEntities.Ghost;
 import entity_Impl.Players.*;
 import entity_Interfaces.*;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class EntityManagementService implements EntityManagementServiceIfc {
         m_players = new ArrayList<>();
         m_monsters = new ArrayList<>();
         m_collectables = new ArrayList<>();
-        m_explosions = new HashMap<>();
+        m_explosions = new ArrayList<>();
     }
     @Override
     public void createMonster(MonsterType monsterType, Coordinates position) {
@@ -37,26 +37,15 @@ public class EntityManagementService implements EntityManagementServiceIfc {
     @Override
     public void createPlayer(String playerId, Coordinates position) throws IllegalArgumentException {
         // Todo: update this to have different skins.
-        Player player = m_playerFactory.createPlayer(playerId, position, m_playerSkinPaths.get(playerId));
-        m_players.add(player);
-//        m_players.put(playerId, player); // Todo
+        m_players.add(m_playerFactory.createPlayer(playerId, position, m_playerSkinPaths.get(playerId)));
     }
     
     @Override
     public void createExplosion(ExplosionType explosionType, int strength, Coordinates position) {
         ArrayList<EntityAbs> newExplosions = m_explosionFactory.createExplosion(position, explosionType, strength);
         for (EntityAbs newExplosion: newExplosions) {
-            if (m_explosions.containsKey(newExplosion.getGridPosition())) {
-                m_explosions.remove(newExplosion.getGridPosition());
-            }
-            m_explosions.put(newExplosion.getGridPosition(), newExplosion);
-        }
-    }
-    
-    @Override
-    public void removeExplosion(Coordinates position) {
-        if (m_explosions.containsKey(position)) {
-            m_explosions.remove(position);
+            m_explosions.removeIf(x -> x.getGridPosition().equals(newExplosion.getGridPosition()));
+            m_explosions.add(newExplosion);
         }
     }
 
@@ -64,69 +53,62 @@ public class EntityManagementService implements EntityManagementServiceIfc {
     public List<Coordinates> getAllPlayerPositions() {
         ArrayList<Coordinates> positions = new ArrayList<>();
         for (EntityAbs player: m_players) {
-            positions.add(player.getGlobalPosition());
+            if (!player.isDieing()) {
+                positions.add(player.getGlobalPosition());
+            }
         }
         return positions;
     }
     
     @Override
-    public boolean isExplosionHere(Coordinates position) {
-//        m_explosions.get
+    public boolean isExplosionHere(Coordinates gridPosition) {
+        for (EntityAbs explosion: m_explosions) {
+            if (explosion.getGridPosition().equals(gridPosition)) {
+                return true;
+            }
+        }
         return false;
-    }
-    
-    @Override
-//    public void onEntityDied(EntityIfc entity) {
-//        if (entity != null) {
-//            onPlayerDied((EntityAbs) entity);
-//        }
-//        else if ((MonsterAbs) entity != null) {
-//            onMonstererDied((EntityAbs) entity);
-//        }
-//        
-//    }
-//
-    public void onEntityDied(PlayerIfc entity) {
-        if (m_players.contains((EntityAbs) entity)) {
-            m_players.remove((EntityAbs) entity);
-        }
-    }
-
-    @Override
-    public void onEntityDied(MonsterIfc entity) {
-        if (m_monsters.contains((EntityAbs) entity)) {
-            m_monsters.remove((EntityAbs) entity);
-        }
     }
 
     @Override
     public void updateEntities() {
-        updatePlayers();
-        updateMonsters();
-        updateCollectables();
-        updateExplosions();
+        ArrayList<Collection<EntityAbs>> entityGroups = new ArrayList<>();
+        entityGroups.add(m_players);
+        entityGroups.add(m_monsters);
+        entityGroups.add(m_collectables);
+        entityGroups.add(m_explosions);
+        
+        for (Collection<EntityAbs> list: entityGroups) {
+            ArrayList<EntityAbs> deadEntities = new ArrayList<>();
+            for (EntityAbs entity: list) {
+                if (entity.isDead()) {
+                    deadEntities.add(entity);
+                    if (entity.getClass() == Explosion.class) {
+                        int a = 0;
+                    }
+                }
+                else {
+                    entity.update();
+                }
+            }
+            list.removeAll(deadEntities);
+        }
         checkCollisions();
     }
     
     private void checkCollisions() {
-        for (EntityAbs monster: new ArrayList<>(m_monsters)) {
-            for (EntityAbs player: new ArrayList<>(m_players)) {
-                if (monster.isColliding(player)) {
-                    monster.collide(player);
+        ArrayList<EntityAbs> allEntities = new ArrayList<>();
+        allEntities.addAll(m_players);
+        allEntities.addAll(m_monsters);
+        allEntities.addAll(m_collectables);
+        allEntities.addAll(m_explosions);
+        for (EntityAbs entity1: new ArrayList<>(allEntities)) {
+            for (EntityAbs entity2: new ArrayList<>(allEntities)) {
+                if (entity1 == entity2) {
+                    continue;
                 }
-            }
-        }
-        for (EntityAbs explosion: new ArrayList<>(m_explosions.values())) {
-            for (EntityAbs player: new ArrayList<>(m_players)) {
-                if (explosion.isColliding(player)) {
-                    explosion.collide(player);
-                }
-            }
-        }
-        for (EntityAbs explosion: new ArrayList<>(m_explosions.values())) {
-            for (EntityAbs monster: new ArrayList<>(m_monsters)) {
-                if (explosion.isColliding(monster)) {
-                    explosion.collide(monster);
+                if (entity1.isColliding(entity2)) {
+                    entity1.collide(entity2);
                 }
             }
         }
@@ -144,7 +126,7 @@ public class EntityManagementService implements EntityManagementServiceIfc {
         for (EntityAbs player : new ArrayList<>(m_players)) {
             player.draw(g2);
         }
-        for (EntityAbs explosion : new ArrayList<>(m_explosions.values())) {
+        for (EntityAbs explosion : new ArrayList<>(m_explosions)) {
             explosion.draw(g2);
         }
     }
@@ -168,34 +150,10 @@ public class EntityManagementService implements EntityManagementServiceIfc {
         return EntityNames.Services.EntityManagementService;
     }
 
-    private void updatePlayers() {
-        for (EntityAbs player : m_players) {
-            player.update();
-        }
-    }
-
-    private void updateMonsters() {
-        for (EntityAbs monster : m_monsters) {
-            monster.update();
-        }
-    }
-
-    private void updateCollectables() {
-        for (EntityAbs collectable : m_collectables) {
-            collectable.update();
-        }
-    }
-
-    private void updateExplosions() {
-        for (EntityAbs explosion : new ArrayList<>(m_explosions.values())) {
-            explosion.update();
-        }
-    }
-
     private final ArrayList<EntityAbs> m_players;
     private final ArrayList<EntityAbs> m_monsters;
     private final ArrayList<EntityAbs> m_collectables;
-    private final HashMap<Coordinates, EntityAbs> m_explosions;
+    private final ArrayList<EntityAbs> m_explosions;
     private MonsterFactory m_monsterFactory;
     private ExplosionFactory m_explosionFactory;
     private CollectableFactory m_collectableFactory;

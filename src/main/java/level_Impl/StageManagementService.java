@@ -74,12 +74,16 @@ public class StageManagementService implements StageManagementServiceIfc {
     
     @Override
     public void placeBomb(BombType bombType, Coordinates position, int strength, BombListenerIfc listener) {
-        Bomb newBomb = null;
         if (!isBombHere(position)) {   
-            newBomb = (Bomb) m_stage.createBomb(position);
+            Bomb newBomb = (Bomb) m_stage.createBomb(position);
             newBomb.AttachListener(listener);
             newBomb.activate(strength, ExplosionType.FireExplosion);
         }
+    }
+
+    @Override
+    public void placeDeathBlock(Coordinates gridPosition) {
+        m_stage.createBlock(BlockType.DeathBlock, gridPosition);
     }
     
     @Override
@@ -193,9 +197,4 @@ public class StageManagementService implements StageManagementServiceIfc {
     private int m_blockSegments;
 
     private final String DEFAULT_BACKGROUND_STYLE = "Default";
-
-    @Override
-    public void placeDeathBlock(Coordinates gridPosition) {
-        m_stage.createBlock(BlockType.DeathBlock, gridPosition);
-    }
 }

@@ -11,7 +11,7 @@ public class DieBehavior implements ExplosionBehaviorIfc {
 
     @Override
     public void onExplode(MonsterAbs monster, ExplosionIfc explosion) {
-        monster.kill();
+        monster.tryKill();
     }
     
 }

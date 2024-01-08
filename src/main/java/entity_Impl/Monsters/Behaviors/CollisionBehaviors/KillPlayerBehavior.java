@@ -11,8 +11,8 @@ public class KillPlayerBehavior implements CollisionBehaviorIfc {
 
     @Override
     public void collide(EntityAbs entity) {
-        if ((PlayerIfc) entity != null) {
-            entity.kill();
+        if (entity instanceof PlayerIfc) {
+            entity.tryKill();
         }
     }
 }

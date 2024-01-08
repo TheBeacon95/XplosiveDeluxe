@@ -11,13 +11,6 @@ import java.util.List;
  */
 public interface EntityManagementServiceIfc extends ServiceIfc {
     
-//    /**
-//     * Allows for an Entity to be registered to the service.
-//     * When UpdateEntities is called, each registered Entity will be updated.
-//     * @param entity 
-//     */
-//    void registerEntity(EntityIfc entity);
-    
     /**
      * Creates a Monster and registers it.
      * @param monsterType The type of Monster to be created
@@ -49,12 +42,6 @@ public interface EntityManagementServiceIfc extends ServiceIfc {
     void createExplosion(ExplosionType explosionType, int strength, Coordinates position);
     
     /**
-     * todo
-     * @param position 
-     */
-    public void removeExplosion(Coordinates position);
-    
-    /**
      * Retrieves the position of all players.
      * @return the position of all players
      */
@@ -62,20 +49,10 @@ public interface EntityManagementServiceIfc extends ServiceIfc {
 
     /**
      * Shows if a specific cell currently has an explosion in it.
-     * @param position
+     * @param gridPosition
      * @return 
      */
-    boolean isExplosionHere(Coordinates position);
-    
-    /**
-     * todo
-     */
-    void onEntityDied(PlayerIfc entity);
-    
-    /**
-     * todo
-     */
-    void onEntityDied(MonsterIfc entity);
+    boolean isExplosionHere(Coordinates gridPosition);
     
     /**
      * Updates all Entities.

@@ -89,10 +89,10 @@ public class MovementService implements MovementServiceIfc {
         return isBetweenHorizontalCells(position) || isBetweenVerticalCells(position);
     }
 
-    private List<Coordinates> getAllFreeNeighboringCells(Coordinates position) {
+    private List<Coordinates> getAllFreeNeighboringCells(Coordinates gridPosition) {
         List<Coordinates> freeNeighboringCells = new ArrayList<>();
         
-        for (Coordinates neighbor: position.getNeighboringCells()) {
+        for (Coordinates neighbor: gridPosition.getNeighboringCells()) {
             if (isWalkable(neighbor) && !hasExplosion(neighbor)) {
                 freeNeighboringCells.add(neighbor);
             }
@@ -100,8 +100,8 @@ public class MovementService implements MovementServiceIfc {
         return freeNeighboringCells;
     }
     
-    private boolean hasExplosion(Coordinates position) {
-        return m_entityManagementService.isExplosionHere(position);
+    private boolean hasExplosion(Coordinates gridPosition) {
+        return m_entityManagementService.isExplosionHere(gridPosition);
     }
     
     @Override

@@ -25,15 +25,18 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
     
     @Override
     public void explode(ExplosionIfc explosion) {
-        if (m_status.getEffect() != PlayerEffect.Shield) {
+        if (!isDieing() && canBeKilled()) {
             kill();
         }
     }
+
+    @Override
+    protected boolean canBeKilled() {
+        return m_status.getEffect() != PlayerEffect.Shield;
+    }
     
     @Override
-    public void kill() {
-        EntityManagementServiceIfc entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
-        entityManagementService.onEntityDied(this);
+    public void onKilled() {
         m_stageManagementService.placeDeathBlock(getGridPosition());
     }
 
@@ -97,7 +100,7 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
     }
     
     @Override
-    protected final void onUpdate() {
+    protected final void act() {
         // Todo: implement fire.
         placeBomb();
     }
