@@ -61,9 +61,7 @@ public abstract class BlockAbs {
      */
     public void explode() {
         m_isBeingDestroyed = true;
-        m_explosionStartTime = System.nanoTime();
-        m_explosionAnimation.setSingleAnimation();
-        m_explosionAnimation.setSpriteDuration(40);
+        m_explosionAnimation.start();
         onExplode();
     }
 
@@ -71,11 +69,8 @@ public abstract class BlockAbs {
      * Updates the Block.
      */
     public final void update() {
-        if (m_isBeingDestroyed) {
-            long currentTime = System.nanoTime();
-            if (currentTime >= m_explosionStartTime + EXPLOSION_TIME) {
-                destroy();
-            }
+        if (m_isBeingDestroyed && m_explosionAnimation.isDone()) {
+            destroy();
         }
         onUpdate();
     }
@@ -158,14 +153,16 @@ public abstract class BlockAbs {
         catch (Exception e) {
             Logger.getLogger(BlockAbs.class.getName()).log(java.util.logging.Level.SEVERE, null, e);
         }
-        return new Animation(explosionSprites);
+        Animation explosionAnimation = new Animation(explosionSprites);
+        explosionAnimation.setSingleAnimation();
+        explosionAnimation.setAnimationDuration(EXPLOSION_TIME);
+        return explosionAnimation;
     }
 
     private Animation m_idleAnimation;
     private Animation m_explosionAnimation;
     private boolean m_isBeingDestroyed;
     private boolean m_isDestroyed;
-    private long m_explosionStartTime;
     private final BlockType m_type;
 
     private static final long EXPLOSION_TIME = 250 * 1000 * 1000; // Explosion animation time in nanoseconds.

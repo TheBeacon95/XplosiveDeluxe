@@ -40,16 +40,7 @@ public abstract class StillEntityAbs extends EntityAbs {
     }
     
     protected final void setDefaultAnimation(String folderPath) {
-        ArrayList<BufferedImage> sprites = new ArrayList<>();
-        int i = 0;
-        InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(folderPath + "/Idle_" + i + ".png");
-        while (resourceStream != null) {
-            BufferedImage nextSprite = load(resourceStream);
-            sprites.add(nextSprite);
-            i++;
-            resourceStream = getClass().getClassLoader().getResourceAsStream(folderPath + "/Idle_" + i + ".png");
-        }
-        m_defaultAnimation = new Animation(sprites);
+        m_defaultAnimation = loadAnimation(folderPath);
     }
     
     protected final void setDeathAnimation(String folderPath) {

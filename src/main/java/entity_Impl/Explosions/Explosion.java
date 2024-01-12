@@ -15,8 +15,6 @@ public class Explosion extends StillEntityAbs implements ExplosionIfc {
         super(position);
         m_type = type;
         m_animation = new Animation(s_animation);
-        m_deathDuration = LIFE_SPAN;
-        kill();
     }
     
     @Override
@@ -35,6 +33,13 @@ public class Explosion extends StillEntityAbs implements ExplosionIfc {
     }
     
     @Override
+    protected final void onUpdate() {
+        if (m_animation.isDone()) {
+            die();
+        }
+    }
+    
+    @Override
     public void collide(EntityAbs otherEntity) {
         otherEntity.explode(this);
     }
@@ -46,7 +51,7 @@ public class Explosion extends StillEntityAbs implements ExplosionIfc {
     
     public static void loadSprites() {
         s_animation = loadAnimation("Sprites/Explosions/Normal");
-        s_animation.setSpriteDuration(5);
+        s_animation.setAnimationDuration(LIFE_SPAN);
         s_animation.setSingleAnimation();
     }
 
