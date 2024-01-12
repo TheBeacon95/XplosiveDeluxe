@@ -13,7 +13,7 @@ import ui_Interfaces.UiNames;
 public final class DisplayService implements DisplayServiceIfc {
 
     @Override
-    public void draw() {
+    public synchronized void draw() {
         m_gamePanel.repaint();
     }
 

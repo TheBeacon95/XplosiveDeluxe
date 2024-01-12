@@ -64,4 +64,9 @@ public interface EntityManagementServiceIfc extends ServiceIfc {
      * @param g2 
      */
     void drawEntities(Graphics2D g2);
+    
+    /**
+     * Clears out all entities so a new level can start.
+     */
+    public void clearAllEntities();
 }

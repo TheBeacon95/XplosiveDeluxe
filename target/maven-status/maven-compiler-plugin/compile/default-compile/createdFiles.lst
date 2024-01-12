@@ -3,10 +3,12 @@ mainApplication\Main.class
 entity_Impl\Monsters\Behaviors\MovementBehaviors\MovementBehaviorIfc.class
 game_Interfaces\GameMode.class
 level_Interfaces\LevelNames.class
+game_Impl\GameStateMachine$2.class
 common\ServiceManager.class
 common\stateMachine\TransitionAbs$1.class
 level_Impl\Blocks\Wall.class
 entity_Interfaces\PlayerStatusIfc.class
+game_Impl\gameStates\PlayerWonState.class
 ui_Interfaces\UiNames$Services.class
 ui_Interfaces\ScreenServiceIfc.class
 entity_Interfaces\ExplosionType.class
@@ -16,6 +18,7 @@ common\Animation.class
 entity_Interfaces\MonsterIfc.class
 entity_Impl\StillEntityAbs.class
 entity_Impl\Monsters\MonsterFactory$1.class
+game_Impl\GameStateMachine$1.class
 level_Impl\Blocks\Bomb.class
 entity_Interfaces\PlayerControls.class
 ui_Interfaces\KeyHandlerIfc.class

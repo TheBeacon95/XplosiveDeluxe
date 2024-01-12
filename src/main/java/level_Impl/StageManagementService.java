@@ -1,9 +1,7 @@
 package level_Impl;
 
-import level_Interfaces.BombIfc;
 import level_Interfaces.*;
-import common.Coordinates;
-import common.ServiceManager;
+import common.*;
 import entity_Interfaces.*;
 import ui_Interfaces.*;
 import java.awt.Graphics2D;
@@ -35,7 +33,7 @@ public class StageManagementService implements StageManagementServiceIfc {
     }
 
     @Override
-    public void updateStage() {
+    public synchronized void updateStage() {
         updateBlocks();
     }
 
@@ -68,7 +66,7 @@ public class StageManagementService implements StageManagementServiceIfc {
         m_blockSegments = ((MovementServiceIfc) ServiceManager.getService(LevelNames.Services.MovementService)).getBlockSegments();
 //        Level level = new Level();
 //        level.setupTestLevel();
-        setStage(Level.readLevelConfig());
+//        setStage(Level.readLevelConfig());
         setBackground();
     }
     
@@ -118,7 +116,7 @@ public class StageManagementService implements StageManagementServiceIfc {
     }
 
     private void createStage(Level level) {
-        // Todo: expose the levels fields.
+        m_entityManagementService.clearAllEntities();
         Map<String, Coordinates> players = level.getPlayers();
         for (Map.Entry<String, Coordinates> player : players.entrySet()) {
             m_entityManagementService.createPlayer(player.getKey(), player.getValue());
@@ -197,4 +195,9 @@ public class StageManagementService implements StageManagementServiceIfc {
     private int m_blockSegments;
 
     private final String DEFAULT_BACKGROUND_STYLE = "Default";
+
+    @Override
+    public boolean isOnePlayerLeft() {
+        return m_entityManagementService.getAllPlayerPositions().size() <= 1; // Todo: this was just to speed things up. Implement this properly.
+    }
 }

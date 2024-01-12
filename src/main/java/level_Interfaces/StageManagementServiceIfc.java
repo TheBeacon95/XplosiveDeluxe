@@ -73,4 +73,10 @@ public interface StageManagementServiceIfc extends ServiceIfc {
      * @param gridPosition 
      */
     public void placeDeathBlock(Coordinates gridPosition);
+
+    /**
+     * Shows if there's only one player left.
+     * @return true if there's at most one alive player. false otherwise.
+     */
+    public boolean isOnePlayerLeft();
 }
