@@ -1,13 +1,10 @@
 package game_Impl.gameStates;
 
-import level_Interfaces.LevelNames;
-import level_Interfaces.StageManagementServiceIfc;
+import level_Interfaces.*;
 import common.ServiceManager;
 import common.stateMachine.StateAbs;
-import entity_Interfaces.EntityManagementServiceIfc;
-import entity_Interfaces.EntityNames;
-import ui_Interfaces.DisplayServiceIfc;
-import ui_Interfaces.UiNames;
+import entity_Interfaces.*;
+import ui_Interfaces.*;
 
 /**
  * This is the state in which the level is played.
@@ -22,10 +19,11 @@ public class RunLevelState extends StateAbs {
 
     @Override
     public void enter() {
-        // TODO: initialise all services.
         m_stageManagementService = (StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService);
         m_entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
         m_displayService = (DisplayServiceIfc) ServiceManager.getService(UiNames.Services.DisplayService);
+        
+        m_stageManagementService.setStage(Level.readLevelConfig());
     }
 
     @Override

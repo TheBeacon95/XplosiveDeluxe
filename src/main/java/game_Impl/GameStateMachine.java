@@ -1,9 +1,9 @@
 package game_Impl;
 
-import common.stateMachine.StateAbs;
-import common.stateMachine.StateMachineAbs;
-import common.stateMachine.TransitionAbs;
+import common.*;
+import common.stateMachine.*;
 import game_Impl.gameStates.*;
+import level_Interfaces.*;
 
 /**
  *
@@ -17,7 +17,22 @@ public class GameStateMachine extends StateMachineAbs {
         m_loadLevelState = new LoadLevelState();
         m_runLevelState = new RunLevelState();
         
+        PlayerWonState playerWonState = new PlayerWonState();
+        
         // Initialise transitions
+        m_runLevelState.AddTransition(new TransitionAbs(playerWonState) {
+            @Override
+            public boolean isExitConditionSet() {
+                return ((StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService)).isOnePlayerLeft();
+            }
+        });
+        
+        playerWonState.AddTransition(new TransitionAbs(m_runLevelState){
+            @Override
+            public boolean isExitConditionSet() {
+                return playerWonState.isDoneWaiting();
+            }
+        });
 //        m_showMenuState.AddTransition(new TransitionAbs(m_loadLevelState) {
 //            @Override
 //            public void transitionToNextState() {

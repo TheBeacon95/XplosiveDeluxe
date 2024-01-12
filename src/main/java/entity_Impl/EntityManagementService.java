@@ -71,7 +71,7 @@ public class EntityManagementService implements EntityManagementServiceIfc {
     }
 
     @Override
-    public void updateEntities() {
+    public synchronized void updateEntities() {
         ArrayList<Collection<EntityAbs>> entityGroups = new ArrayList<>();
         entityGroups.add(m_players);
         entityGroups.add(m_monsters);
@@ -126,6 +126,14 @@ public class EntityManagementService implements EntityManagementServiceIfc {
         for (EntityAbs explosion : new ArrayList<>(m_explosions)) {
             explosion.draw(g2);
         }
+    }
+
+    @Override
+    public void clearAllEntities() {
+        m_players.clear();
+        m_monsters.clear();
+        m_collectables.clear();
+        m_explosions.clear();
     }
 
     @Override
