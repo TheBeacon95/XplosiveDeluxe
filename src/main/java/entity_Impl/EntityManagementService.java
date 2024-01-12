@@ -83,9 +83,6 @@ public class EntityManagementService implements EntityManagementServiceIfc {
             for (EntityAbs entity: list) {
                 if (entity.isDead()) {
                     deadEntities.add(entity);
-                    if (entity.getClass() == Explosion.class) {
-                        int a = 0;
-                    }
                 }
                 else {
                     entity.update();
@@ -107,13 +104,13 @@ public class EntityManagementService implements EntityManagementServiceIfc {
                 if (entity1 == entity2) {
                     continue;
                 }
-                if (entity1.isColliding(entity2)) {
+                if (!entity2.isDieing() && entity1.isColliding(entity2)) {
                     entity1.collide(entity2);
                 }
             }
         }
     }
-
+    
     @Override
     public void drawEntities(Graphics2D g2) {
         // Todo: Change this to draw in layers.

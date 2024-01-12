@@ -1,11 +1,7 @@
 package entity_Impl;
 
-import level_Interfaces.LevelNames;
-import level_Interfaces.MovementServiceIfc;
-import common.Animation;
-import common.Coordinates;
-import common.Direction;
-import common.ServiceManager;
+import level_Interfaces.*;
+import common.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

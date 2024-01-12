@@ -11,22 +11,24 @@ import java.util.List;
  */
 public class Animation {
     
-    public Animation(List<BufferedImage> animationSprites, int spriteDuration) {
+    public Animation(List<BufferedImage> animationSprites, int animationDuration) {
         m_animationSprites = new ArrayList<>(animationSprites);
         m_spriteCount = animationSprites.size();
-        m_spriteDuration = spriteDuration > 0 ? spriteDuration : DEFAULT_SPRITE_DURATION;
+        m_animationDuration = animationDuration > 0 ? animationDuration : DEFAULT_ANIMATION_DURATION;
         m_isRepeating = true;
+        m_animationStartTime = System.nanoTime();
     }
     
     public Animation(List<BufferedImage> animationSprites) {
-        this(animationSprites, DEFAULT_SPRITE_DURATION);
+        this(animationSprites, DEFAULT_ANIMATION_DURATION);
     }
     
     public Animation(Animation animationToCopy) {
         m_animationSprites = animationToCopy.m_animationSprites;
         m_spriteCount = animationToCopy.m_spriteCount;
-        m_spriteDuration = animationToCopy.m_spriteDuration;
+        m_animationDuration = animationToCopy.m_animationDuration;
         m_isRepeating = animationToCopy.m_isRepeating;
+        m_animationStartTime = System.nanoTime();
     }
     
     /**
@@ -35,9 +37,9 @@ public class Animation {
      */
     public void continueFromAnimation(Animation lastAnimation) {
         boolean doSpriteCountsMatch = m_spriteCount == lastAnimation.m_spriteCount;
-        boolean doSpriteDurationsMatch = m_spriteDuration == lastAnimation.m_spriteDuration;
+        boolean doSpriteDurationsMatch = m_animationDuration == lastAnimation.m_animationDuration;
         if (doSpriteCountsMatch && doSpriteDurationsMatch) {
-            m_currentSpriteCounter = lastAnimation.m_currentSpriteCounter;
+            m_animationStartTime = lastAnimation.m_animationStartTime;
         }
     }
     
@@ -47,21 +49,26 @@ public class Animation {
      */
     public BufferedImage getSpriteToDraw() {
         BufferedImage spriteToDraw = null;
+        updateAnimationValues();
         if (!m_isDone && !m_animationSprites.isEmpty()) {
-            spriteToDraw = m_animationSprites.get(m_currentSpriteCounter / m_spriteDuration);
-            m_currentSpriteCounter++;
-            if (m_currentSpriteCounter >= m_spriteCount * m_spriteDuration) {
-                m_currentSpriteCounter = 0;
-                m_isDone = !m_isRepeating;
-            }
+            spriteToDraw = m_animationSprites.get(m_currentSpriteIndex);
         }
         return spriteToDraw;
     }
     
-    public void setSpriteDuration(int duration) {
-        if (duration > 0) {
-            m_spriteDuration = duration;
+    public boolean isDone() {
+        return m_isDone;
+    }
+    
+    public void setAnimationDuration(long durationNs) {
+        if (durationNs > 0) {
+            m_animationDuration = durationNs;
         }
+    }
+    
+    public void start() {
+        m_animationStartTime = System.nanoTime();
+        m_isDone = false;
     }
     
     public void setRepeatingAnimation() {
@@ -71,12 +78,36 @@ public class Animation {
     public void setSingleAnimation() {
         m_isRepeating = false;
     }
+
+    private void refreshAnimationStartTime() {
+        long currentTime = System.nanoTime();
+        while (currentTime - m_animationStartTime >= m_animationDuration) {
+                m_animationStartTime += m_animationDuration;
+        }
+    }
+
+    private void updateAnimationValues() {
+        long currentTime = System.nanoTime();
+        if (!m_isRepeating && currentTime - m_animationStartTime >= m_animationDuration) {
+            int a = 0;
+        }
+        m_isDone = !m_isRepeating && currentTime - m_animationStartTime >= m_animationDuration;
+        
+        if (!m_isDone) {
+            refreshAnimationStartTime();
+            m_currentSpriteIndex = (int) ((currentTime - m_animationStartTime) * m_spriteCount / m_animationDuration);
+        }
+        else {
+            m_currentSpriteIndex = 0;
+        }
+    }
     
     private boolean m_isRepeating;
     private boolean m_isDone;
-    private int m_spriteDuration;       // Represents the amount of frames an animationSprite is shown for.
+    private long m_animationDuration;       // Represents the duration of the animation
     private final int m_spriteCount;    // Represents the number of sprites there are.
-    private int m_currentSpriteCounter; // Acts as an index for the animation.
+    private int m_currentSpriteIndex; // Acts as an index for the animation.
+    private long m_animationStartTime; // Shows when the animation has started.
     private final ArrayList<BufferedImage> m_animationSprites;
-    private static final int DEFAULT_SPRITE_DURATION = 10; // Duration of each sprite in frames.
+    private static final int DEFAULT_ANIMATION_DURATION = 1000 * 1000 * 1000; // Duration of each sprite in nanoseconds.
 }
