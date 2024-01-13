@@ -7,6 +7,7 @@ import entity_Impl.Monsters.Behaviors.SpecialBehaviors.SpecialBehaviorIfc;
 import common.*;
 import entity_Impl.*;
 import entity_Interfaces.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,10 +18,15 @@ public abstract class MonsterAbs extends MovingEntityAbs implements MonsterIfc {
 
     protected MonsterAbs(Coordinates position, MonsterType monsterType) {
         super(position, "Sprites/Monsters/" + monsterType.name() + "/Skin_0/");
+        m_specialBehaviors = new ArrayList<>();
     }
 
-    public final void Start() {
+    @Override
+    public final void start() {
         // Todo: implement.
+        for (SpecialBehaviorIfc specialBehavior: m_specialBehaviors) {
+            specialBehavior.start();
+        }
     }
     
     @Override
@@ -35,7 +41,9 @@ public abstract class MonsterAbs extends MovingEntityAbs implements MonsterIfc {
     
     @Override
     public final void collide(EntityAbs otherEntity) {
-        m_collisionBehavior.collide(otherEntity);
+        if (!isStalled()) {
+            m_collisionBehavior.collide(otherEntity);
+        }
     }
 
     @Override
@@ -46,6 +54,13 @@ public abstract class MonsterAbs extends MovingEntityAbs implements MonsterIfc {
     @Override
     protected final Direction getDisplayDirection() {
         return m_direction == Direction.NoDirection ? Direction.Down : m_direction;
+    }
+    
+    @Override
+    protected final void act() {
+        for (SpecialBehaviorIfc specialBehavior: m_specialBehaviors) {
+            specialBehavior.perform(this);
+        }
     }
     
     protected void setMovementBehavior(MovementBehaviorIfc movementBehavior) {

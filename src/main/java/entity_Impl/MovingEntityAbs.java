@@ -37,10 +37,14 @@ public abstract class MovingEntityAbs extends EntityAbs {
      *
      * @param stallDuration stall time in seconds.
      */
-    public final void stall(int stallDuration) {
-        m_isStalled = true;
-        m_stallStartTime = System.nanoTime();
-        m_stallDuration = stallDuration;
+    public final void stall(long stallDuration) {
+        long currentTime = System.nanoTime();
+        long currentStallEndTime = m_stallStartTime + m_stallDuration;
+        if (!m_isStalled || currentStallEndTime < currentTime + stallDuration) {
+            m_isStalled = true;
+            m_stallStartTime = currentTime;
+            m_stallDuration = stallDuration;
+        }
     }
 
     public final boolean isStalled() {
@@ -65,7 +69,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
     protected void onUpdate() {
         if (!isDieing() && !isDead()) {
             if (m_isStalled) {
-                boolean isStallTimerUp = System.nanoTime() >= m_stallStartTime + m_stallDuration * 1000 * 1000 * 1000;
+                boolean isStallTimerUp = System.nanoTime() >= m_stallStartTime + m_stallDuration;
                 m_isStalled = !isStallTimerUp;
             }
             tryMove();
@@ -178,7 +182,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
     private boolean m_isIdle;
     private boolean m_isStalled;
     private long m_stallStartTime;
-    private int m_stallDuration;
+    private long m_stallDuration;
     private Animation m_lastAnimation;
     private BufferedImage m_lastUsedAnimationSprite;
     private String m_skinPath;

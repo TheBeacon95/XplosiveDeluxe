@@ -7,6 +7,7 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\EntityName
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\BlockFactory.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\MonsterFactory.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\EntityIfc.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\MonsterEntities\Ninja.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Interfaces\GameManagementServiceIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\AgentAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\ServiceIfc.java
@@ -27,6 +28,7 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\BlockType.j
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\MovementBehaviors\MovementBehaviorIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\stateMachine\StateMachineAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Interfaces\ScreenServiceIfc.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\SpecialBehaviors\RandomStallingBehavior.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\MonsterAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\MonsterIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\GameStateMachine.java

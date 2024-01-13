@@ -33,4 +33,9 @@ public interface EntityIfc {
      * @param explosion 
      */
     void explode(ExplosionIfc explosion);
+    
+    /**
+     * Starts the Entity.
+     */
+    void start();
 }

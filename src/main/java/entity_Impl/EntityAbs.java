@@ -46,6 +46,11 @@ public abstract class EntityAbs implements EntityIfc {
         onUpdate();
     }
     
+    @Override
+    public void start() {
+        // Do nothing
+    }
+    
     protected void onUpdate() {
         // Do nothing.
     }

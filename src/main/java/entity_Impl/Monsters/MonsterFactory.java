@@ -23,6 +23,7 @@ public class MonsterFactory {
             case Phantom -> {
             }
             case Ninja -> {
+                monster = new Ninja(position);
             }
             case Bacteria -> {
             }

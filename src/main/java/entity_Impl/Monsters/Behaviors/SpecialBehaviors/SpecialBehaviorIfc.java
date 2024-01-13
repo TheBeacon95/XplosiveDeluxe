@@ -10,6 +10,11 @@ import entity_Impl.Monsters.MonsterAbs;
 public interface SpecialBehaviorIfc {
 
     /**
+     * Starts the special behavior.
+     */
+    void start();
+    
+    /**
      * Performs the special behavior.
      *
      * @param monster the monster that has a special behavior.

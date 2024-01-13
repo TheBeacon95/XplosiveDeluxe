@@ -24,6 +24,7 @@ public class RunLevelState extends StateAbs {
         m_displayService = (DisplayServiceIfc) ServiceManager.getService(UiNames.Services.DisplayService);
         
         m_stageManagementService.setStage(Level.readLevelConfig());
+        m_entityManagementService.startEntities();
     }
 
     @Override

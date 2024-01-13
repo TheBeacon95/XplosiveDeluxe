@@ -95,6 +95,8 @@ level_Interfaces\LevelManagementServiceIfc.class
 common\Coordinates.class
 entity_Impl\Players\Player.class
 entity_Impl\Monsters\MonsterEntities\Ghost.class
+entity_Impl\Monsters\MonsterEntities\Ninja.class
 game_Impl\gameStates\LoadLevelState$LoadLevelThreadRunner.class
 game_Impl\GameStateMachine.class
 level_Interfaces\BlockType.class
+entity_Impl\Monsters\Behaviors\SpecialBehaviors\RandomStallingBehavior.class

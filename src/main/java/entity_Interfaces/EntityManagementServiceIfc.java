@@ -69,4 +69,9 @@ public interface EntityManagementServiceIfc extends ServiceIfc {
      * Clears out all entities so a new level can start.
      */
     public void clearAllEntities();
+
+    /**
+     * Starts all entities.
+     */
+    public void startEntities();
 }

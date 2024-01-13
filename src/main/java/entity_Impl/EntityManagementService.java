@@ -164,4 +164,20 @@ public class EntityManagementService implements EntityManagementServiceIfc {
     private CollectableFactory m_collectableFactory;
     private PlayerFactory m_playerFactory;
     private HashMap<String, String> m_playerSkinPaths;
+
+    @Override
+    public void startEntities() {
+        for (EntityAbs player : new ArrayList<>(m_players)) {
+            player.start();
+        }
+        for (EntityAbs monster : new ArrayList<>(m_monsters)) {
+            monster.start();
+        }
+        for (EntityAbs collectable : new ArrayList<>(m_collectables)) {
+            collectable.start();
+        }
+//        for (EntityAbs explosion : new ArrayList<>(m_explosions)) {
+//            explosion.start();
+//        }
+    }
 }
