@@ -11,45 +11,24 @@ import entity_Interfaces.MonsterType;
 public class MonsterFactory {
     
     public MonsterAbs createMonster(MonsterType monsterType, Coordinates position) {
-        MonsterAbs monster = null;
-        switch (monsterType) {
-            case BrickEater -> {
-            }
-            case Muncher -> {
-            }
-            case Ghost -> {
-                monster = new Ghost(position);
-            }
-            case Phantom -> {
-            }
-            case Ninja -> {
-                monster = new Ninja(position);
-            }
-            case Bacteria -> {
-            }
-            case Fuzzy -> {
-            }
-            case Spider -> {
-            }
-            case Reaper -> {
-            }
-            case Slime -> {
-            }
-            case Turtle -> {
-            }
-            case BrickMonster -> {
-            }
-            case BlockMonster -> {
-            }
-            case Wizard -> {
-            }
-            case Magma -> {
-            }
-            case LifeDrainer -> {
-            }
-            case BlackHole -> {
-            }
-        }
-        return monster;
+        return switch (monsterType) {
+            case BrickEater -> null;
+            case Muncher -> null;
+            case Ghost -> new Ghost(position);
+            case Phantom -> new Phantom(position);
+            case Ninja -> new Ninja(position);
+            case Bacteria -> null;
+            case Fuzzy -> null;
+            case Spider -> null;
+            case Reaper -> null;
+            case Slime -> null;
+            case Turtle -> null;
+            case BrickMonster -> null;
+            case BlockMonster -> null;
+            case Wizard -> null;
+            case Magma -> null;
+            case LifeDrainer -> null;
+            case BlackHole -> null;
+        };
     }
 }

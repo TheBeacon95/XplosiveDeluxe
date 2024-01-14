@@ -47,6 +47,7 @@ common\IdentifiableIfc.class
 entity_Impl\Monsters\Behaviors\SpecialBehaviors\SpecialBehaviorIfc.class
 entity_Interfaces\ExplosionIfc.class
 game_Interfaces\Difficulty.class
+entity_Impl\Monsters\MonsterEntities\Phantom.class
 entity_Interfaces\PlayerEffect.class
 entity_Impl\Players\PlayerStatus.class
 entity_Impl\Monsters\Behaviors\CollisionBehaviors\KillPlayerBehavior.class

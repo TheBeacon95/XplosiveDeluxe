@@ -31,6 +31,7 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Interfaces\ScreenServiceI
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\SpecialBehaviors\RandomStallingBehavior.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\MonsterAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\MonsterIfc.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\MonsterEntities\Phantom.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\GameStateMachine.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\EntityAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\StageManagementService.java
