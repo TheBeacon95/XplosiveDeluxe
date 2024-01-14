@@ -23,7 +23,7 @@ public final class Bomb extends BlockAbs implements BombIfc {
         m_position = position;
         m_listeners = new ArrayList<>();
     }
-    
+
     @Override
     public boolean isPhaseable() {
         return true;

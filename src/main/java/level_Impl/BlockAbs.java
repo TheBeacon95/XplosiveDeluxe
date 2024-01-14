@@ -3,8 +3,10 @@ package level_Impl;
 import level_Interfaces.BlockType;
 import common.Animation;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
@@ -16,7 +18,7 @@ public abstract class BlockAbs {
 
     public BlockAbs(BlockType type) {
         m_type = type;
-        loadSprites(type.name());
+        initializeAnimations();
     }
 
     /**
@@ -117,40 +119,52 @@ public abstract class BlockAbs {
         return m_type;
     }
 
-    private void loadSprites(String folderName) {
-        m_idleAnimation = createIdleAnimation(folderName);
-        m_explosionAnimation = createExplosionAnimation(folderName);
+    protected static void loadSprites(String folderName) {
+        if (s_idleAnimations == null) {
+            s_idleAnimations = new HashMap<>();
+        }
+        s_idleAnimations.put(folderName, createIdleAnimation(folderName));
+        
+        if (s_explosionAnimations == null) {
+            s_explosionAnimations = new HashMap<>();
+        }
+        s_explosionAnimations.put(folderName, createIdleAnimation(folderName));
     }
     
-    private Animation createIdleAnimation(String folderName) {
+    private void initializeAnimations() {
+        m_idleAnimation = new Animation(s_idleAnimations.get(m_type.name()));
+        m_explosionAnimation = new Animation(s_explosionAnimations.get(m_type.name()));
+    }
+    
+    private static Animation createIdleAnimation(String folderName) {
         ArrayList<BufferedImage> idleSprites = new ArrayList<>();
         int i = 0;
-        InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/Idle_" + i + ".png");
+        InputStream fileInputStream = BlockAbs.class.getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/Idle_" + i + ".png");
         try {
             while (fileInputStream != null) {
                 idleSprites.add(ImageIO.read(fileInputStream));
                 i++;
-                fileInputStream = getClass().getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/Idle_" + i + ".png");
+                fileInputStream = BlockAbs.class.getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/Idle_" + i + ".png");
             }
         }
-        catch (Exception e) {
+        catch (IOException e) {
             Logger.getLogger(BlockAbs.class.getName()).log(java.util.logging.Level.SEVERE, null, e);
         }
         return new Animation(idleSprites);
     }
     
-    private Animation createExplosionAnimation(String folderName) {
+    private static Animation createExplosionAnimation(String folderName) {
         ArrayList<BufferedImage> explosionSprites = new ArrayList<>();
         int i = 0;
-        InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/Exploding_" + i + ".png");
+        InputStream fileInputStream = BlockAbs.class.getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/Exploding_" + i + ".png");
         try {
             while (fileInputStream != null) {
                 explosionSprites.add(ImageIO.read(fileInputStream));
                 i++;
-                fileInputStream = getClass().getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/Exploding_" + i + ".png");
+                fileInputStream = BlockAbs.class.getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/Exploding_" + i + ".png");
             }
         }
-        catch (Exception e) {
+        catch (IOException e) {
             Logger.getLogger(BlockAbs.class.getName()).log(java.util.logging.Level.SEVERE, null, e);
         }
         Animation explosionAnimation = new Animation(explosionSprites);
@@ -159,6 +173,8 @@ public abstract class BlockAbs {
         return explosionAnimation;
     }
 
+    private static HashMap<String, Animation> s_idleAnimations;
+    private static HashMap<String, Animation> s_explosionAnimations;
     private Animation m_idleAnimation;
     private Animation m_explosionAnimation;
     private boolean m_isBeingDestroyed;

@@ -10,6 +10,12 @@ import level_Impl.Blocks.*;
  */
 public class BlockFactory {
     
+    public BlockFactory() {
+        for (BlockType type: BlockType.values()) {
+            BlockAbs.loadSprites(type.name());
+        }
+    }
+    
     public BlockAbs createBlock(BlockType type) { 
         return switch (type) {
             case Brick -> new Brick();
