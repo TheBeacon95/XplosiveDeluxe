@@ -5,7 +5,7 @@ import entity_Impl.Monsters.Behaviors.CollisionBehaviors.KillPlayerBehavior;
 import entity_Impl.Monsters.Behaviors.ExplosionBehaviors.DieBehavior;
 import entity_Impl.Monsters.Behaviors.MovementBehaviors.HostileMovement;
 import entity_Impl.Monsters.MonsterAbs;
-import entity_Interfaces.MonsterType;
+import entity_Interfaces.*;
 
 /**
  *
@@ -22,7 +22,7 @@ public final class Ghost extends MonsterAbs {
     }
 
     @Override
-    protected int getSpeed() {
-        return 1;
+    protected Speed getSpeed() {
+        return Speed.NormalMonster;
     }
 }

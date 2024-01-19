@@ -2,6 +2,7 @@ package entity_Impl;
 
 import level_Interfaces.*;
 import common.*;
+import entity_Interfaces.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -98,7 +99,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
         }
     }
 
-    protected abstract int getSpeed();
+    protected abstract Speed getSpeed();
 
     protected void act() {
         // Do nothing.
@@ -136,7 +137,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
     }
 
     private void tryMove() {
-        int speed = getSpeed();
+        int speed = getSpeed().toInt();
         int fps = 240; // Todo: get from GameManagementService or something.
         boolean isMovementFrame = m_framesSinceLastMovement >= fps / (speed * 12); // Todo: create a constant for 12. (scale factor or so)
         boolean hasMoved = false;

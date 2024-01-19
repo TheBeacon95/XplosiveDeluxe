@@ -27,8 +27,10 @@ ui_Impl\KeyHandler$1.class
 entity_Interfaces\EntityIfc.class
 game_Impl\gameStates\ShowMenuState$MenuSettings.class
 entity_Interfaces\EntityNames.class
+entity_Impl\Monsters\MonsterEntities\Fuzzy.class
 common\stateMachine\StateAbs.class
 entity_Interfaces\CollectableType.class
+entity_Interfaces\Speed.class
 common\stateMachine\StateMachineAbs.class
 common\stateMachine\TransitionAbs.class
 common\ServiceIfc.class
@@ -79,6 +81,7 @@ level_Impl\StageManagementService.class
 level_Impl\MovementService.class
 level_Interfaces\Level.class
 ui_Impl\ScreenService.class
+entity_Impl\Monsters\MonsterEntities\Bacteria.class
 game_Impl\gameStates\LoadLevelState.class
 level_Impl\Blocks\DeathBlock.class
 common\ModuleAbs.class

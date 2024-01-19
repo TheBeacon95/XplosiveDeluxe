@@ -77,7 +77,7 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
     }
     
     @Override
-    protected int getSpeed() {
+    protected Speed getSpeed() {
         return m_status.getSpeed();
     }
 

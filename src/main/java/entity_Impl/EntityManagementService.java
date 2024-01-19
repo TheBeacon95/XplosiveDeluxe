@@ -39,7 +39,7 @@ public class EntityManagementService implements EntityManagementServiceIfc {
         // Todo: update this to have different skins.
         m_players.add(m_playerFactory.createPlayer(playerId, position, m_playerSkinPaths.get(playerId)));
     }
-    
+
     @Override
     public void createExplosion(ExplosionType explosionType, int strength, Coordinates position) {
         ArrayList<EntityAbs> newExplosions = m_explosionFactory.createExplosion(position, explosionType, strength);
@@ -59,7 +59,7 @@ public class EntityManagementService implements EntityManagementServiceIfc {
         }
         return positions;
     }
-    
+
     @Override
     public boolean isExplosionHere(Coordinates gridPosition) {
         for (EntityAbs explosion: m_explosions) {
@@ -77,7 +77,7 @@ public class EntityManagementService implements EntityManagementServiceIfc {
         entityGroups.add(m_monsters);
         entityGroups.add(m_collectables);
         entityGroups.add(m_explosions);
-        
+
         for (Collection<EntityAbs> list: entityGroups) {
             ArrayList<EntityAbs> deadEntities = new ArrayList<>();
             for (EntityAbs entity: list) {
@@ -92,7 +92,21 @@ public class EntityManagementService implements EntityManagementServiceIfc {
         }
         checkCollisions();
     }
-    
+
+    @Override
+    public Coordinates getClosestPlayerPosition(Coordinates globalPosition) {
+        Coordinates closestPlayerPosition = new Coordinates();
+        float shortestDistance = Float.MAX_VALUE;
+        for (Coordinates playerPosition: getAllPlayerPositions()) {
+            float currentDistance = Coordinates.getDistance(globalPosition, playerPosition);
+            if (currentDistance < shortestDistance) {
+                shortestDistance = currentDistance;
+                closestPlayerPosition = playerPosition;
+            }
+        }
+        return closestPlayerPosition;
+    }
+
     private void checkCollisions() {
         ArrayList<EntityAbs> allEntities = new ArrayList<>();
         allEntities.addAll(m_players);
@@ -110,7 +124,7 @@ public class EntityManagementService implements EntityManagementServiceIfc {
             }
         }
     }
-    
+
     @Override
     public void drawEntities(Graphics2D g2) {
         // Todo: Change this to draw in layers.

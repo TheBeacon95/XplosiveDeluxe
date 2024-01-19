@@ -17,8 +17,8 @@ public class MonsterFactory {
             case Ghost -> new Ghost(position);
             case Phantom -> new Phantom(position);
             case Ninja -> new Ninja(position);
-            case Bacteria -> null;
-            case Fuzzy -> null;
+            case Bacteria -> new Bacteria(position);
+            case Fuzzy -> new Fuzzy(position);
             case Spider -> null;
             case Reaper -> null;
             case Slime -> null;

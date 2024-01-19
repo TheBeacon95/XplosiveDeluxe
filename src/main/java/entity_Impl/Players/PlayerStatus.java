@@ -1,7 +1,6 @@
 package entity_Impl.Players;
 
-import entity_Interfaces.PlayerEffect;
-import entity_Interfaces.PlayerStatusIfc;
+import entity_Interfaces.*;
 
 /**
  *
@@ -11,7 +10,7 @@ public class PlayerStatus implements PlayerStatusIfc {
 
     public PlayerStatus(int lifeCount) {
         m_lifeCount = lifeCount < MAX_LIFE_COUNT ? lifeCount : MAX_LIFE_COUNT;
-        m_speed = 2;
+        m_speed = Speed.DefaultPlayer;
         m_bombCount = 1;
         m_strength = 2;
         m_effect = PlayerEffect.None;
@@ -23,7 +22,7 @@ public class PlayerStatus implements PlayerStatusIfc {
     }
 
     @Override
-    public int getSpeed() {
+    public Speed getSpeed() {
         return m_speed;
     }
 
@@ -50,9 +49,7 @@ public class PlayerStatus implements PlayerStatusIfc {
     }
 
     public void IncreaseSpeed() {
-        if (m_speed < MAX_SPEED) {
-            m_speed++;
-        }
+            m_speed = m_speed.increase();
     }
 
     public void IncreaseBombCount() {
@@ -72,7 +69,7 @@ public class PlayerStatus implements PlayerStatusIfc {
     }
 
     private int m_lifeCount;
-    private int m_speed;
+    private Speed m_speed;
     private int m_bombCount;
     private int m_strength;
     private PlayerEffect m_effect;

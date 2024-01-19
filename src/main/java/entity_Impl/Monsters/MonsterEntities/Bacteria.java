@@ -11,10 +11,10 @@ import entity_Interfaces.*;
  *
  * @author Yanick
  */
-public final class Phantom extends MonsterAbs {
+public final class Bacteria extends MonsterAbs {
 
-    public Phantom(Coordinates position) {
-        super(position, MonsterType.Phantom);
+    public Bacteria(Coordinates position) {
+        super(position, MonsterType.Bacteria);
         // Todo: create behaviors
         setMovementBehavior(new HostileMovement());
         setCollisionBehavior(new KillPlayerBehavior());
@@ -23,6 +23,6 @@ public final class Phantom extends MonsterAbs {
 
     @Override
     protected Speed getSpeed() {
-        return Speed.NormalMonster;
+        return Speed.DefaultPlayer;
     }
 }

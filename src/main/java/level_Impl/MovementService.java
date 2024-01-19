@@ -33,8 +33,7 @@ public class MovementService implements MovementServiceIfc {
                     nextCells = MovementBehaviorIfc.eliminateLastCell(nextCells, gridPosition, direction);
                 }
                 float distance = Float.MAX_VALUE;
-                Coordinates closestPlayerPosition = getClosestPlayerPosition(position);
-//                Coordinates closestPlayerPosition = new Coordinates(7, 5);
+                Coordinates closestPlayerPosition = m_entityManagementService.getClosestPlayerPosition(position);
                 for (Coordinates cell : nextCells) {
                     Coordinates globalCellPosition = new Coordinates(cell.x * BLOCK_SEGMENTS, cell.y * BLOCK_SEGMENTS);
                     float distanceToNewCell = Coordinates.getDistance(globalCellPosition, closestPlayerPosition);
@@ -133,19 +132,6 @@ public class MovementService implements MovementServiceIfc {
 
     private boolean isBetweenVerticalCells(Coordinates position) {
         return position.y % BLOCK_SEGMENTS != 0;
-    }
-
-    private Coordinates getClosestPlayerPosition(Coordinates position) {
-        Coordinates closestPlayerPosition = new Coordinates();
-        float shortestDistance = Float.MAX_VALUE;
-        for (Coordinates playerPosition: m_entityManagementService.getAllPlayerPositions()) {
-            float currentDistance = Coordinates.getDistance(position, playerPosition);
-            if (currentDistance < shortestDistance) {
-                shortestDistance = currentDistance;
-                closestPlayerPosition = playerPosition;
-            }
-        }
-        return closestPlayerPosition;
     }
 
     private Direction getFreeDirection(Coordinates floorCell, Coordinates ceilCell, boolean isGhost, boolean isBetweenVerticalCells) {

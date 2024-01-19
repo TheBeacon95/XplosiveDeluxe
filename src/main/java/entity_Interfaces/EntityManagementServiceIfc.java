@@ -74,4 +74,11 @@ public interface EntityManagementServiceIfc extends ServiceIfc {
      * Starts all entities.
      */
     public void startEntities();
+    
+    /**
+     * 
+     * @param position
+     * @return the coordinates of the closest player.
+     */
+    Coordinates getClosestPlayerPosition(Coordinates position);
 }

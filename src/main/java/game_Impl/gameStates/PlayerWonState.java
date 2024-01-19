@@ -16,6 +16,7 @@ public class PlayerWonState extends StateAbs {
     public void enter() {
         m_startTime = System.nanoTime();
         m_isDoneWaiting = false;
+        m_lastCount = 10;
     }
 
     @Override
@@ -47,7 +48,7 @@ public class PlayerWonState extends StateAbs {
         return m_isDoneWaiting;
     }
 
-    private int m_lastCount = 10;
+    private int m_lastCount;
     private long m_startTime;
     private boolean m_isDoneWaiting;
     

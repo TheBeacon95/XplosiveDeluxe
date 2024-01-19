@@ -21,6 +21,7 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\mainApplication\Main.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Explosions\Explosion.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\ExplosionBehaviors\DieBehavior.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Interfaces\GameMode.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\MonsterEntities\Bacteria.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Impl\KeyHandler.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\BombListenerIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\ModuleImpl.java
@@ -65,6 +66,7 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Interfaces\ActivePlayer
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\Coordinates.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\GameManagerAgent.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Collectables\CollectableAbs.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\Speed.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Collectables\CollectableFactory.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\Blocks\Brick.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\ModuleImpl.java
@@ -83,6 +85,7 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\ModuleAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\LevelNames.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\MovementService.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\ModuleImpl.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\MonsterEntities\Fuzzy.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\BombIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\ExplosionBehaviors\ExplosionBehaviorIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\StageManagementServiceIfc.java

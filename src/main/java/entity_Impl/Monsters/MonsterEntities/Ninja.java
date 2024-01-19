@@ -22,7 +22,7 @@ public class Ninja extends MonsterAbs {
     }
 
     @Override
-    protected int getSpeed() {
-        return 1;
+    protected Speed getSpeed() {
+        return Speed.NormalMonster;
     }
 }

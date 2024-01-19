@@ -2,7 +2,6 @@ package level_Interfaces;
 
 import common.*;
 import java.awt.Graphics2D;
-import level_Impl.*;
 
 /**
  *

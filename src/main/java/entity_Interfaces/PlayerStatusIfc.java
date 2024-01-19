@@ -16,7 +16,7 @@ public interface PlayerStatusIfc {
      * Shows the current speed of the player.
      * @return speed
      */
-    int getSpeed();
+    Speed getSpeed();
 
     /**
      * Shows the number of total bombs the player can place at a time.
