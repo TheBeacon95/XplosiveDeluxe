@@ -42,12 +42,14 @@ public abstract class MonsterAbs extends MovingEntityAbs implements MonsterIfc {
     @Override
     public final void collide(EntityAbs otherEntity) {
         if (!isStalled()) {
-            m_collisionBehavior.collide(otherEntity);
+            for (CollisionBehaviorIfc collisionBehavior: m_collisionBehaviors) {
+                collisionBehavior.collide(otherEntity);
+            }
         }
     }
 
     @Override
-    protected final Direction getMovementDirection() {
+    protected Direction getMovementDirection() {
         return m_movementBehavior.getNextMovementDirection(this);
     }
 
@@ -72,7 +74,7 @@ public abstract class MonsterAbs extends MovingEntityAbs implements MonsterIfc {
     }
     
     protected void setCollisionBehavior(CollisionBehaviorIfc collisionBehavior) {
-        m_collisionBehavior = collisionBehavior;
+        m_collisionBehaviors.add(collisionBehavior);
     }
     
     protected void setExplosionBehavior(ExplosionBehaviorIfc explosionBehavior) {
@@ -81,6 +83,6 @@ public abstract class MonsterAbs extends MovingEntityAbs implements MonsterIfc {
     
     protected MovementBehaviorIfc m_movementBehavior;
     protected List<SpecialBehaviorIfc> m_specialBehaviors;
-    protected CollisionBehaviorIfc m_collisionBehavior;
+    protected List<CollisionBehaviorIfc> m_collisionBehaviors;
     protected ExplosionBehaviorIfc m_explosionBehavior;
 }

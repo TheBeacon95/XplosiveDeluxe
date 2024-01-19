@@ -38,4 +38,10 @@ public interface EntityIfc {
      * Starts the Entity.
      */
     void start();
+    
+    /**
+     * Stalls the entity for a specific amount of time.
+     * @param stallDuration duration in nanoseconds
+     */
+    void stall(long stallDuration);
 }

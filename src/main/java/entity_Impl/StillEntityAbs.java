@@ -25,6 +25,11 @@ public abstract class StillEntityAbs extends EntityAbs {
             return m_defaultAnimation.getSpriteToDraw();
         }
     }
+
+    @Override
+    public final void stall(long stallDuration) {
+        // Do nothing.
+    }
     
     protected static Animation loadAnimation(String folderPath) {
         ArrayList<BufferedImage> sprites = new ArrayList<>();

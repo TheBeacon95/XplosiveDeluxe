@@ -60,6 +60,7 @@ level_Impl\Blocks\Brick.class
 ui_Impl\InputService.class
 game_Interfaces\ActivePlayers.class
 entity_Impl\Monsters\Behaviors\CollisionBehaviors\CollisionBehaviorIfc.class
+entity_Impl\Monsters\Behaviors\CollisionBehaviors\StallPlayerBehavior.class
 entity_Interfaces\EntityNames$Services.class
 game_Impl\gameStates\ShowMenuState.class
 level_Interfaces\BombIfc.class
@@ -67,6 +68,7 @@ entity_Impl\Monsters\Behaviors\ExplosionBehaviors\DieBehavior.class
 ui_Impl\DisplayService.class
 entity_Impl\Collectables\CollectableFactory.class
 common\AgentAbs.class
+entity_Impl\Monsters\MonsterEntities\Muncher.class
 game_Impl\gameStates\RunLevelState.class
 ui_Interfaces\DisplayServiceIfc.class
 entity_Impl\Monsters\Behaviors\ExplosionBehaviors\ExplosionBehaviorIfc.class
@@ -82,6 +84,7 @@ level_Impl\MovementService.class
 level_Interfaces\Level.class
 ui_Impl\ScreenService.class
 entity_Impl\Monsters\MonsterEntities\Bacteria.class
+entity_Impl\Monsters\Behaviors\MovementBehaviors\RandomMovement.class
 game_Impl\gameStates\LoadLevelState.class
 level_Impl\Blocks\DeathBlock.class
 common\ModuleAbs.class

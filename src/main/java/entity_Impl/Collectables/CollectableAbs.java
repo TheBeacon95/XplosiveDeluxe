@@ -13,6 +13,7 @@ public abstract class CollectableAbs extends StillEntityAbs {
 
     public CollectableAbs(Coordinates position) {
         super(position);
+        m_deathDuration = 0;
     }
 
     /**

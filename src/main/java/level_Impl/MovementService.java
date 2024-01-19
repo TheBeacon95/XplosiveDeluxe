@@ -5,6 +5,7 @@ import entity_Impl.Monsters.Behaviors.MovementBehaviors.MovementBehaviorIfc;
 import entity_Interfaces.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import level_Interfaces.LevelNames;
 import level_Interfaces.MovementServiceIfc;
 
@@ -21,34 +22,48 @@ public class MovementService implements MovementServiceIfc {
     @Override
     public Direction getNextHostileDirection(Coordinates position, Direction direction) {
         Direction newDirection = Direction.NoDirection;
-        // Todo: remove this if
-            if (isBetweenCells(position)) {
-                newDirection = direction;
+        if (isBetweenCells(position)) {
+            newDirection = direction;
+        }
+        else {
+            Coordinates gridPosition = roundDownPositionToGridValue(position);
+            List<Coordinates> nextCells = getAllFreeNeighboringCells(gridPosition);
+            if (nextCells.size() > 1) {
+                // Todo: remove this. The MovementBehaviorIfc is in entity_Impl.
+                nextCells = MovementBehaviorIfc.eliminateLastCell(nextCells, gridPosition, direction);
             }
-            else {
-                Coordinates gridPosition = roundDownPositionToGridValue(position);
-                List<Coordinates> nextCells = getAllFreeNeighboringCells(gridPosition);
-                if (nextCells.size() > 1) {
-                    // Todo: remove this. The MovementBehaviorIfc is in entity_Impl.
-                    nextCells = MovementBehaviorIfc.eliminateLastCell(nextCells, gridPosition, direction);
-                }
-                float distance = Float.MAX_VALUE;
-                Coordinates closestPlayerPosition = m_entityManagementService.getClosestPlayerPosition(position);
-                for (Coordinates cell : nextCells) {
-                    Coordinates globalCellPosition = new Coordinates(cell.x * BLOCK_SEGMENTS, cell.y * BLOCK_SEGMENTS);
-                    float distanceToNewCell = Coordinates.getDistance(globalCellPosition, closestPlayerPosition);
-                    if (distance > distanceToNewCell) {
-                        newDirection = gridPosition.getDirection(cell);
-                        distance = distanceToNewCell;
-                    }
+            float distance = Float.MAX_VALUE;
+            Coordinates closestPlayerPosition = m_entityManagementService.getClosestPlayerPosition(position);
+            for (Coordinates cell : nextCells) {
+                Coordinates globalCellPosition = new Coordinates(cell.x * BLOCK_SEGMENTS, cell.y * BLOCK_SEGMENTS);
+                float distanceToNewCell = Coordinates.getDistance(globalCellPosition, closestPlayerPosition);
+                if (distance > distanceToNewCell) {
+                    newDirection = gridPosition.getDirection(cell);
+                    distance = distanceToNewCell;
                 }
             }
+        }
         return newDirection;
     }
 
     @Override
     public Direction getNextRandomDirection(Coordinates position, Direction direction) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Direction newDirection = Direction.NoDirection;
+        if (isBetweenCells(position)) {
+            newDirection = direction;
+        }
+        else {
+            Coordinates gridPosition = roundDownPositionToGridValue(position);
+            List<Coordinates> nextCells = getAllFreeNeighboringCells(gridPosition);
+            if (!nextCells.isEmpty()) {
+                if (nextCells.size() > 1) {
+                    nextCells = MovementBehaviorIfc.eliminateLastCell(nextCells, gridPosition, direction);
+                }
+                Random random = new Random();
+                newDirection = gridPosition.getDirection(nextCells.get(random.nextInt(nextCells.size())));
+            }
+        }
+        return newDirection;
     }
 
     @Override

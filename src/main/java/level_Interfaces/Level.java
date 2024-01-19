@@ -108,7 +108,7 @@ public class Level implements Serializable {
     
     private void placeRandomMonsters() {
         ArrayList<MonsterType> list = new ArrayList<>();
-        list.add(MonsterType.Fuzzy);
+        list.add(MonsterType.Muncher);
         m_monsters.put(new Coordinates(3, 9), list);
     }
     

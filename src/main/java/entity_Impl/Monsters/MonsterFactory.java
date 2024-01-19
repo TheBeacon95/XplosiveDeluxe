@@ -1,5 +1,6 @@
 package entity_Impl.Monsters;
 
+import entity_Impl.Monsters.MonsterEntities.Muncher;
 import common.Coordinates;
 import entity_Impl.Monsters.MonsterEntities.*;
 import entity_Interfaces.MonsterType;
@@ -13,7 +14,7 @@ public class MonsterFactory {
     public MonsterAbs createMonster(MonsterType monsterType, Coordinates position) {
         return switch (monsterType) {
             case BrickEater -> null;
-            case Muncher -> null;
+            case Muncher -> new Muncher(position);
             case Ghost -> new Ghost(position);
             case Phantom -> new Phantom(position);
             case Ninja -> new Ninja(position);

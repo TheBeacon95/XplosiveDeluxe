@@ -33,11 +33,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
         m_globalPosition = newPosition;
     }
 
-    /**
-     * Stalls the Entity for any amount of time.
-     *
-     * @param stallDuration stall time in seconds.
-     */
+    @Override
     public final void stall(long stallDuration) {
         long currentTime = System.nanoTime();
         long currentStallEndTime = m_stallStartTime + m_stallDuration;
