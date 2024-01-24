@@ -15,6 +15,7 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\BlockType.j
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\MovementBehaviors\MovementBehaviorIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\stateMachine\StateMachineAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\MonsterIfc.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\SpecialBehaviors\EatBricksBehavior.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\MonsterEntities\Phantom.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\LevelManagementServiceIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\stateMachine\StateAbs.java
@@ -68,6 +69,7 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behavio
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\MonsterAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\GameStateMachine.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\EntityAbs.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\CollisionBehaviors\EatCollectableBehavior.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\StageManagementService.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\CollisionBehaviors\KillPlayerBehavior.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\gameStates\RunLevelState.java
@@ -91,8 +93,10 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Collectables\Col
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Impl\InputService.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\MovementServiceIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\ServiceManager.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\MovementBehaviors\BrickEaterMovement.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\Stage.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Interfaces\Difficulty.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\MonsterEntities\BrickEater.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\EntityManagementService.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\PlayerEffect.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\gameStates\ShowMenuState.java

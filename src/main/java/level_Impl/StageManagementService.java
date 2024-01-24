@@ -98,6 +98,21 @@ public class StageManagementService implements StageManagementServiceIfc {
             blocks.get(gridPosition).explode();
         }
     }
+
+    @Override
+    public boolean isOnePlayerLeft() {
+        return m_entityManagementService.getAllPlayerPositions().size() <= 1; // Todo: this was just to speed things up. Implement this properly.
+    }
+
+    @Override
+    public boolean tryEatBlock(Coordinates gridPosition) {
+        BlockAbs block = m_stage.getBlocks().getOrDefault(gridPosition, null);
+        boolean isBlockEatable = block != null && block.isEatable();
+        if (isBlockEatable) {
+            block.destroy();
+        }
+        return isBlockEatable;
+    }
     
     @Override
     public boolean isExplosionStopper(Coordinates gridPosition) {
@@ -195,9 +210,4 @@ public class StageManagementService implements StageManagementServiceIfc {
     private int m_blockSegments;
 
     private final String DEFAULT_BACKGROUND_STYLE = "Default";
-
-    @Override
-    public boolean isOnePlayerLeft() {
-        return m_entityManagementService.getAllPlayerPositions().size() <= 1; // Todo: this was just to speed things up. Implement this properly.
-    }
 }

@@ -19,7 +19,7 @@ public class RandomMovement implements MovementBehaviorIfc {
 
     @Override
     public Direction getNextMovementDirection(MonsterAbs monster) {
-        return m_movementService.getNextRandomDirection(monster.getGlobalPosition(), monster.getDirection());
+        return null;
     }
 
     private final MovementServiceIfc m_movementService;

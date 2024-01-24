@@ -12,22 +12,6 @@ import java.util.List;
 public interface MovementServiceIfc extends ServiceIfc {
     
     /**
-     * Returns the next direction a hostile entity should take next.
-     * @param position position of the entity
-     * @param direction direction the entity is currently facing
-     * @return the direction, the entity will go in next
-     */
-    public Direction getNextHostileDirection(Coordinates position, Direction direction);
-    
-    /**
-     * Returns the next direction a randomly moving entity should take next.
-     * @param position position of the entity
-     * @param direction direction the entity is currently facing
-     * @return the direction, the entity will go in next
-     */
-    public Direction getNextRandomDirection(Coordinates position, Direction direction);
-    
-    /**
      * Converts the input direction into another direction, so corners can be rounded.
      * @param position position of the entity
      * @param direction the desired direction of the entity
@@ -38,17 +22,24 @@ public interface MovementServiceIfc extends ServiceIfc {
     
     /**
      * Shows whether a position is between blocks either horizontally or vertically.
-     * @param position
+     * @param globalPosition
      * @return 
      */
-//    boolean isBetweenCells(Coordinates position);
+    boolean isBetweenCells(Coordinates globalPosition);
     
     /**
      * Gets a list of all neighboring cells that are walkable.
-     * @param position
+     * @param gridPosition
      * @return 
      */
-//    List<Coordinates> getAllFreeNeighboringCells(Coordinates position);
+    List<Coordinates> getAllFreeNeighboringCells(Coordinates gridPosition);
+    
+    /**
+     * Gets a list of all neighboring cells that are eatable.
+     * @param gridPosition
+     * @return 
+     */
+    public List<Coordinates> getAllEatableNeighboringCells(Coordinates gridPosition);
     
     /**
      * Shows how many steps can be taken between two blocks.

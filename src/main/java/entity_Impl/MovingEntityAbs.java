@@ -135,7 +135,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
     private void tryMove() {
         int speed = getSpeed().toInt();
         int fps = 240; // Todo: get from GameManagementService or something.
-        boolean isMovementFrame = m_framesSinceLastMovement >= fps / (speed * 12); // Todo: create a constant for 12. (scale factor or so)
+        boolean isMovementFrame = m_framesSinceLastMovement >= fps / (speed * 6); // Todo: create a constant for 6. (scale factor or so)
         boolean hasMoved = false;
         if (isMovementFrame && !m_isStalled) {
             Direction direction = getMovementDirection();

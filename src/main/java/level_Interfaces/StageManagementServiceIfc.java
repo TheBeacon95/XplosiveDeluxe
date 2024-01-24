@@ -72,6 +72,13 @@ public interface StageManagementServiceIfc extends ServiceIfc {
      * @param gridPosition 
      */
     public void placeDeathBlock(Coordinates gridPosition);
+    
+    /**
+     * Eats a block if it's eatable
+     * @param gridPosition
+     * @return true if successful. false otherwise.
+     */
+    boolean tryEatBlock(Coordinates gridPosition);
 
     /**
      * Shows if there's only one player left.

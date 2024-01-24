@@ -19,6 +19,7 @@ public abstract class MonsterAbs extends MovingEntityAbs implements MonsterIfc {
     protected MonsterAbs(Coordinates position, MonsterType monsterType) {
         super(position, "Sprites/Monsters/" + monsterType.name() + "/Skin_0/");
         m_specialBehaviors = new ArrayList<>();
+        m_collisionBehaviors = new ArrayList<>();
     }
 
     @Override

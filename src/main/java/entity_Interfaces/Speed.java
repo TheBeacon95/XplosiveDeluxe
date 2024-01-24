@@ -5,13 +5,13 @@ package entity_Interfaces;
  * @author Yanick
  */
 public enum Speed {
-    SlowMonster(0),
-    NormalMonster(1),
-    FastMonster(2),
-    DefaultPlayer(3),
-    Fast(4),
-    VeryFast(5),
-    UltraFast(6);
+    SlowMonster(1),
+    NormalMonster(2),
+    FastMonster(4),
+    DefaultPlayer(8),
+    Fast(16),
+    VeryFast(32),
+    UltraFast(64);
     
     private Speed(int value) {
         m_value = value;

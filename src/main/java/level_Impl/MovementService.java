@@ -1,13 +1,10 @@
 package level_Impl;
 
 import common.*;
-import entity_Impl.Monsters.Behaviors.MovementBehaviors.MovementBehaviorIfc;
 import entity_Interfaces.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import level_Interfaces.LevelNames;
-import level_Interfaces.MovementServiceIfc;
+import level_Interfaces.*;
 
 /**
  *
@@ -17,53 +14,6 @@ public class MovementService implements MovementServiceIfc {
 
     public MovementService() {
         s_instance = this;
-    }
-    
-    @Override
-    public Direction getNextHostileDirection(Coordinates position, Direction direction) {
-        Direction newDirection = Direction.NoDirection;
-        if (isBetweenCells(position)) {
-            newDirection = direction;
-        }
-        else {
-            Coordinates gridPosition = roundDownPositionToGridValue(position);
-            List<Coordinates> nextCells = getAllFreeNeighboringCells(gridPosition);
-            if (nextCells.size() > 1) {
-                // Todo: remove this. The MovementBehaviorIfc is in entity_Impl.
-                nextCells = MovementBehaviorIfc.eliminateLastCell(nextCells, gridPosition, direction);
-            }
-            float distance = Float.MAX_VALUE;
-            Coordinates closestPlayerPosition = m_entityManagementService.getClosestPlayerPosition(position);
-            for (Coordinates cell : nextCells) {
-                Coordinates globalCellPosition = new Coordinates(cell.x * BLOCK_SEGMENTS, cell.y * BLOCK_SEGMENTS);
-                float distanceToNewCell = Coordinates.getDistance(globalCellPosition, closestPlayerPosition);
-                if (distance > distanceToNewCell) {
-                    newDirection = gridPosition.getDirection(cell);
-                    distance = distanceToNewCell;
-                }
-            }
-        }
-        return newDirection;
-    }
-
-    @Override
-    public Direction getNextRandomDirection(Coordinates position, Direction direction) {
-        Direction newDirection = Direction.NoDirection;
-        if (isBetweenCells(position)) {
-            newDirection = direction;
-        }
-        else {
-            Coordinates gridPosition = roundDownPositionToGridValue(position);
-            List<Coordinates> nextCells = getAllFreeNeighboringCells(gridPosition);
-            if (!nextCells.isEmpty()) {
-                if (nextCells.size() > 1) {
-                    nextCells = MovementBehaviorIfc.eliminateLastCell(nextCells, gridPosition, direction);
-                }
-                Random random = new Random();
-                newDirection = gridPosition.getDirection(nextCells.get(random.nextInt(nextCells.size())));
-            }
-        }
-        return newDirection;
     }
 
     @Override
@@ -99,11 +49,13 @@ public class MovementService implements MovementServiceIfc {
         }
     }
     
-    private boolean isBetweenCells(Coordinates position) {
+    @Override
+    public boolean isBetweenCells(Coordinates position) {
         return isBetweenHorizontalCells(position) || isBetweenVerticalCells(position);
     }
 
-    private List<Coordinates> getAllFreeNeighboringCells(Coordinates gridPosition) {
+    @Override
+    public List<Coordinates> getAllFreeNeighboringCells(Coordinates gridPosition) {
         List<Coordinates> freeNeighboringCells = new ArrayList<>();
         
         for (Coordinates neighbor: gridPosition.getNeighboringCells()) {
@@ -112,6 +64,18 @@ public class MovementService implements MovementServiceIfc {
             }
         }
         return freeNeighboringCells;
+    }
+
+    @Override
+    public List<Coordinates> getAllEatableNeighboringCells(Coordinates gridPosition) {
+        List<Coordinates> eatableNeighboringCells = new ArrayList<>();
+        
+        for (Coordinates neighbor: gridPosition.getNeighboringCells()) {
+            if (isEatableBlockHere(neighbor) && !hasExplosion(neighbor)) {
+                eatableNeighboringCells.add(neighbor);
+            }
+        }
+        return eatableNeighboringCells;
     }
     
     private boolean hasExplosion(Coordinates gridPosition) {
@@ -126,6 +90,7 @@ public class MovementService implements MovementServiceIfc {
     @Override
     public void initializeService() {
         m_entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
+        m_stageManagementService = (StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService);
     }
 
     @Override
@@ -171,6 +136,11 @@ public class MovementService implements MovementServiceIfc {
         return !blocks.containsKey(cell) || blocks.get(cell).isWalkable();
     }
     
+    private boolean isEatableBlockHere(Coordinates gridPosition) {
+        var blocks = m_stage.getBlocks();
+        return blocks.containsKey(gridPosition) && blocks.get(gridPosition).isEatable();
+    }
+    
     private boolean isPhaseable(Coordinates cell) {
         var blocks = m_stage.getBlocks();
         return !blocks.containsKey(cell) || blocks.get(cell).isPhaseable();
@@ -191,6 +161,7 @@ public class MovementService implements MovementServiceIfc {
     
     private Stage m_stage;
     private EntityManagementServiceIfc m_entityManagementService;
+    private StageManagementServiceIfc m_stageManagementService;
     
     private static MovementService s_instance;
     

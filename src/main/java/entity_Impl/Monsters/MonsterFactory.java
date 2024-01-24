@@ -13,7 +13,7 @@ public class MonsterFactory {
     
     public MonsterAbs createMonster(MonsterType monsterType, Coordinates position) {
         return switch (monsterType) {
-            case BrickEater -> null;
+            case BrickEater -> new BrickEater(position);
             case Muncher -> new Muncher(position);
             case Ghost -> new Ghost(position);
             case Phantom -> new Phantom(position);

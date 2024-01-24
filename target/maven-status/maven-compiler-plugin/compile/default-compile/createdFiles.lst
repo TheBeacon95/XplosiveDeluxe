@@ -10,6 +10,7 @@ level_Impl\Blocks\Wall.class
 entity_Interfaces\PlayerStatusIfc.class
 game_Impl\gameStates\PlayerWonState.class
 ui_Interfaces\UiNames$Services.class
+entity_Impl\Monsters\Behaviors\MovementBehaviors\BrickEaterMovement.class
 ui_Interfaces\ScreenServiceIfc.class
 entity_Interfaces\ExplosionType.class
 entity_Interfaces\EntityManagementServiceIfc.class
@@ -48,6 +49,7 @@ level_Interfaces\MovementServiceIfc.class
 common\IdentifiableIfc.class
 entity_Impl\Monsters\Behaviors\SpecialBehaviors\SpecialBehaviorIfc.class
 entity_Interfaces\ExplosionIfc.class
+entity_Impl\Monsters\Behaviors\CollisionBehaviors\EatCollectableBehavior.class
 game_Interfaces\Difficulty.class
 entity_Impl\Monsters\MonsterEntities\Phantom.class
 entity_Interfaces\PlayerEffect.class
@@ -97,6 +99,7 @@ entity_Impl\Monsters\MonsterAbs.class
 entity_Interfaces\PlayerIfc.class
 level_Impl\BlockAbs.class
 game_Interfaces\GameManagementServiceIfc.class
+entity_Impl\Monsters\MonsterEntities\BrickEater.class
 level_Interfaces\StageManagementServiceIfc.class
 level_Interfaces\LevelManagementServiceIfc.class
 common\Coordinates.class
@@ -104,6 +107,7 @@ entity_Impl\Players\Player.class
 entity_Impl\Monsters\MonsterEntities\Ghost.class
 entity_Impl\Monsters\MonsterEntities\Ninja.class
 game_Impl\gameStates\LoadLevelState$LoadLevelThreadRunner.class
+entity_Impl\Monsters\Behaviors\SpecialBehaviors\EatBricksBehavior.class
 game_Impl\GameStateMachine.class
 level_Interfaces\BlockType.class
 entity_Impl\Monsters\Behaviors\SpecialBehaviors\RandomStallingBehavior.class

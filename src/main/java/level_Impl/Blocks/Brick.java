@@ -12,4 +12,9 @@ public class Brick extends BlockAbs {
     public Brick() {
         super(BlockType.Brick);
     }
+    
+    @Override
+    public boolean isEatable() {
+        return true;
+    }
 }
