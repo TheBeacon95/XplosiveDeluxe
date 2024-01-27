@@ -7,7 +7,7 @@ import entity_Interfaces.*;
  *
  * @author Yanick
  */
-public class KillPlayerBehavior implements CollisionBehaviorIfc {
+public class KillPlayerBehavior extends CollisionBehaviorAbs {
 
     @Override
     public void collide(EntityAbs entity) {

@@ -7,7 +7,7 @@ import entity_Interfaces.*;
  *
  * @author Yanick
  */
-public class StallPlayerBehavior implements CollisionBehaviorIfc {
+public class StallPlayerBehavior extends CollisionBehaviorAbs {
 
     @Override
     public void collide(EntityAbs entity) {

@@ -26,6 +26,7 @@ public final class Coordinates implements Serializable {
     }
 
     public void translate(Direction direction, int distance) {
+        if (direction == null) return;
         switch (direction) {
             case Up ->
                 y -= distance;

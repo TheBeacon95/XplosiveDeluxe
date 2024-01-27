@@ -7,7 +7,7 @@ import entity_Impl.Collectables.CollectableAbs;
  *
  * @author Yanick
  */
-public class EatCollectableBehavior implements CollisionBehaviorIfc {
+public class EatCollectableBehavior extends CollisionBehaviorAbs {
 
     @Override
     public void collide(EntityAbs entity) {

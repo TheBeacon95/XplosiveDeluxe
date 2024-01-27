@@ -1,6 +1,5 @@
 entity_Impl\ModuleImpl.class
 mainApplication\Main.class
-entity_Impl\Monsters\Behaviors\MovementBehaviors\MovementBehaviorIfc.class
 game_Interfaces\GameMode.class
 level_Interfaces\LevelNames.class
 game_Impl\GameStateMachine$2.class
@@ -21,6 +20,7 @@ entity_Impl\StillEntityAbs.class
 entity_Impl\Monsters\MonsterFactory$1.class
 game_Impl\GameStateMachine$1.class
 level_Impl\Blocks\Bomb.class
+entity_Impl\Monsters\Behaviors\MovementBehaviors\MovementBehaviorAbs.class
 entity_Interfaces\PlayerControls.class
 ui_Interfaces\KeyHandlerIfc.class
 ui_Interfaces\InputServiceIfc.class
@@ -42,6 +42,7 @@ entity_Impl\Monsters\Behaviors\MovementBehaviors\HostileMovement.class
 entity_Impl\Explosions\ExplosionFactory.class
 common\Coordinates$1.class
 entity_Interfaces\MonsterType.class
+common\GameTime.class
 level_Impl\ModuleImpl.class
 game_Impl\GameManagerAgent.class
 level_Interfaces\BombType.class
@@ -59,6 +60,7 @@ ui_Impl\Input.class
 level_Impl\BlockFactory.class
 level_Impl\BlockFactory$1.class
 level_Impl\Blocks\Brick.class
+level_Impl\LevelManagementService.class
 ui_Impl\InputService.class
 game_Interfaces\ActivePlayers.class
 entity_Impl\Monsters\Behaviors\CollisionBehaviors\CollisionBehaviorIfc.class
@@ -85,6 +87,7 @@ level_Impl\StageManagementService.class
 level_Impl\MovementService.class
 level_Interfaces\Level.class
 ui_Impl\ScreenService.class
+level_Impl\RandomLevelGenerator.class
 entity_Impl\Monsters\MonsterEntities\Bacteria.class
 entity_Impl\Monsters\Behaviors\MovementBehaviors\RandomMovement.class
 game_Impl\gameStates\LoadLevelState.class

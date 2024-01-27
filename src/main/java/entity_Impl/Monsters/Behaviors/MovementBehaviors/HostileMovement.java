@@ -14,7 +14,7 @@ import level_Interfaces.MovementServiceIfc;
  *
  * @author Yanick
  */
-public class HostileMovement implements MovementBehaviorIfc {
+public class HostileMovement extends MovementBehaviorAbs {
 
     public HostileMovement() {
         m_movementService = (MovementServiceIfc) ServiceManager.getService(LevelNames.Services.MovementService);
@@ -44,15 +44,6 @@ public class HostileMovement implements MovementBehaviorIfc {
             }
         }
         return newDirection;
-    }
-
-    protected List<Coordinates> getNextFreeCells(Coordinates gridPosition, Direction direction) {
-        List<Coordinates> nextFreeCells = m_movementService.getAllFreeNeighboringCells(gridPosition);
-        if (nextFreeCells.size() > 1) {
-            // Todo: remove this. The MovementBehaviorIfc is in entity_Impl.
-            nextFreeCells = MovementBehaviorIfc.eliminateLastCell(nextFreeCells, gridPosition, direction);
-        }
-        return nextFreeCells;
     }
     
     private final MovementServiceIfc m_movementService;

@@ -8,7 +8,7 @@ import level_Interfaces.*;
  *
  * @author Yanick
  */
-public class EatBricksBehavior implements SpecialBehaviorIfc {
+public class EatBricksBehavior extends SpecialBehaviorAbs {
 
     @Override
     public void start() {

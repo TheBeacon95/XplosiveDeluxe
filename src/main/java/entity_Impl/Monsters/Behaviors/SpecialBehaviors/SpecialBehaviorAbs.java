@@ -7,17 +7,17 @@ import entity_Impl.Monsters.MonsterAbs;
  *
  * @author Yanick
  */
-public interface SpecialBehaviorIfc {
+public abstract class SpecialBehaviorAbs {
 
     /**
      * Starts the special behavior.
      */
-    void start();
+    public abstract void start();
     
     /**
      * Performs the special behavior.
      *
      * @param monster the monster that has a special behavior.
      */
-    void perform(MonsterAbs monster);
+    public abstract void perform(MonsterAbs monster);
 }

@@ -26,8 +26,8 @@ public class BrickEaterMovement extends HostileMovement {
         int eatableCellsCount = nextEatableCells.size();
         
         if (freeCellsCount + eatableCellsCount > 1) {
-            nextFreeCells = MovementBehaviorIfc.eliminateLastCell(nextFreeCells, gridPosition, direction);
-            nextEatableCells = MovementBehaviorIfc.eliminateLastCell(nextEatableCells, gridPosition, direction);
+            nextFreeCells = MovementBehaviorAbs.eliminateLastCell(nextFreeCells, gridPosition, direction);
+            nextEatableCells = MovementBehaviorAbs.eliminateLastCell(nextEatableCells, gridPosition, direction);
         }
         
         if (nextFreeCells.isEmpty()) {

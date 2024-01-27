@@ -53,9 +53,14 @@ public abstract class MovingEntityAbs extends EntityAbs {
         if (m_isDieing) {
             return m_deathAnimation.getSpriteToDraw();
         }
-        Animation animationToUse = m_isIdle ? m_idleAnimations.get(getDisplayDirection()) : m_movementAnimations.get(getDisplayDirection());
+        Direction displayDirection = getDisplayDirection();
+        Animation animationToUse = m_isIdle ? m_idleAnimations.get(displayDirection) : m_movementAnimations.get(displayDirection);
         if (m_lastAnimation != null && m_lastAnimation != animationToUse) {
             animationToUse.continueFromAnimation(m_lastAnimation);
+        }
+        if (animationToUse == null) {
+            int a = 0;
+            getDirection();
         }
         BufferedImage spriteToUse = animationToUse.getSpriteToDraw();
         m_lastUsedAnimationSprite = spriteToUse;

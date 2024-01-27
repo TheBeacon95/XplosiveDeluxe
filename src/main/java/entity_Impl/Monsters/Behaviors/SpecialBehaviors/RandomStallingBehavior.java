@@ -9,7 +9,7 @@ import java.util.Random;
  *
  * @author Yanick
  */
-public class RandomStallingBehavior implements SpecialBehaviorIfc {
+public class RandomStallingBehavior extends SpecialBehaviorAbs {
 
     @Override
     public void start() {
