@@ -1,6 +1,6 @@
 package level_Interfaces;
 
-import common.ServiceIfc;
+import common.*;
 
 /**
  *
@@ -11,11 +11,30 @@ public interface LevelManagementServiceIfc extends ServiceIfc {
     /**
      * Loads a level.
      */
-    public void loadLevel();
+    void loadLevel();
     
     /**
      * Shows whether the process of loading a level is done.
      * @return True if loading hasn't started or is done. False if a Level is currently being loaded.
      */
-    public boolean isDoneLoadingLevel();
+    boolean isDoneLoadingLevel();
+
+    /**
+     * Shows the index of the lowest row of blocks.
+     * @return
+     */
+    int getLevelRowsCount();
+
+    /**
+     * Shows the index of the right-most column of blocks.
+     * @return
+     */
+    int getLevelColumnsCount();
+    
+    /**
+     * Shows if a cell is supposed to be occupied by a grid block.
+     * @param position
+     * @return true if it's a grid position. false otherwise.
+     */
+    boolean isGridBlockPosition(Coordinates position);
 }

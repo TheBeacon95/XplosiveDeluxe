@@ -82,6 +82,16 @@ public class Level implements Serializable {
         return (HashMap<Coordinates, BlockType>) m_blocks.clone();
     }
 
+    public void setBlock(BlockType blockType, Coordinates cell) {
+        m_blocks.put(cell, blockType);
+    }
+
+    public void setMonster(MonsterType monster, Coordinates cell) {
+        ArrayList<MonsterType> list = new ArrayList<>();
+        list.add(monster);
+        m_monsters.put(cell, list);
+    }
+
     private boolean isLevelValid() {
         // Todo: improve by checking the player strings.
         boolean areAllPlayersRegistered = m_players.size() == 4;
@@ -123,4 +133,8 @@ public class Level implements Serializable {
     private final HashMap<Coordinates, ArrayList<MonsterType>> m_monsters;
     private final HashMap<String, Coordinates> m_players;
     private final HashMap<Coordinates, CollectableType> m_collectables;
+
+    public void setPlayer(String playerId, Coordinates cell) {
+        m_players.put(playerId, cell);
+    }
 }

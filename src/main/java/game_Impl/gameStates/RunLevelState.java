@@ -4,6 +4,8 @@ import level_Interfaces.*;
 import common.ServiceManager;
 import common.stateMachine.StateAbs;
 import entity_Interfaces.*;
+// Todo:
+import level_Impl.RandomLevelGenerator;
 import ui_Interfaces.*;
 
 /**
@@ -23,7 +25,11 @@ public class RunLevelState extends StateAbs {
         m_entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
         m_displayService = (DisplayServiceIfc) ServiceManager.getService(UiNames.Services.DisplayService);
         
-        m_stageManagementService.setStage(Level.readLevelConfig());
+        RandomLevelGenerator generator = new RandomLevelGenerator();
+        generator.setBlockDensity(9);
+        generator.setMonsterDensity(2);
+        generator.addMonsterType(MonsterType.Muncher);
+        m_stageManagementService.setStage(generator.generateRandomLevel());
         m_entityManagementService.startEntities();
     }
 

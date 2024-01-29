@@ -22,5 +22,6 @@ public final class ModuleImpl extends ModuleAbs {
     protected void registerServices() {
         registerService(new StageManagementService());
         registerService(new MovementService());
+        registerService(new LevelManagementService());
     }
 }

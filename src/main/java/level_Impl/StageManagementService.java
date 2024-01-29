@@ -28,6 +28,7 @@ public class StageManagementService implements StageManagementServiceIfc {
         // Todo: Move this
         ((InputServiceIfc) ServiceManager.getService(UiNames.Services.InputService)).loadKeyInputs();
         createStage(level);
+        // Todo: change this call
         MovementService.getInstance().setStage(m_stage);
         m_isReady = true;
     }
@@ -64,8 +65,8 @@ public class StageManagementService implements StageManagementServiceIfc {
         m_screenService = (ScreenServiceIfc) ServiceManager.getService(UiNames.Services.ScreenService);
         m_entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
         m_blockSegments = ((MovementServiceIfc) ServiceManager.getService(LevelNames.Services.MovementService)).getBlockSegments();
-        Level level = new Level();
-        level.setupTestLevel();
+//        Level level = new Level();
+//        level.setupTestLevel();
 //        setStage(Level.readLevelConfig());
         setBackground();
     }

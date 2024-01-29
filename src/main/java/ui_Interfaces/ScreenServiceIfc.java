@@ -23,18 +23,6 @@ public interface ScreenServiceIfc extends ServiceIfc {
 	int getTileSize();
 	
 	/**
-	 * Shows how many tiles fit into the width of the game.
-	 * @return width of the game in tiles
-	 */
-	int getStageTileWidth();
-	
-	/**
-	 * Shows how many tiles fit into the height of the game.
-	 * @return height of the game in tiles
-	 */
-	int getStageTileHeight();
-	
-	/**
 	 * Shows how wide the game is.
 	 * @return width of the game in pixels
 	 */
