@@ -65,8 +65,8 @@ public class RandomLevelGenerator {
         if (isCellBlocked(cell)) {
             return;
         }
-        boolean canSetBlock = m_random.nextInt(10) < m_blockDensity;
-        boolean canSetMonster = !canSetBlock && !m_monsterTypes.isEmpty() && m_random.nextInt(10) < m_monsterDensity;
+        boolean canSetBlock = m_random.nextInt(12) < m_blockDensity;
+        boolean canSetMonster = !canSetBlock && !m_monsterTypes.isEmpty() && m_random.nextInt(24) < m_monsterDensity;
         
         if (canSetBlock) {
             level.setBlock(BlockType.Brick, cell);

@@ -10,9 +10,9 @@ import level_Impl.Blocks.*;
  */
 public class BlockFactory {
     
-    public BlockAbs createBlock(BlockType type) { 
+    public BlockAbs createBlock(BlockType type, Coordinates position) { 
         return switch (type) {
-            case Brick -> new Brick();
+            case Brick -> new Brick(position);
             case DeathBlock -> new DeathBlock();    
             case Wall -> new Wall();
             case Bomb -> new Bomb();

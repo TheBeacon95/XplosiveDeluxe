@@ -9,6 +9,9 @@ import entity_Interfaces.*;
  */
 public class CollectableFactory {
     public CollectableAbs createCollectable(CollectableType type, Coordinates position) {
-        return null;
+        return switch (type) {
+            case BombPlus -> new BombPlus(position);
+            default -> null;
+        };
     }
 }

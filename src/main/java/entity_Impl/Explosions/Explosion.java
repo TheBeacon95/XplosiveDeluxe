@@ -59,5 +59,5 @@ public class Explosion extends StillEntityAbs implements ExplosionIfc {
     private static Animation s_animation;
     private Animation m_animation;
 
-    private final static long LIFE_SPAN = 1000 * 1000 * 1000;
+    private final static long LIFE_SPAN = 500 * 1000 * 1000;
 }

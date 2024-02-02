@@ -40,7 +40,7 @@ public abstract class EntityAbs implements EntityIfc {
     
     @Override
     public final void update() {
-        if (m_isDieing && m_deathStartTime + m_deathDuration >= System.nanoTime()) {
+        if (m_isDieing && m_deathStartTime + m_deathDuration <= System.nanoTime()) {
             die();
         }
         onUpdate();
@@ -120,7 +120,7 @@ public abstract class EntityAbs implements EntityIfc {
             sprite = ImageIO.read(fileStream);
         }
         catch (IOException ex) {
-            Logger.getLogger(MovingEntityAbs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(EntityAbs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         return sprite;
     }

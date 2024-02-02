@@ -46,7 +46,7 @@ public class Stage {
     private BlockAbs createBlock(BlockType blockType, Coordinates position, boolean isRealBomb) {
         BlockAbs newBlock = null;
         if (!m_levelManagementService.isGridBlockPosition(position)) {
-            newBlock = isRealBomb ? m_blockFactory.createBomb(position) : m_blockFactory.createBlock(blockType);
+            newBlock = isRealBomb ? m_blockFactory.createBomb(position) : m_blockFactory.createBlock(blockType, position);
             removeBlock(position); // If there's a block here, replace it.
             m_blocks.put(position, newBlock);
         }
@@ -71,7 +71,7 @@ public class Stage {
     private void setupBlocks(Level level) {
         Map<Coordinates, BlockType> blocks = level.getBlocks();
         for (Map.Entry<Coordinates, BlockType> block: blocks.entrySet()) {
-            m_blocks.put(block.getKey(), m_blockFactory.createBlock(block.getValue()));
+            m_blocks.put(block.getKey(), m_blockFactory.createBlock(block.getValue(), block.getKey()));
         }
     }
     

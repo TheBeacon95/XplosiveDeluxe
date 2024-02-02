@@ -42,6 +42,7 @@ ui_Impl\GamePanel.class
 entity_Impl\Monsters\Behaviors\MovementBehaviors\HostileMovement.class
 entity_Impl\Explosions\ExplosionFactory.class
 entity_Impl\Monsters\Behaviors\CollisionBehaviors\CollisionBehaviorAbs.class
+entity_Impl\Collectables\BombPlus.class
 common\Coordinates$1.class
 entity_Interfaces\MonsterType.class
 level_Impl\ModuleImpl.class
@@ -96,6 +97,7 @@ entity_Impl\Players\PlayerFactory.class
 entity_Impl\Collectables\CollectableAbs.class
 entity_Impl\MovingEntityAbs.class
 entity_Impl\EntityManagementService.class
+entity_Impl\Collectables\CollectableFactory$1.class
 ui_Interfaces\UiNames.class
 entity_Impl\Monsters\MonsterAbs.class
 entity_Interfaces\PlayerIfc.class

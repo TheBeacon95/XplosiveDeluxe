@@ -26,8 +26,8 @@ public class RunLevelState extends StateAbs {
         m_displayService = (DisplayServiceIfc) ServiceManager.getService(UiNames.Services.DisplayService);
         
         RandomLevelGenerator generator = new RandomLevelGenerator();
-        generator.setBlockDensity(9);
-        generator.setMonsterDensity(2);
+        generator.setBlockDensity(5);
+        generator.setMonsterDensity(1);
         generator.addMonsterType(MonsterType.Muncher);
         m_stageManagementService.setStage(generator.generateRandomLevel());
         m_entityManagementService.startEntities();

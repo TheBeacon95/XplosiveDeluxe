@@ -1,7 +1,7 @@
 package entity_Impl.Monsters.MonsterEntities;
 
 import common.Coordinates;
-import entity_Impl.Monsters.Behaviors.CollisionBehaviors.StallPlayerBehavior;
+import entity_Impl.Monsters.Behaviors.CollisionBehaviors.*;
 import entity_Impl.Monsters.Behaviors.ExplosionBehaviors.DieBehavior;
 import entity_Impl.Monsters.Behaviors.MovementBehaviors.RandomMovement;
 import entity_Impl.Monsters.*;
@@ -17,6 +17,7 @@ public class Muncher extends MonsterAbs {
         super(position, MonsterType.Muncher);
         setMovementBehavior(new RandomMovement());
         setCollisionBehavior(new StallPlayerBehavior());
+        setCollisionBehavior(new EatCollectableBehavior());
         setExplosionBehavior(new DieBehavior());
     }
 
