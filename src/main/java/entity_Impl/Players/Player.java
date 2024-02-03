@@ -117,6 +117,7 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
     protected final void act() {
         // Todo: implement fire.
         placeBomb();
+        clearEffect();
     }
 
     @Override
