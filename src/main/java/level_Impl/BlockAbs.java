@@ -1,12 +1,12 @@
 package level_Impl;
 
-import level_Interfaces.BlockType;
 import common.Animation;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import level_Interfaces.BlockType;
 
 /**
  *
@@ -21,7 +21,6 @@ public abstract class BlockAbs {
 
     /**
      * Shows if the block can be walked over.
-     *
      * @return true if the block can be walked over. Otherwise false.
      */
     public boolean isWalkable() {
@@ -30,7 +29,6 @@ public abstract class BlockAbs {
 
     /**
      * Shows if the block can be walked through.
-     *
      * @return true if a player with ghost effect can pass through. Otherwise
      * false.
      */
@@ -40,7 +38,6 @@ public abstract class BlockAbs {
 
     /**
      * Shows if the block can be eaten.
-     *
      * @return true if the block can be eaten. Otherwise false.
      */
     public boolean isEatable() {
@@ -48,8 +45,15 @@ public abstract class BlockAbs {
     }
 
     /**
+     * Shows if the block can be destroyed.
+     * @return true if the block can be destroyed. Otherwise false.
+     */
+    public boolean isDestructible() {
+        return true;
+    }
+
+    /**
      * Shows if the block stops explosions.
-     *
      * @return true if the block stops explosions. Otherwise false.
      */
     public boolean canBlockExplosions() {
@@ -59,9 +63,11 @@ public abstract class BlockAbs {
     /**
      * Gets called, whenever an explosion (of any kind) hits the block.
      */
-    public void explode() {
-        m_isBeingDestroyed = true;
-        m_explosionAnimation.start();
+    public final void explode() {
+        if (isDestructible()) {
+            m_isBeingDestroyed = true;
+            m_explosionAnimation.start();
+        }
         onExplode();
     }
 
@@ -74,7 +80,7 @@ public abstract class BlockAbs {
         }
         onUpdate();
     }
-    
+
     /**
      * Destroys this block.
      */
@@ -82,22 +88,21 @@ public abstract class BlockAbs {
         m_isDestroyed = true;
         onDestroyed();
     }
-    
+
     protected void onUpdate() {
         // Do nothing.
     }
-    
+
     protected void onExplode() {
         // Do nothing.
     }
-    
+
     protected void onDestroyed() {
         // Do nothing.
     }
 
     /**
      * Returns the next sprite to be drawn.
-     *
      * @return the next sprite in the blocks animation.
      */
     public BufferedImage getSpriteToDraw() {
@@ -112,7 +117,7 @@ public abstract class BlockAbs {
     public boolean isDestroyed() {
         return m_isDestroyed;
     }
-    
+
     public BlockType getType() {
         return m_type;
     }
@@ -121,7 +126,7 @@ public abstract class BlockAbs {
         m_idleAnimation = createIdleAnimation(folderName);
         m_explosionAnimation = createExplosionAnimation(folderName);
     }
-    
+
     private Animation createIdleAnimation(String folderName) {
         ArrayList<BufferedImage> idleSprites = new ArrayList<>();
         int i = 0;
@@ -138,7 +143,7 @@ public abstract class BlockAbs {
         }
         return new Animation(idleSprites);
     }
-    
+
     private Animation createExplosionAnimation(String folderName) {
         ArrayList<BufferedImage> explosionSprites = new ArrayList<>();
         int i = 0;
@@ -165,5 +170,5 @@ public abstract class BlockAbs {
     private boolean m_isDestroyed;
     private final BlockType m_type;
 
-    private static final long EXPLOSION_TIME = 250 * 1000 * 1000; // Explosion animation time in nanoseconds.
+    private static final long EXPLOSION_TIME = 500 * 1000 * 1000; // Explosion animation time in nanoseconds.
 }

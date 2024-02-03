@@ -1,6 +1,5 @@
 package entity_Impl;
 
-import level_Interfaces.*;
 import common.*;
 import entity_Interfaces.*;
 import java.awt.image.BufferedImage;
@@ -12,6 +11,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import level_Interfaces.*;
 
 /**
  *
@@ -25,7 +25,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
         m_movementAnimations = new HashMap<>();
         m_isIdle = true;
         m_movementService = (MovementServiceIfc) ServiceManager.getService(LevelNames.Services.MovementService);
-        
+
         setupAnimations(skinPath);
     }
 
@@ -34,7 +34,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
     }
 
     @Override
-    public final void stall(long stallDuration) {
+    public void stall(long stallDuration) {
         long currentTime = System.nanoTime();
         long currentStallEndTime = m_stallStartTime + m_stallDuration;
         if (!m_isStalled || currentStallEndTime < currentTime + stallDuration) {
@@ -89,9 +89,9 @@ public abstract class MovingEntityAbs extends EntityAbs {
         m_movementAnimations.put(Direction.Right, createAnimation(false, Direction.Right));
         m_movementAnimations.put(Direction.Down, createAnimation(false, Direction.Down));
         m_movementAnimations.put(Direction.Left, createAnimation(false, Direction.Left));
-        
+
         m_deathAnimation = createDeathAnimation();
-        
+
         try {
             m_lastUsedAnimationSprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(skinPath + "Idle_Down_0.png"));
         }
@@ -105,7 +105,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
     protected void act() {
         // Do nothing.
     }
-    
+
     private Animation createAnimation(boolean isIdleAnimation, Direction direction) {
         String idleString = isIdleAnimation ? "Idle" : "Moving";
         String spriteFilePath = m_skinPath + idleString + "_" + direction;
@@ -161,7 +161,6 @@ public abstract class MovingEntityAbs extends EntityAbs {
     }
 
     // Todo: find appropriate existing methods.
-
     protected ArrayList<EntityAbs> getCollisions() {
         // todo: implement this.
         return new ArrayList();
@@ -174,10 +173,10 @@ public abstract class MovingEntityAbs extends EntityAbs {
      * @return next direction the player moves in.
      */
     protected abstract Direction getMovementDirection();
-    
+
     /**
      * Gets the direction the entity is facing.
-     * @return 
+     * @return
      */
     protected abstract Direction getDisplayDirection();
 

@@ -42,23 +42,23 @@ public class PlayerStatus implements PlayerStatusIfc {
     }
 
     //
-    public void IncreaseLives() {
+    public void increaseLives() {
         if (m_lifeCount < MAX_LIFE_COUNT) {
             m_lifeCount++;
         }
     }
 
-    public void IncreaseSpeed() {
+    public void increaseSpeed() {
             m_speed = m_speed.increase();
     }
 
-    public void IncreaseBombCount() {
+    public void increaseBombCount() {
         if (m_bombCount < MAX_BOMB_COUNT) {
             m_bombCount++;
         }
     }
 
-    public void IncreaseStrength() {
+    public void increaseStrength() {
         if (m_strength < MAX_STRENGTH) {
             m_strength++;
         }

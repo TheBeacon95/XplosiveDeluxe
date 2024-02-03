@@ -7,14 +7,14 @@ import entity_Interfaces.*;
  *
  * @author Yanick
  */
-public class BombPlus extends CollectableAbs {
+public class LifePlus extends CollectableAbs {
 
-    public BombPlus(Coordinates position) {
-        super(position, CollectableType.BombPlus);
+    public LifePlus(Coordinates position) {
+        super(position, CollectableType.LifePlus);
     }
 
     @Override
     public void collect(PlayerIfc collector) {
-        collector.increaseBombCount();
+        collector.increaseLives();
     }
 }

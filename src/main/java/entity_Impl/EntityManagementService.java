@@ -1,9 +1,9 @@
 package entity_Impl;
 
-import entity_Impl.Monsters.*;
 import common.*;
 import entity_Impl.Collectables.*;
 import entity_Impl.Explosions.*;
+import entity_Impl.Monsters.*;
 import entity_Impl.Players.*;
 import entity_Interfaces.*;
 import java.awt.Graphics2D;
@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -23,7 +24,10 @@ public class EntityManagementService implements EntityManagementServiceIfc {
         m_monsters = new ArrayList<>();
         m_collectables = new ArrayList<>();
         m_explosions = new ArrayList<>();
+        m_random = new Random();
+        m_randomCollectablePicker = RandomCollectablePicker.CreatePickerForCombativeMode();
     }
+
     @Override
     public void createMonster(MonsterType monsterType, Coordinates position) {
         m_monsters.add(m_monsterFactory.createMonster(monsterType, position));
@@ -35,6 +39,14 @@ public class EntityManagementService implements EntityManagementServiceIfc {
     }
 
     @Override
+    public void createRandomCollectable(Coordinates position) {
+        if (m_random.nextBoolean()) {
+            CollectableType collectableType = m_randomCollectablePicker.pickCollectable();
+            createCollectable(collectableType, position);
+        }
+    }
+
+    @Override
     public void createPlayer(String playerId, Coordinates position) throws IllegalArgumentException {
         // Todo: update this to have different skins.
         m_players.add(m_playerFactory.createPlayer(playerId, position, m_playerSkinPaths.get(playerId)));
@@ -43,7 +55,7 @@ public class EntityManagementService implements EntityManagementServiceIfc {
     @Override
     public void createExplosion(ExplosionType explosionType, int strength, Coordinates position) {
         ArrayList<EntityAbs> newExplosions = m_explosionFactory.createExplosion(position, explosionType, strength);
-        for (EntityAbs newExplosion: newExplosions) {
+        for (EntityAbs newExplosion : newExplosions) {
             m_explosions.removeIf(x -> x.getGridPosition().equals(newExplosion.getGridPosition()));
             m_explosions.add(newExplosion);
         }
@@ -52,7 +64,7 @@ public class EntityManagementService implements EntityManagementServiceIfc {
     @Override
     public List<Coordinates> getAllPlayerPositions() {
         ArrayList<Coordinates> positions = new ArrayList<>();
-        for (EntityAbs player: m_players) {
+        for (EntityAbs player : m_players) {
             if (!player.isDieing()) {
                 positions.add(player.getGlobalPosition());
             }
@@ -62,7 +74,7 @@ public class EntityManagementService implements EntityManagementServiceIfc {
 
     @Override
     public boolean isExplosionHere(Coordinates gridPosition) {
-        for (EntityAbs explosion: m_explosions) {
+        for (EntityAbs explosion : m_explosions) {
             if (explosion.getGridPosition().equals(gridPosition)) {
                 return true;
             }
@@ -78,9 +90,9 @@ public class EntityManagementService implements EntityManagementServiceIfc {
         entityGroups.add(m_collectables);
         entityGroups.add(m_explosions);
 
-        for (Collection<EntityAbs> list: entityGroups) {
+        for (Collection<EntityAbs> list : entityGroups) {
             ArrayList<EntityAbs> deadEntities = new ArrayList<>();
-            for (EntityAbs entity: list) {
+            for (EntityAbs entity : list) {
                 if (entity.isDead()) {
                     deadEntities.add(entity);
                 }
@@ -97,7 +109,7 @@ public class EntityManagementService implements EntityManagementServiceIfc {
     public Coordinates getClosestPlayerPosition(Coordinates globalPosition) {
         Coordinates closestPlayerPosition = new Coordinates();
         float shortestDistance = Float.MAX_VALUE;
-        for (Coordinates playerPosition: getAllPlayerPositions()) {
+        for (Coordinates playerPosition : getAllPlayerPositions()) {
             float currentDistance = Coordinates.getDistance(globalPosition, playerPosition);
             if (currentDistance < shortestDistance) {
                 shortestDistance = currentDistance;
@@ -113,8 +125,8 @@ public class EntityManagementService implements EntityManagementServiceIfc {
         allEntities.addAll(m_monsters);
         allEntities.addAll(m_collectables);
         allEntities.addAll(m_explosions);
-        for (EntityAbs entity1: new ArrayList<>(allEntities)) {
-            for (EntityAbs entity2: new ArrayList<>(allEntities)) {
+        for (EntityAbs entity1 : new ArrayList<>(allEntities)) {
+            for (EntityAbs entity2 : new ArrayList<>(allEntities)) {
                 if (entity1 == entity2) {
                     continue;
                 }
@@ -178,6 +190,8 @@ public class EntityManagementService implements EntityManagementServiceIfc {
     private CollectableFactory m_collectableFactory;
     private PlayerFactory m_playerFactory;
     private HashMap<String, String> m_playerSkinPaths;
+    private final Random m_random;
+    private final RandomCollectablePicker m_randomCollectablePicker;
 
     @Override
     public void startEntities() {

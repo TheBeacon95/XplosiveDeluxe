@@ -22,6 +22,7 @@ entity_Impl\Monsters\MonsterFactory$1.class
 game_Impl\GameStateMachine$1.class
 level_Impl\Blocks\Bomb.class
 entity_Impl\Monsters\Behaviors\MovementBehaviors\MovementBehaviorAbs.class
+entity_Impl\Collectables\LifePlus.class
 entity_Interfaces\PlayerControls.class
 ui_Interfaces\KeyHandlerIfc.class
 ui_Interfaces\InputServiceIfc.class
@@ -40,6 +41,8 @@ game_Impl\ModuleImpl.class
 entity_Impl\Monsters\MonsterFactory.class
 ui_Impl\GamePanel.class
 entity_Impl\Monsters\Behaviors\MovementBehaviors\HostileMovement.class
+entity_Impl\Collectables\StrengthPlus.class
+entity_Impl\Collectables\SpeedPlus.class
 entity_Impl\Explosions\ExplosionFactory.class
 entity_Impl\Monsters\Behaviors\CollisionBehaviors\CollisionBehaviorAbs.class
 entity_Impl\Collectables\BombPlus.class
@@ -52,6 +55,7 @@ level_Interfaces\MovementServiceIfc.class
 common\IdentifiableIfc.class
 entity_Interfaces\ExplosionIfc.class
 entity_Impl\Monsters\Behaviors\CollisionBehaviors\EatCollectableBehavior.class
+entity_Impl\Collectables\Cobweb.class
 game_Interfaces\Difficulty.class
 entity_Impl\Monsters\MonsterEntities\Phantom.class
 entity_Interfaces\PlayerEffect.class
@@ -63,6 +67,7 @@ level_Impl\BlockFactory$1.class
 level_Impl\Blocks\Brick.class
 level_Impl\LevelManagementService.class
 ui_Impl\InputService.class
+entity_Impl\Collectables\RandomCollectablePicker.class
 game_Interfaces\ActivePlayers.class
 entity_Impl\Monsters\Behaviors\CollisionBehaviors\StallPlayerBehavior.class
 entity_Interfaces\EntityNames$Services.class
@@ -82,6 +87,7 @@ common\Direction.class
 entity_Impl\Explosions\Explosion.class
 entity_Impl\EntityAbs.class
 ui_Impl\ModuleImpl.class
+entity_Impl\Collectables\Shield.class
 ui_Impl\KeyHandler.class
 level_Impl\StageManagementService.class
 level_Impl\MovementService.class
@@ -105,6 +111,7 @@ level_Impl\BlockAbs.class
 game_Interfaces\GameManagementServiceIfc.class
 entity_Impl\Monsters\MonsterEntities\BrickEater.class
 level_Interfaces\StageManagementServiceIfc.class
+common\WeightedList.class
 level_Interfaces\LevelManagementServiceIfc.class
 common\Coordinates.class
 entity_Impl\Players\Player.class

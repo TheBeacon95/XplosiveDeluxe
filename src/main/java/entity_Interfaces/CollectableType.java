@@ -24,6 +24,6 @@ public enum CollectableType {
     Teleporter,
     
     // Hazards
-    Spiderweb
+    Cobweb
     
 }

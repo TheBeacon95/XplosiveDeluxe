@@ -17,6 +17,7 @@ public abstract class CollectableAbs extends StillEntityAbs {
         m_type = type;
         setDefaultAnimation("Sprites/Collectables/" + m_type.name());
         m_deathAnimation = new Animation(m_defaultAnimation);
+        m_creationTime = System.nanoTime();
     }
 
     /**
@@ -24,7 +25,7 @@ public abstract class CollectableAbs extends StillEntityAbs {
      * @param collector the player that touched the Collectable.
      */
     public abstract void collect(PlayerIfc collector);
-    
+
     @Override
     protected final boolean canBeKilled() {
         return true;
@@ -32,9 +33,11 @@ public abstract class CollectableAbs extends StillEntityAbs {
 
     @Override
     public void explode(ExplosionIfc explosion) {
-        die();
+        if (m_creationTime + INVINCIBILITY_FRAMES < System.nanoTime()) {
+            die();
+        }
     }
-    
+
     @Override
     public void collide(EntityAbs otherEntity) {
         if (otherEntity instanceof PlayerIfc player) {
@@ -44,4 +47,6 @@ public abstract class CollectableAbs extends StillEntityAbs {
     }
 
     protected final CollectableType m_type;
+    private final long m_creationTime;
+    private final static long INVINCIBILITY_FRAMES = 250 * 1000 * 1000;
 }

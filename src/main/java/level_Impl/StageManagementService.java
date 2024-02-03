@@ -1,9 +1,7 @@
 package level_Impl;
 
-import level_Interfaces.*;
 import common.*;
 import entity_Interfaces.*;
-import ui_Interfaces.*;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,6 +11,8 @@ import java.util.Map;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import level_Impl.Blocks.Bomb;
+import level_Interfaces.*;
+import ui_Interfaces.*;
 
 /**
  *
@@ -70,10 +70,10 @@ public class StageManagementService implements StageManagementServiceIfc {
 //        setStage(Level.readLevelConfig());
         setBackground();
     }
-    
+
     @Override
     public void placeBomb(BombType bombType, Coordinates position, int strength, BombListenerIfc listener) {
-        if (!isBombHere(position)) {   
+        if (!isBombHere(position)) {
             Bomb newBomb = (Bomb) m_stage.createBomb(position);
             newBomb.AttachListener(listener);
             newBomb.activate(strength, ExplosionType.FireExplosion);
@@ -84,14 +84,14 @@ public class StageManagementService implements StageManagementServiceIfc {
     public void placeDeathBlock(Coordinates gridPosition) {
         m_stage.createBlock(BlockType.DeathBlock, gridPosition);
     }
-    
+
     @Override
     public Coordinates roundToGridPosition(Coordinates position) {
         int gridX = position.x % m_blockSegments < 4 ? position.x / m_blockSegments : position.x / m_blockSegments + 1;
         int gridY = position.y % m_blockSegments < 4 ? position.y / m_blockSegments : position.y / m_blockSegments + 1;
         return new Coordinates(gridX, gridY);
     }
-    
+
     @Override
     public void explode(Coordinates gridPosition) {
         HashMap<Coordinates, BlockAbs> blocks = m_stage.getBlocks();
@@ -114,12 +114,23 @@ public class StageManagementService implements StageManagementServiceIfc {
         }
         return isBlockEatable;
     }
-    
+
     @Override
     public boolean isExplosionStopper(Coordinates gridPosition) {
         HashMap<Coordinates, BlockAbs> blocks = m_stage.getBlocks();
         if (blocks.containsKey(gridPosition)) {
             return blocks.get(gridPosition).canBlockExplosions();
+        }
+        else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isIndestructible(Coordinates gridPosition) {
+        HashMap<Coordinates, BlockAbs> blocks = m_stage.getBlocks();
+        if (blocks.containsKey(gridPosition)) {
+            return !blocks.get(gridPosition).isDestructible();
         }
         else {
             return false;
@@ -150,16 +161,16 @@ public class StageManagementService implements StageManagementServiceIfc {
             m_entityManagementService.createCollectable(collectable.getValue(), collectable.getKey());
         }
     }
-    
+
     private void updateBlocks() {
-        for (Map.Entry<Coordinates, BlockAbs> entry: m_stage.getBlocks().entrySet()) {
+        for (Map.Entry<Coordinates, BlockAbs> entry : m_stage.getBlocks().entrySet()) {
             entry.getValue().update();
             if (entry.getValue().isDestroyed()) {
                 m_stage.removeBlock(entry.getKey());
             }
         }
     }
-    
+
     private boolean isBombHere(Coordinates position) {
         BlockAbs block;
         HashMap<Coordinates, BlockAbs> stageBlocks = m_stage.getBlocks();

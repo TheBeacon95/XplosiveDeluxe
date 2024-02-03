@@ -12,7 +12,7 @@ import ui_Interfaces.*;
  */
 public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIfc {
 
-    public Player(String playerId, Coordinates position, int lifeCount, String skinPath){
+    public Player(String playerId, Coordinates position, int lifeCount, String skinPath) {
         super(position, skinPath);
         m_playerId = playerId;
         m_status = new PlayerStatus(lifeCount);
@@ -22,7 +22,7 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
         m_stageManagementService = (StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService);
         m_facingDirection = Direction.Down;
     }
-    
+
     @Override
     public void explode(ExplosionIfc explosion) {
         if (!isDieing() && canBeKilled()) {
@@ -34,7 +34,7 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
     protected boolean canBeKilled() {
         return m_status.getEffect() != PlayerEffect.Shield;
     }
-    
+
     @Override
     public void onKilled() {
         m_stageManagementService.placeDeathBlock(getGridPosition());
@@ -51,31 +51,45 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
     }
 
     @Override
-    public void IncreaseLives() {
-        m_status.IncreaseLives();
+    public void increaseLives() {
+        m_status.increaseLives();
     }
 
     @Override
-    public void IncreaseSpeed() {
-        m_status.IncreaseSpeed();
+    public void increaseSpeed() {
+        m_status.increaseSpeed();
     }
 
     @Override
-    public void IncreaseBombCount() {
-        m_status.IncreaseBombCount();
+    public void increaseBombCount() {
+        m_status.increaseBombCount();
     }
 
     @Override
-    public void IncreaseStrength() {
-        m_status.IncreaseStrength();
+    public void increaseStrength() {
+        m_status.increaseStrength();
     }
 
     @Override
-    public void Effect(PlayerEffect effect, int effectTime) {
+    public void effect(PlayerEffect effect, long effectTime) {
         m_status.setEffect(effect);
-        m_effectEndTime = System.nanoTime() + effectTime * 1000 * 1000 * 1000;
+        m_effectEndTime = System.nanoTime() + effectTime;
     }
-    
+
+    @Override
+    public void tryEffect(PlayerEffect effect, long effectTime) {
+        if (m_status.getEffect() != PlayerEffect.Shield) {
+            effect(effect, effectTime);
+        }
+    }
+
+    @Override
+    public void stall(long stallDuration) {
+        if (m_status.getEffect() != PlayerEffect.Shield) {
+            super.stall(stallDuration);
+        }
+    }
+
     @Override
     protected Speed getSpeed() {
         return m_status.getSpeed();
@@ -98,7 +112,7 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
     protected Direction getDisplayDirection() {
         return m_facingDirection;
     }
-    
+
     @Override
     protected final void act() {
         // Todo: implement fire.
@@ -124,31 +138,31 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
     public final String getId() {
         return m_playerId;
     }
-    
+
     private void placeBomb() {
         boolean isFirePressed = m_keyHandler.isFirePressed();
         boolean areBombsAvailable = m_activeBombCount < m_status.getBombCount();
-        
+
         if (isFirePressed && areBombsAvailable) {
             m_stageManagementService.placeBomb(BombType.FireBomb, getGridPosition(), m_status.getStrength(), this);
         }
     }
-    
+
     private void clearEffect() {
         if (m_status.getEffect() != PlayerEffect.None && System.nanoTime() >= m_effectEndTime) {
             m_status.setEffect(PlayerEffect.None);
         }
     }
-    
+
     private final String m_playerId;
     private final PlayerControls m_controls;
     private final PlayerStatus m_status;
-    
+
     private Direction m_facingDirection;
-    
+
     private long m_effectEndTime;
     private final KeyHandlerIfc m_keyHandler;
-    
+
     private int m_activeBombCount;
     private final StageManagementServiceIfc m_stageManagementService;
 }

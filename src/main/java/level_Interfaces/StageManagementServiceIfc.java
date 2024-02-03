@@ -8,49 +8,49 @@ import java.awt.Graphics2D;
  * @author Yanick
  */
 public interface StageManagementServiceIfc extends ServiceIfc {
-    
+
     /**
      * Prepares the stage to be played.
      * @param level
      */
     void setStage(Level level);
-    
+
     /**
      * Updates all blocks in the stage.
      */
     void updateStage();
-    
+
     /**
      * Draws all the blocks in the stage and the background.
      * @param g2 Graphics2D instance needed to draw.
      */
     void draw(Graphics2D g2);
-    
+
     /**
      * Sets the Background sprite
      * @param style the style where the Background is under.
      */
     public void setBackground(String style);
-    
+
     /**
      * Todo: describe.
-     * @return 
+     * @return
      */
     boolean isReady();
-    
+
     /**
      * Places a bomb at a specific position.
      * @param bombType the type of the bomb
      * @param position where the bomb will be placed
      * @param strength how far the explosion will reach
-     * @param listener 
+     * @param listener
      */
     void placeBomb(BombType bombType, Coordinates position, int strength, BombListenerIfc listener);
-    
+
     /**
      * Rounds the position up or down to grid position.
      * @param position position to be rounded
-     * @return 
+     * @return
      */
     Coordinates roundToGridPosition(Coordinates position);
 
@@ -59,7 +59,7 @@ public interface StageManagementServiceIfc extends ServiceIfc {
      * @param gridPosition
      */
     void explode(Coordinates gridPosition);
-    
+
     /**
      * Shows if a space is occupied by a block that stops explosions.
      * @param gridPosition
@@ -68,11 +68,18 @@ public interface StageManagementServiceIfc extends ServiceIfc {
     boolean isExplosionStopper(Coordinates gridPosition);
 
     /**
-     * 
-     * @param gridPosition 
+     * Shows if a space is occupied by a block that cannot be destroyed.
+     * @param gridPosition
+     * @return true if there's an indestructible block. false otherwise.
+     */
+    boolean isIndestructible(Coordinates gridPosition);
+
+    /**
+     *
+     * @param gridPosition
      */
     public void placeDeathBlock(Coordinates gridPosition);
-    
+
     /**
      * Eats a block if it's eatable
      * @param gridPosition

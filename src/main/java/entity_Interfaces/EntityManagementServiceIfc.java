@@ -10,29 +10,35 @@ import java.util.List;
  * @author Yanick
  */
 public interface EntityManagementServiceIfc extends ServiceIfc {
-    
+
     /**
      * Creates a Monster and registers it.
      * @param monsterType The type of Monster to be created
      * @param position Where the Monster is placed
      */
     void createMonster(MonsterType monsterType, Coordinates position);
-    
+
     /**
      * Creates a Collectable and registers it.
      * @param collectableType The type of Collectable to be created
      * @param position Where the Collectable will be placed
      */
     void createCollectable(CollectableType collectableType, Coordinates position);
-    
+
+    /**
+     * Either creates a random Collectable and registers it or doesn't.
+     * @param position Where the Collectable will be placed
+     */
+    void createRandomCollectable(Coordinates position);
+
     /**
      * Creates a player and registers them.
      * @param playerId There are maximally 4 Players. This ID represents which player it is.
      * @param position Where the Player will be placed.
-     * @throws IllegalArgumentException 
+     * @throws IllegalArgumentException
      */
     void createPlayer(String playerId, Coordinates position) throws IllegalArgumentException;
-    
+
     /**
      * Creates an explosion of any type.
      * @param explosionType the type of the explosion
@@ -40,7 +46,7 @@ public interface EntityManagementServiceIfc extends ServiceIfc {
      * @param position where the explosion originates
      */
     void createExplosion(ExplosionType explosionType, int strength, Coordinates position);
-    
+
     /**
      * Retrieves the position of all players.
      * @return the position of all players
@@ -50,21 +56,21 @@ public interface EntityManagementServiceIfc extends ServiceIfc {
     /**
      * Shows if a specific cell currently has an explosion in it.
      * @param gridPosition
-     * @return 
+     * @return
      */
     boolean isExplosionHere(Coordinates gridPosition);
-    
+
     /**
      * Updates all Entities.
      */
     void updateEntities();
-    
+
     /**
      * Draws all Entities in a specific order.
-     * @param g2 
+     * @param g2
      */
     void drawEntities(Graphics2D g2);
-    
+
     /**
      * Clears out all entities so a new level can start.
      */
@@ -74,9 +80,9 @@ public interface EntityManagementServiceIfc extends ServiceIfc {
      * Starts all entities.
      */
     public void startEntities();
-    
+
     /**
-     * 
+     *
      * @param position
      * @return the coordinates of the closest player.
      */
