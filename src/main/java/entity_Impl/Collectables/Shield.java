@@ -16,6 +16,6 @@ public class Shield extends CollectableAbs {
     @Override
     public void collect(PlayerIfc collector) {
         // Todo: give player a default effect time.
-        collector.effect(PlayerEffect.Shield, 5 * 1000 * 1000 * 1000);
+        collector.effect(PlayerEffect.Shield, 5l * 1000 * 1000 * 1000);
     }
 }

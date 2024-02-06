@@ -1,11 +1,10 @@
 package game_Impl.gameStates;
 
-import level_Interfaces.*;
 import common.ServiceManager;
 import common.stateMachine.StateAbs;
 import entity_Interfaces.*;
-// Todo:
 import level_Impl.RandomLevelGenerator;
+import level_Interfaces.*;
 import ui_Interfaces.*;
 
 /**
@@ -24,11 +23,11 @@ public class RunLevelState extends StateAbs {
         m_stageManagementService = (StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService);
         m_entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
         m_displayService = (DisplayServiceIfc) ServiceManager.getService(UiNames.Services.DisplayService);
-        
+
         RandomLevelGenerator generator = new RandomLevelGenerator();
         generator.setBlockDensity(5);
-        generator.setMonsterDensity(1);
-        generator.addMonsterType(MonsterType.Muncher);
+        generator.setMonsterDensity(0);
+        generator.addMonsterType(MonsterType.BrickEater);
         m_stageManagementService.setStage(generator.generateRandomLevel());
         m_entityManagementService.startEntities();
     }

@@ -164,6 +164,10 @@ public abstract class BlockAbs {
         return explosionAnimation;
     }
 
+    protected final void setExplosionDuration(long explosionTime) {
+        m_explosionAnimation.setAnimationDuration(explosionTime);
+    }
+
     private Animation m_idleAnimation;
     private Animation m_explosionAnimation;
     private boolean m_isBeingDestroyed;

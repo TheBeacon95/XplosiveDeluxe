@@ -88,6 +88,13 @@ public interface StageManagementServiceIfc extends ServiceIfc {
     boolean tryEatBlock(Coordinates gridPosition);
 
     /**
+     * Places a cobweb if there's space.
+     * @param gridPosition
+     * @return
+     */
+    public boolean tryPlaceCobweb(Coordinates gridPosition);
+
+    /**
      * Shows if there's only one player left.
      * @return true if there's at most one alive player. false otherwise.
      */

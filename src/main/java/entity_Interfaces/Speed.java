@@ -10,18 +10,18 @@ public enum Speed {
     FastMonster(4),
     DefaultPlayer(8),
     Fast(16),
-    VeryFast(32),
-    UltraFast(64);
-    
+    VeryFast(24),
+    UltraFast(3w2);
+
     private Speed(int value) {
         m_value = value;
     }
-    
+
     public int toInt() {
         return m_value;
     }
-    
-    private int m_value;
+
+    private final int m_value;
 
     public Speed increase() {
         return switch (this) {
@@ -34,7 +34,7 @@ public enum Speed {
             case UltraFast -> UltraFast;
         };
     }
-    
+
     public final Speed maxSpeed() {
         return UltraFast;
     }

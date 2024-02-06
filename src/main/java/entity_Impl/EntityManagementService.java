@@ -35,6 +35,7 @@ public class EntityManagementService implements EntityManagementServiceIfc {
 
     @Override
     public void createCollectable(CollectableType collectableType, Coordinates position) {
+        m_collectables.removeIf(x -> x.getGridPosition().equals(position));
         m_collectables.add(m_collectableFactory.createCollectable(collectableType, position));
     }
 
@@ -80,6 +81,12 @@ public class EntityManagementService implements EntityManagementServiceIfc {
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean isCobwebHere(Coordinates gridPosition) {
+//        return ((CollectableAbs) m_collectables.stream().filter(x -> x.getGridPosition().equals(gridPosition))).getType() == CollectableType.Cobweb;
+        return true;
     }
 
     @Override

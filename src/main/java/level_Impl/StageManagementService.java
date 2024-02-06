@@ -116,6 +116,18 @@ public class StageManagementService implements StageManagementServiceIfc {
     }
 
     @Override
+    public boolean tryPlaceCobweb(Coordinates gridPosition) {
+        boolean isCellEmpty = !m_stage.getBlocks().containsKey(gridPosition);
+        if (isCellEmpty) {
+            m_entityManagementService.createCollectable(CollectableType.Cobweb, gridPosition);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    @Override
     public boolean isExplosionStopper(Coordinates gridPosition) {
         HashMap<Coordinates, BlockAbs> blocks = m_stage.getBlocks();
         if (blocks.containsKey(gridPosition)) {

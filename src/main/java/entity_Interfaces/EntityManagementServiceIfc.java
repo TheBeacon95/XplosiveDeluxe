@@ -61,6 +61,13 @@ public interface EntityManagementServiceIfc extends ServiceIfc {
     boolean isExplosionHere(Coordinates gridPosition);
 
     /**
+     * Shows if a specific cell currently has a spiderweb on it.
+     * @param gridPosition
+     * @return
+     */
+    public boolean isCobwebHere(Coordinates gridPosition);
+
+    /**
      * Updates all Entities.
      */
     void updateEntities();

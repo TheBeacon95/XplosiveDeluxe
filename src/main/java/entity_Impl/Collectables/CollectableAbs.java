@@ -46,6 +46,10 @@ public abstract class CollectableAbs extends StillEntityAbs {
         }
     }
 
+    public CollectableType getType() {
+        return m_type;
+    }
+
     protected final CollectableType m_type;
     private final long m_creationTime;
     private final static long INVINCIBILITY_FRAMES = 250 * 1000 * 1000;
