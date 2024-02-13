@@ -33,6 +33,11 @@ public final class Bomb extends BlockAbs implements BombIfc {
         return false;
     }
 
+    @Override
+    public boolean isReplaceable() {
+        return false;
+    }
+
     public void activate(int strength, ExplosionType explosionType) {
         if (m_position != null) {
             m_strength = strength;

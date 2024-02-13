@@ -31,6 +31,7 @@ public class StageManagementService implements StageManagementServiceIfc {
         // Todo: change this call
         MovementService.getInstance().setStage(m_stage);
         m_isReady = true;
+        m_isOnState = false;
     }
 
     @Override
@@ -73,7 +74,7 @@ public class StageManagementService implements StageManagementServiceIfc {
 
     @Override
     public void placeBomb(BombType bombType, Coordinates position, int strength, BombListenerIfc listener) {
-        if (!isBombHere(position)) {
+        if (isBlockPlaceable(position)) {
             Bomb newBomb = (Bomb) m_stage.createBomb(position);
             newBomb.AttachListener(listener);
             newBomb.activate(strength, ExplosionType.FireExplosion);
@@ -82,7 +83,9 @@ public class StageManagementService implements StageManagementServiceIfc {
 
     @Override
     public void placeDeathBlock(Coordinates gridPosition) {
-        m_stage.createBlock(BlockType.DeathBlock, gridPosition);
+        if (isBlockPlaceable (gridPosition)) {
+            m_stage.createBlock(BlockType.DeathBlock, gridPosition);
+        }
     }
 
     @Override
@@ -183,17 +186,17 @@ public class StageManagementService implements StageManagementServiceIfc {
         }
     }
 
-    private boolean isBombHere(Coordinates position) {
-        BlockAbs block;
-        HashMap<Coordinates, BlockAbs> stageBlocks = m_stage.getBlocks();
-        if (stageBlocks.containsKey(position)) {
-            block = stageBlocks.get(position);
-            if (block.getType() == BlockType.Bomb) {
-                return ((Bomb) block).isActive();
-            }
-        }
-        return false;
-    }
+//    private boolean isBombHere(Coordinates position) {
+//        BlockAbs block;
+//        HashMap<Coordinates, BlockAbs> stageBlocks = m_stage.getBlocks();
+//        if (stageBlocks.containsKey(position)) {
+//            block = stageBlocks.get(position);
+//            if (block.getType() == BlockType.Bomb) {
+//                return ((Bomb) block).isActive();
+//            }
+//        }
+//        return false;
+//    }
 
     private void drawBackground(Graphics2D g2) {
         int tileSize = m_screenService.getTileSize();
@@ -232,6 +235,22 @@ public class StageManagementService implements StageManagementServiceIfc {
     private BufferedImage m_backgroundSprite;
     private boolean m_isReady;
     private int m_blockSegments;
+    private boolean m_isOnState;
 
     private final String DEFAULT_BACKGROUND_STYLE = "Default";
+
+    @Override
+    public boolean IsOnState() {
+        return m_isOnState;
+    }
+
+    @Override
+    public void toggleOnOffState() {
+        m_isOnState = !m_isOnState;
+    }
+
+    private boolean isBlockPlaceable(Coordinates position) {
+        BlockAbs block = m_stage.getBlocks().getOrDefault(position, null);
+        return block == null || block.isReplaceable();
+    }
 }

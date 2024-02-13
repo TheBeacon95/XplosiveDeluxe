@@ -99,4 +99,15 @@ public interface StageManagementServiceIfc extends ServiceIfc {
      * @return true if there's at most one alive player. false otherwise.
      */
     public boolean isOnePlayerLeft();
+
+    /**
+     * Shows the On-Off-State
+     * @return true if the state is ON otherwise Off.
+     */
+    public boolean IsOnState();
+
+    /**
+     * Toggles the On-Off-State
+     */
+    public void toggleOnOffState();
 }

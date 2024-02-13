@@ -63,7 +63,7 @@ public class PlayerStatus implements PlayerStatusIfc {
             m_strength++;
         }
     }
-    
+
     public void setEffect(PlayerEffect effect) {
         m_effect = effect;
     }
@@ -75,7 +75,6 @@ public class PlayerStatus implements PlayerStatusIfc {
     private PlayerEffect m_effect;
 
     private final static int MAX_LIFE_COUNT = 9;
-    private final static int MAX_SPEED = 4;
-    private final static int MAX_BOMB_COUNT = 9;
-    private final static int MAX_STRENGTH = 10;
+    private final static int MAX_BOMB_COUNT = 6;
+    private final static int MAX_STRENGTH = 6;
 }

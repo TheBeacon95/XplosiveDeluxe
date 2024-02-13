@@ -1,4 +1,4 @@
-package entity_Impl.Players;
+ package entity_Impl.Players;
 
 import common.*;
 import entity_Impl.MovingEntityAbs; // Todo: this class shouldn't reference a higher package.
@@ -146,6 +146,7 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
 
         if (isFirePressed && areBombsAvailable) {
             m_stageManagementService.placeBomb(BombType.FireBomb, getGridPosition(), m_status.getStrength(), this);
+            m_stageManagementService.toggleOnOffState();
         }
     }
 

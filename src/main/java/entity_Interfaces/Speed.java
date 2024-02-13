@@ -9,9 +9,9 @@ public enum Speed {
     NormalMonster(2),
     FastMonster(4),
     DefaultPlayer(8),
-    Fast(16),
-    VeryFast(24),
-    UltraFast(3w2);
+    Fast(12),
+    VeryFast(16),
+    UltraFast(20);
 
     private Speed(int value) {
         m_value = value;

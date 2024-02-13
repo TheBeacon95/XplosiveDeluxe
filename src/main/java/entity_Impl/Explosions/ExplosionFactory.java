@@ -39,7 +39,7 @@ public class ExplosionFactory {
             isIndestructable = m_stageManagementService.isIndestructible(nextPosition);
             m_stageManagementService.explode(nextPosition);
             remainingStrength--;
-            if (!isIndestructable) {
+            if (!(isIndestructable && isExplosionStopper)) {
                 newExplosions.add(new Explosion(nextPosition, explosionType));
             }
         }

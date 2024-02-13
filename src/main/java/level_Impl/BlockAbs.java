@@ -2,6 +2,7 @@ package level_Impl;
 
 import common.Animation;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -16,7 +17,7 @@ public abstract class BlockAbs {
 
     public BlockAbs(BlockType type) {
         m_type = type;
-        loadSprites(type.name());
+        loadSprites();
     }
 
     /**
@@ -58,6 +59,14 @@ public abstract class BlockAbs {
      */
     public boolean canBlockExplosions() {
         return !m_isBeingDestroyed;
+    }
+
+    /**
+     * Shows if the block can be replaced by another.
+     * @return true if it can be replaced. false otherwise.
+     */
+    public boolean isReplaceable() {
+        return true;
     }
 
     /**
@@ -106,12 +115,7 @@ public abstract class BlockAbs {
      * @return the next sprite in the blocks animation.
      */
     public BufferedImage getSpriteToDraw() {
-        if (!m_isBeingDestroyed) {
-            return m_idleAnimation.getSpriteToDraw();
-        }
-        else {
-            return m_explosionAnimation.getSpriteToDraw();
-        }
+        return getCurrentAnimation().getSpriteToDraw();
     }
 
     public boolean isDestroyed() {
@@ -122,46 +126,39 @@ public abstract class BlockAbs {
         return m_type;
     }
 
-    private void loadSprites(String folderName) {
-        m_idleAnimation = createIdleAnimation(folderName);
-        m_explosionAnimation = createExplosionAnimation(folderName);
+    private void loadSprites() {
+        m_idleAnimation = createAnimation("Idle");
+        m_explosionAnimation = createAnimation("Exploding");
+        m_explosionAnimation.setSingleAnimation();
+        m_explosionAnimation.setAnimationDuration(EXPLOSION_TIME);
     }
 
-    private Animation createIdleAnimation(String folderName) {
-        ArrayList<BufferedImage> idleSprites = new ArrayList<>();
-        int i = 0;
-        InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/Idle_" + i + ".png");
-        try {
-            while (fileInputStream != null) {
-                idleSprites.add(ImageIO.read(fileInputStream));
-                i++;
-                fileInputStream = getClass().getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/Idle_" + i + ".png");
-            }
+    protected Animation getCurrentAnimation() {
+        if (!m_isBeingDestroyed) {
+            return m_idleAnimation;
         }
-        catch (Exception e) {
-            Logger.getLogger(BlockAbs.class.getName()).log(java.util.logging.Level.SEVERE, null, e);
+        else {
+            return m_explosionAnimation;
         }
-        return new Animation(idleSprites);
     }
 
-    private Animation createExplosionAnimation(String folderName) {
-        ArrayList<BufferedImage> explosionSprites = new ArrayList<>();
+    protected final Animation createAnimation(String animationName) {
+        String folderName = m_type.name();
+        ArrayList<BufferedImage> sprites = new ArrayList<>();
         int i = 0;
-        InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/Exploding_" + i + ".png");
+        InputStream fileInputStream = getClass().getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/" + animationName + "_" + i + ".png");
         try {
             while (fileInputStream != null) {
-                explosionSprites.add(ImageIO.read(fileInputStream));
+                sprites.add(ImageIO.read(fileInputStream));
                 i++;
-                fileInputStream = getClass().getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/Exploding_" + i + ".png");
+                fileInputStream = getClass().getClassLoader().getResourceAsStream("Sprites/Level/" + folderName + "/" + animationName + "_" + i + ".png");
             }
         }
-        catch (Exception e) {
+        catch (IOException e) {
             Logger.getLogger(BlockAbs.class.getName()).log(java.util.logging.Level.SEVERE, null, e);
         }
-        Animation explosionAnimation = new Animation(explosionSprites);
-        explosionAnimation.setSingleAnimation();
-        explosionAnimation.setAnimationDuration(EXPLOSION_TIME);
-        return explosionAnimation;
+        Animation Animation = new Animation(sprites);
+        return Animation;
     }
 
     protected final void setExplosionDuration(long explosionTime) {

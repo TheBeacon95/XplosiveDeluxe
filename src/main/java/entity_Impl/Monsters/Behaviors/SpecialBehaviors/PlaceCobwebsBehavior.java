@@ -24,7 +24,7 @@ public class PlaceCobwebsBehavior extends SpecialBehaviorAbs {
     public void perform(MonsterAbs monster) {
         if (!m_movementService.isBetweenCells(monster.getGlobalPosition()) && m_random.nextBoolean()) {
             if (!m_entityManagementService.isCobwebHere(monster.getGridPosition()) && m_stageManagementService.tryPlaceCobweb(monster.getGridPosition())) {
-                monster.stall(1 * 1000 * 1000 * 1000);
+                monster.stall(500 * 1000 * 1000);
             }
         }
     }

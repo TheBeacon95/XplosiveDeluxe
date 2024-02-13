@@ -58,10 +58,6 @@ public abstract class MovingEntityAbs extends EntityAbs {
         if (m_lastAnimation != null && m_lastAnimation != animationToUse) {
             animationToUse.continueFromAnimation(m_lastAnimation);
         }
-        if (animationToUse == null) {
-            int a = 0;
-            getDirection();
-        }
         BufferedImage spriteToUse = animationToUse.getSpriteToDraw();
         m_lastUsedAnimationSprite = spriteToUse;
         return spriteToUse;
@@ -75,7 +71,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
                 m_isStalled = !isStallTimerUp;
             }
             tryMove();
-            act();
+//            act();
         }
     }
 
@@ -150,6 +146,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
                 hasMoved = true;
                 m_direction = direction;
             }
+            act();
         }
 
         if (hasMoved) {

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -85,8 +86,10 @@ public class EntityManagementService implements EntityManagementServiceIfc {
 
     @Override
     public boolean isCobwebHere(Coordinates gridPosition) {
-//        return ((CollectableAbs) m_collectables.stream().filter(x -> x.getGridPosition().equals(gridPosition))).getType() == CollectableType.Cobweb;
-        return true;
+        // Todo: improve
+        Optional<EntityAbs> a = m_collectables.stream().filter(x -> x.getGridPosition().equals(gridPosition)).findFirst();
+        boolean isCobweb = !a.isEmpty() && a.get() instanceof CollectableAbs && ((CollectableAbs) a.get()).getType() == CollectableType.Cobweb;
+        return isCobweb;
     }
 
     @Override

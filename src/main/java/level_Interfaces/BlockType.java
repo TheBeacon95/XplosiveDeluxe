@@ -8,5 +8,7 @@ public enum BlockType {
     Brick,
     DeathBlock,
     Wall,
-    Bomb
+    Bomb,
+    OnBlock,
+    OffBlock,
 }

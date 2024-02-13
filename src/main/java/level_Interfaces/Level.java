@@ -24,7 +24,7 @@ public class Level implements Serializable {
         m_players = new HashMap<>();
         m_collectables = new HashMap<>();
     }
-    
+
     public static Level readLevelConfig() {
         return readLevelConfig("C:\\Users\\Yanick\\GitHub\\XplosiveDeluxe\\src\\main\\resources\\Levels\\TestLevel.txt");
     }
@@ -43,7 +43,7 @@ public class Level implements Serializable {
         }
         return readLevel;
     }
-    
+
     public void writeTestLevel() {
         FileOutputStream outputStream;
         try {
@@ -99,7 +99,7 @@ public class Level implements Serializable {
 
         return areAllPlayersRegistered && isAtLeastOneMonsterRegistered;
     }
-    
+
     private void placeRandomBlocks() {
         m_blocks.put(new Coordinates(1, 2), BlockType.Brick);
         m_blocks.put(new Coordinates(2, 1), BlockType.Brick);
@@ -113,15 +113,15 @@ public class Level implements Serializable {
         m_blocks.put(new Coordinates(3, 8), BlockType.Brick);
         m_blocks.put(new Coordinates(3, 10), BlockType.Brick);
         m_blocks.put(new Coordinates(2, 9), BlockType.Brick);
-        m_blocks.put(new Coordinates(4, 9), BlockType.Brick);
+        m_blocks.put(new Coordinates(4, 9), BlockType.OnBlock);
     }
-    
+
     private void placeRandomMonsters() {
         ArrayList<MonsterType> list = new ArrayList<>();
         list.add(MonsterType.BrickEater);
         m_monsters.put(new Coordinates(3, 9), list);
     }
-    
+
     private void placePlayers() {
         m_players.put("Player_1", new Coordinates(3, 3));
         m_players.put("Player_2", new Coordinates(15, 3));
