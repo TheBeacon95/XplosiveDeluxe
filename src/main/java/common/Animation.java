@@ -9,8 +9,8 @@ import java.util.List;
  * automatically after being drawn.
  * @author Yanick
  */
-public class Animation {
-    
+public class Animation implements AnimationIfc {
+
     public Animation(List<BufferedImage> animationSprites, int animationDuration) {
         m_animationSprites = new ArrayList<>(animationSprites);
         m_spriteCount = animationSprites.size();
@@ -18,22 +18,22 @@ public class Animation {
         m_isRepeating = true;
         m_animationStartTime = System.nanoTime();
     }
-    
+
     public Animation(List<BufferedImage> animationSprites) {
         this(animationSprites, DEFAULT_ANIMATION_DURATION);
     }
-    
-    public Animation(Animation animationToCopy) {
+
+    private Animation(Animation animationToCopy) {
         m_animationSprites = animationToCopy.m_animationSprites;
         m_spriteCount = animationToCopy.m_spriteCount;
         m_animationDuration = animationToCopy.m_animationDuration;
         m_isRepeating = animationToCopy.m_isRepeating;
         m_animationStartTime = System.nanoTime();
     }
-    
+
     /**
      * Tries to take over the animation from the last one to make it seamless.
-     * @param lastAnimation 
+     * @param lastAnimation
      */
     public void continueFromAnimation(Animation lastAnimation) {
         boolean doSpriteCountsMatch = m_spriteCount == lastAnimation.m_spriteCount;
@@ -42,11 +42,12 @@ public class Animation {
             m_animationStartTime = lastAnimation.m_animationStartTime;
         }
     }
-    
+
     /**
      * Retrieves the next sprite that needs to be drawn.
      * @return the next sprite in the animation.
      */
+    @Override
     public BufferedImage getSpriteToDraw() {
         BufferedImage spriteToDraw = null;
         updateAnimationValues();
@@ -55,26 +56,31 @@ public class Animation {
         }
         return spriteToDraw;
     }
-    
+
+    @Override
+    public Animation copy() {
+        return new Animation(this);
+    }
+
     public boolean isDone() {
         return m_isDone;
     }
-    
+
     public void setAnimationDuration(long durationNs) {
         if (durationNs > 0) {
             m_animationDuration = durationNs;
         }
     }
-    
+
     public void start() {
         m_animationStartTime = System.nanoTime();
         m_isDone = false;
     }
-    
+
     public void setRepeatingAnimation() {
         m_isRepeating = true;
     }
-    
+
     public void setSingleAnimation() {
         m_isRepeating = false;
     }
@@ -88,11 +94,8 @@ public class Animation {
 
     private void updateAnimationValues() {
         long currentTime = System.nanoTime();
-        if (!m_isRepeating && currentTime - m_animationStartTime >= m_animationDuration) {
-            int a = 0;
-        }
         m_isDone = !m_isRepeating && currentTime - m_animationStartTime >= m_animationDuration;
-        
+
         if (!m_isDone) {
             refreshAnimationStartTime();
             m_currentSpriteIndex = (int) ((currentTime - m_animationStartTime) * m_spriteCount / m_animationDuration);
@@ -101,7 +104,7 @@ public class Animation {
             m_currentSpriteIndex = 0;
         }
     }
-    
+
     private boolean m_isRepeating;
     private boolean m_isDone;
     private long m_animationDuration;       // Represents the duration of the animation

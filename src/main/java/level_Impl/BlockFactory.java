@@ -16,7 +16,8 @@ public class BlockFactory {
             case DeathBlock -> new DeathBlock();
             case Wall -> new Wall();
             case Bomb -> new Bomb();
-            case OnBlock -> new OnBlock();
+            case OnBlock -> new OnOffBlock(true);
+            case OffBlock -> new OnOffBlock(false);
             default -> null;
         };
     }

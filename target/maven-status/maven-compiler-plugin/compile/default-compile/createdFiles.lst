@@ -31,6 +31,7 @@ game_Impl\gameStates\ShowMenuState$MenuSettings.class
 entity_Interfaces\EntityNames.class
 entity_Impl\Monsters\MonsterEntities\Fuzzy.class
 common\stateMachine\StateAbs.class
+level_Impl\Blocks\OnOffBlock.class
 entity_Interfaces\CollectableType.class
 entity_Interfaces\Speed.class
 common\stateMachine\StateMachineAbs.class
@@ -79,8 +80,8 @@ common\AgentAbs.class
 entity_Impl\Monsters\MonsterEntities\Muncher.class
 game_Impl\gameStates\RunLevelState.class
 ui_Interfaces\DisplayServiceIfc.class
-level_Impl\Blocks\OnBlock.class
 entity_Impl\Monsters\Behaviors\ExplosionBehaviors\ExplosionBehaviorIfc.class
+level_Impl\Blocks\OnOffBlockAbs.class
 level_Interfaces\LevelNames$Services.class
 level_Impl\Stage.class
 common\Direction.class

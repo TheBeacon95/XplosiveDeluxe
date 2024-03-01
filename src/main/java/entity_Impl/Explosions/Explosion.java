@@ -14,9 +14,9 @@ public class Explosion extends StillEntityAbs implements ExplosionIfc {
     public Explosion(Coordinates position, ExplosionType type) {
         super(position);
         m_type = type;
-        m_animation = new Animation(s_animation);
+        m_animation = s_animation.copy();
     }
-    
+
     @Override
     public void explode(ExplosionIfc explosion) {
         // Do nothing
@@ -31,14 +31,14 @@ public class Explosion extends StillEntityAbs implements ExplosionIfc {
     protected BufferedImage getSpriteToDraw() {
         return m_animation.getSpriteToDraw();
     }
-    
+
     @Override
     protected final void onUpdate() {
         if (m_animation.isDone()) {
             die();
         }
     }
-    
+
     @Override
     public void collide(EntityAbs otherEntity) {
         otherEntity.explode(this);
@@ -48,7 +48,7 @@ public class Explosion extends StillEntityAbs implements ExplosionIfc {
     public ExplosionType getType() {
         return m_type;
     }
-    
+
     public static void loadSprites() {
         s_animation = loadAnimation("Sprites/Explosions/Normal");
         s_animation.setAnimationDuration(LIFE_SPAN);

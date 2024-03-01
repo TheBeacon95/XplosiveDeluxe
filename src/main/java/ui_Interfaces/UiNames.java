@@ -7,5 +7,6 @@ public class UiNames {
         public final static String ScreenService = "ScreenService";
         public final static String InputService = "InputService";
         public final static String DisplayService = "DisplayService";
+        public final static String AnimationManagementService = "AnimationManagementService";
     }
 }

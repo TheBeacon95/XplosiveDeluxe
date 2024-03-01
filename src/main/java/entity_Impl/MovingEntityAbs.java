@@ -48,6 +48,10 @@ public abstract class MovingEntityAbs extends EntityAbs {
         return m_isStalled;
     }
 
+    public final boolean isIdle() {
+        return m_isIdle;
+    }
+
     @Override
     protected final BufferedImage getSpriteToDraw() {
         if (m_isDieing) {
@@ -175,7 +179,7 @@ public abstract class MovingEntityAbs extends EntityAbs {
      * Gets the direction the entity is facing.
      * @return
      */
-    protected abstract Direction getDisplayDirection();
+    public abstract Direction getDisplayDirection();
 
     private boolean m_isIdle;
     private boolean m_isStalled;

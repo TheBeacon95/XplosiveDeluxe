@@ -16,7 +16,7 @@ public abstract class CollectableAbs extends StillEntityAbs {
         m_deathDuration = 0;
         m_type = type;
         setDefaultAnimation("Sprites/Collectables/" + m_type.name());
-        m_deathAnimation = new Animation(m_defaultAnimation);
+        m_deathAnimation = m_defaultAnimation.copy();
         m_creationTime = System.nanoTime();
     }
 

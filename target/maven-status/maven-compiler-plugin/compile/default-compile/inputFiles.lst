@@ -1,4 +1,5 @@
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\MovingEntityAbs.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\Blocks\OnOffBlockAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\LevelManagementService.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\EntityNames.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\SpecialBehaviors\SpecialBehaviorAbs.java
@@ -7,6 +8,7 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Monster
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\EntityIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Interfaces\GameManagementServiceIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Players\PlayerFactory.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\Blocks\OffBlock.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Explosions\Explosion.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\ExplosionBehaviors\DieBehavior.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Interfaces\GameMode.java
@@ -59,7 +61,6 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\Direction.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\ExplosionType.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\BombType.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\stateMachine\TransitionAbs.java
-C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\Blocks\OnBlock.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Collectables\RandomCollectablePicker.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\MonsterEntities\Ninja.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\AgentAbs.java
@@ -67,6 +68,7 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\ServiceIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\MonsterEntities\Ghost.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Players\Player.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\EntityManagementServiceIfc.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\Blocks\OnOffBlock.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\MovementBehaviors\RandomMovement.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\StillEntityAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\mainApplication\Main.java

@@ -1,11 +1,11 @@
 package entity_Impl.Monsters;
 
+import common.*;
+import entity_Impl.*;
 import entity_Impl.Monsters.Behaviors.CollisionBehaviors.CollisionBehaviorAbs;
 import entity_Impl.Monsters.Behaviors.ExplosionBehaviors.ExplosionBehaviorIfc;
 import entity_Impl.Monsters.Behaviors.MovementBehaviors.MovementBehaviorAbs;
 import entity_Impl.Monsters.Behaviors.SpecialBehaviors.SpecialBehaviorAbs;
-import common.*;
-import entity_Impl.*;
 import entity_Interfaces.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public abstract class MonsterAbs extends MovingEntityAbs implements MonsterIfc {
             specialBehavior.start();
         }
     }
-    
+
     @Override
     public final void explode(ExplosionIfc explosion) {
         m_explosionBehavior.onExplode(this, explosion);
@@ -39,7 +39,7 @@ public abstract class MonsterAbs extends MovingEntityAbs implements MonsterIfc {
     protected boolean canBeKilled() {
         return true;
     }
-    
+
     @Override
     public final void collide(EntityAbs otherEntity) {
         if (!isStalled()) {
@@ -61,33 +61,33 @@ public abstract class MonsterAbs extends MovingEntityAbs implements MonsterIfc {
     }
 
     @Override
-    protected final Direction getDisplayDirection() {
+    public final Direction getDisplayDirection() {
         return m_direction == Direction.NoDirection ? Direction.Down : m_direction;
     }
-    
+
     @Override
     protected final void act() {
         for (SpecialBehaviorAbs specialBehavior: m_specialBehaviors) {
             specialBehavior.perform(this);
         }
     }
-    
+
     protected void setMovementBehavior(MovementBehaviorAbs movementBehavior) {
         m_movementBehavior = movementBehavior;
     }
-    
+
     protected void addSpecialBehavior(SpecialBehaviorAbs specialBehavior) {
         m_specialBehaviors.add(specialBehavior);
     }
-    
+
     protected void setCollisionBehavior(CollisionBehaviorAbs collisionBehavior) {
         m_collisionBehaviors.add(collisionBehavior);
     }
-    
+
     protected void setExplosionBehavior(ExplosionBehaviorIfc explosionBehavior) {
         m_explosionBehavior = explosionBehavior;
     }
-    
+
     protected MovementBehaviorAbs m_movementBehavior;
     protected List<SpecialBehaviorAbs> m_specialBehaviors;
     protected List<CollisionBehaviorAbs> m_collisionBehaviors;

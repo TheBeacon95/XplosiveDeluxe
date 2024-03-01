@@ -109,7 +109,7 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
     }
 
     @Override
-    protected Direction getDisplayDirection() {
+    public Direction getDisplayDirection() {
         return m_facingDirection;
     }
 
