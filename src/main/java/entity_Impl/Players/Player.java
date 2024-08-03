@@ -13,7 +13,7 @@ import ui_Interfaces.*;
 public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIfc {
 
     public Player(String playerId, Coordinates position, int lifeCount, String skinPath) {
-        super(position, skinPath);
+        super(position);
         m_playerId = playerId;
         m_status = new PlayerStatus(lifeCount);
         m_controls = new PlayerControls();
@@ -154,6 +154,11 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
         if (m_status.getEffect() != PlayerEffect.None && System.nanoTime() >= m_effectEndTime) {
             m_status.setEffect(PlayerEffect.None);
         }
+    }
+
+    @Override
+    public void setupAnimation(String folderPath) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     private final String m_playerId;

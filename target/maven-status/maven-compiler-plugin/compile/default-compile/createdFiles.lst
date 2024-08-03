@@ -8,6 +8,8 @@ common\ServiceManager.class
 common\stateMachine\TransitionAbs$1.class
 level_Impl\Blocks\Wall.class
 entity_Interfaces\PlayerStatusIfc.class
+ui_Interfaces\AnimationManagementServiceIfc.class
+common\AnimationMaker.class
 ui_Interfaces\UiNames$Services.class
 entity_Impl\Monsters\Behaviors\MovementBehaviors\BrickEaterMovement.class
 ui_Interfaces\ScreenServiceIfc.class
@@ -17,6 +19,7 @@ level_Interfaces\BombListenerIfc.class
 common\Animation.class
 entity_Interfaces\MonsterIfc.class
 entity_Impl\Monsters\Behaviors\SpecialBehaviors\SpecialBehaviorAbs.class
+entity_Impl\Players\PlayerAnimationGroup.class
 entity_Impl\StillEntityAbs.class
 entity_Impl\Monsters\MonsterFactory$1.class
 game_Impl\GameStateMachine$1.class
@@ -24,6 +27,7 @@ level_Impl\Blocks\Bomb.class
 entity_Impl\Monsters\Behaviors\MovementBehaviors\MovementBehaviorAbs.class
 entity_Impl\Collectables\LifePlus.class
 entity_Interfaces\PlayerControls.class
+common\AnimationGroupAbs.class
 ui_Interfaces\InputServiceIfc.class
 ui_Impl\KeyHandler$1.class
 entity_Interfaces\EntityIfc.class
@@ -98,6 +102,7 @@ level_Impl\RandomLevelGenerator.class
 entity_Impl\Monsters\MonsterEntities\Bacteria.class
 entity_Impl\Monsters\MonsterEntities\Spider.class
 entity_Impl\Monsters\Behaviors\MovementBehaviors\RandomMovement.class
+entity_Impl\Players\PlayerAnimationGroup$1.class
 game_Impl\gameStates\LoadLevelState.class
 level_Impl\Blocks\DeathBlock.class
 common\ModuleAbs.class
@@ -116,12 +121,15 @@ level_Interfaces\StageManagementServiceIfc.class
 common\WeightedList.class
 level_Interfaces\LevelManagementServiceIfc.class
 common\Coordinates.class
+common\AnimationIfc.class
 entity_Impl\Players\Player.class
 entity_Impl\Monsters\MonsterEntities\Ghost.class
 entity_Impl\Monsters\MonsterEntities\Ninja.class
 game_Impl\gameStates\LoadLevelState$LoadLevelThreadRunner.class
 entity_Impl\Monsters\Behaviors\SpecialBehaviors\EatBricksBehavior.class
 game_Impl\GameStateMachine.class
+ui_Impl\AnimationManagementService.class
 level_Interfaces\BlockType.class
+entity_Impl\MovingEntityAnimationGroup.class
 common\TimeUtil.class
 entity_Impl\Monsters\Behaviors\SpecialBehaviors\RandomStallingBehavior.class

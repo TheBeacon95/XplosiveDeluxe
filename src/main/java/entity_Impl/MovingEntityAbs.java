@@ -3,14 +3,8 @@ package entity_Impl;
 import common.*;
 import entity_Interfaces.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import level_Interfaces.*;
 
 /**
@@ -20,13 +14,11 @@ import level_Interfaces.*;
 public abstract class MovingEntityAbs extends EntityAbs {
 
     public MovingEntityAbs(Coordinates position, String skinPath) {
-        super(position);
+        super(position, skinPath);
         m_idleAnimations = new HashMap<>();
         m_movementAnimations = new HashMap<>();
         m_isIdle = true;
         m_movementService = (MovementServiceIfc) ServiceManager.getService(LevelNames.Services.MovementService);
-
-        setupAnimations(skinPath);
     }
 
     public final void Teleport(Coordinates newPosition) {
@@ -57,14 +49,9 @@ public abstract class MovingEntityAbs extends EntityAbs {
         if (m_isDieing) {
             return m_deathAnimation.getSpriteToDraw();
         }
-        Direction displayDirection = getDisplayDirection();
-        Animation animationToUse = m_isIdle ? m_idleAnimations.get(displayDirection) : m_movementAnimations.get(displayDirection);
-        if (m_lastAnimation != null && m_lastAnimation != animationToUse) {
-            animationToUse.continueFromAnimation(m_lastAnimation);
+        else {
+            return m_animation.getSpriteToDraw();
         }
-        BufferedImage spriteToUse = animationToUse.getSpriteToDraw();
-        m_lastUsedAnimationSprite = spriteToUse;
-        return spriteToUse;
     }
 
     @Override
@@ -79,62 +66,10 @@ public abstract class MovingEntityAbs extends EntityAbs {
         }
     }
 
-    public final void setupAnimations(String skinPath) {
-        m_skinPath = skinPath;
-        m_idleAnimations.put(Direction.Up, createAnimation(true, Direction.Up));
-        m_idleAnimations.put(Direction.Right, createAnimation(true, Direction.Right));
-        m_idleAnimations.put(Direction.Down, createAnimation(true, Direction.Down));
-        m_idleAnimations.put(Direction.Left, createAnimation(true, Direction.Left));
-        m_movementAnimations.put(Direction.Up, createAnimation(false, Direction.Up));
-        m_movementAnimations.put(Direction.Right, createAnimation(false, Direction.Right));
-        m_movementAnimations.put(Direction.Down, createAnimation(false, Direction.Down));
-        m_movementAnimations.put(Direction.Left, createAnimation(false, Direction.Left));
-
-        m_deathAnimation = createDeathAnimation();
-
-        try {
-            m_lastUsedAnimationSprite = ImageIO.read(getClass().getClassLoader().getResourceAsStream(skinPath + "Idle_Down_0.png"));
-        }
-        catch (IOException ex) {
-            Logger.getLogger(MovingEntityAbs.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     protected abstract Speed getSpeed();
 
     protected void act() {
         // Do nothing.
-    }
-
-    private Animation createAnimation(boolean isIdleAnimation, Direction direction) {
-        String idleString = isIdleAnimation ? "Idle" : "Moving";
-        String spriteFilePath = m_skinPath + idleString + "_" + direction;
-        ArrayList<BufferedImage> sprites = new ArrayList<>();
-        int i = 0;
-//        spriteFilePath += "_" + i + ".png";
-        InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(spriteFilePath + "_" + i + ".png");
-        while (resourceStream != null) {
-            BufferedImage nextUpSprite = load(resourceStream);
-            sprites.add(nextUpSprite);
-            i++;
-            resourceStream = getClass().getClassLoader().getResourceAsStream(spriteFilePath + "_" + i + ".png");
-        }
-        return new Animation(sprites);
-    }
-
-    private Animation createDeathAnimation() {
-        int i = 0;
-        String spriteFilePath = m_skinPath + "Death_";
-        ArrayList<BufferedImage> sprites = new ArrayList<>();
-//        spriteFilePath += i + ".png";
-        InputStream resourceStream = getClass().getClassLoader().getResourceAsStream(spriteFilePath + i + ".png");
-        while (new File(spriteFilePath).exists()) {
-            BufferedImage nextDeathSprite = load(resourceStream);
-            sprites.add(nextDeathSprite);
-            i++;
-            resourceStream = getClass().getClassLoader().getResourceAsStream(spriteFilePath + i + ".png");
-        }
-        return new Animation(sprites);
     }
 
     private void tryMove() {
@@ -185,15 +120,18 @@ public abstract class MovingEntityAbs extends EntityAbs {
     private boolean m_isStalled;
     private long m_stallStartTime;
     private long m_stallDuration;
-    private Animation m_lastAnimation;
-    private BufferedImage m_lastUsedAnimationSprite;
-    private String m_skinPath;
 
-//    protected int m_speed;
     private static final int STEP_SIZE = 1;
     private int m_framesSinceLastMovement;
     protected final HashMap<Direction, Animation> m_idleAnimations;
     protected final HashMap<Direction, Animation> m_movementAnimations;
 
     protected MovementServiceIfc m_movementService;
+
+    //
+
+    public final void setAnimation(AnimationIfc animation) {
+        m_animation = animation;
+    }
+    private AnimationIfc m_animation;
 }

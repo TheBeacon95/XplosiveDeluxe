@@ -4,21 +4,28 @@ import common.*;
 import entity_Impl.*;
 import entity_Interfaces.*;
 import java.awt.image.BufferedImage;
+import ui_Interfaces.*;
 
 /**
  *
  * @author Yanick
  */
 public class PlayerAnimationGroup extends AnimationGroupAbs {
-    private final PlayerIfc m_player;
-    private final PlayerStatusIfc m_playerStatus;
+    private PlayerIfc m_player;
+    private PlayerStatusIfc m_playerStatus;
+    private final static String GROUP_NAME = "PlayerAnimationGroup";
+    private final AnimationManagementServiceIfc m_animationManagementService;
 
-    public PlayerAnimationGroup(PlayerIfc player) {
+    public PlayerAnimationGroup() {
+        m_animationManagementService = ((AnimationManagementServiceIfc) ServiceManager.getService(UiNames.Services.AnimationManagementService));
+    }
+
+    public void attachPlayer(PlayerIfc player) {
         m_player = player;
         m_playerStatus = player.getStatus();
     }
 
-    public void setAnimationGroup(PlayerEffect effect, MovingEntityAnimationGroup animationGroup) {
+    private void setAnimationGroup(PlayerEffect effect, EntityAnimationGroup animationGroup) {
         add(effect.name(), animationGroup);
     }
 
@@ -35,18 +42,20 @@ public class PlayerAnimationGroup extends AnimationGroupAbs {
                 continue;
             }
 
-            MovingEntityAnimationGroup animationGroup = new MovingEntityAnimationGroup((MovingEntityAbs) m_player);
+            EntityAnimationGroup animationGroup = new EntityAnimationGroup();
+//            animationGroup.attachPlayer((MovingEntityAbs) m_player);
+            animationGroup.setSprites(folderPath + "/" + effect.name());
             setAnimationGroup(effect, animationGroup);
         }
 
-        // TODO: implement adding animations to the service.
-//        m_animationManagementService.setAnimation(GROUP_NAME + "_" + folderPath, this);
+        m_animationManagementService.setAnimation(GROUP_NAME + "_" + folderPath, copy());
     }
 
     @Override
-    public MovingEntityAnimationGroup copy() {
-        // TODO: implement adding animations to the service.
-        return null;
+    public PlayerAnimationGroup copy() {
+        PlayerAnimationGroup copy = new PlayerAnimationGroup();
+        insertCopies(copy);
+        return copy;
     }
 
     private boolean hasAnimation(PlayerEffect effect) {
