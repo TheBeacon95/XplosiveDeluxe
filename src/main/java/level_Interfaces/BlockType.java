@@ -11,4 +11,5 @@ public enum BlockType {
     Bomb,
     OnBlock,
     OffBlock,
+    InvisibleBlock
 }

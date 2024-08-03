@@ -18,6 +18,7 @@ public class BlockFactory {
             case Bomb -> new Bomb();
             case OnBlock -> new OnOffBlock(true);
             case OffBlock -> new OnOffBlock(false);
+            case InvisibleBlock -> new InvisibleBlock();
             default -> null;
         };
     }
