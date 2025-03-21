@@ -119,7 +119,9 @@ public abstract class MovingEntityAbs extends EntityAbs {
             i++;
             resourceStream = getClass().getClassLoader().getResourceAsStream(spriteFilePath + "_" + i + ".png");
         }
-        return new Animation(sprites);
+        Animation myAnimation = new Animation(sprites);
+        myAnimation.setAnimationDuration(500 * 1000 * 1000);
+        return myAnimation;
     }
 
     private Animation createDeathAnimation() {

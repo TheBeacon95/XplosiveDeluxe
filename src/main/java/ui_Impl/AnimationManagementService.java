@@ -36,6 +36,11 @@ public final class AnimationManagementService implements AnimationManagementServ
     }
 
     @Override
+    public void clearAnimations() {
+        m_animations.clear();
+    }
+
+    @Override
     public String getId() {
         return UiNames.Services.AnimationManagementService;
     }

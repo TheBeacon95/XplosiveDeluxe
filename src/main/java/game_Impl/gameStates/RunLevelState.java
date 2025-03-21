@@ -24,9 +24,9 @@ public class RunLevelState extends StateAbs {
         m_displayService = (DisplayServiceIfc) ServiceManager.getService(UiNames.Services.DisplayService);
 
 //        RandomLevelGenerator generator = new RandomLevelGenerator();
-//        generator.setBlockDensity(5);
+//        generator.setBlockDensity(7);
 //        generator.setMonsterDensity(1);
-//        generator.addMonsterType(MonsterType.Spider);
+//        generator.addMonsterType(MonsterType.Fuzzy);
 //        m_stageManagementService.setStage(generator.generateRandomLevel());
         Level level = new Level();
         level.setupTestLevel();
@@ -41,6 +41,7 @@ public class RunLevelState extends StateAbs {
             m_entityManagementService.updateEntities();
 
             m_displayService.draw();
+            m_displayService.waitForDrawing();
         }
     }
 
