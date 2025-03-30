@@ -15,6 +15,7 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Monster
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Collectables\Shield.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\BombListenerIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\BlockType.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\Blocks\InvisibleBlock.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\stateMachine\StateMachineAbs.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\MonsterIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\SpecialBehaviors\EatBricksBehavior.java
