@@ -64,9 +64,9 @@ public class GameManagerAgent extends AgentAbs implements Runnable {
     private void update() {
         m_stateMachine.run();
     }
-    
+
     private Thread m_gameThread;
     private GameStateMachine m_stateMachine;
-    
-    private static final double FPS = 240;
+
+    private static final double FPS = 60;
 }

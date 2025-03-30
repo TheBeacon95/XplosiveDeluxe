@@ -1,26 +1,24 @@
 package ui_Impl;
 
-import level_Interfaces.LevelNames;
-import level_Interfaces.StageManagementServiceIfc;
 import common.ServiceManager;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
 import javax.swing.JPanel;
-
-import ui_Interfaces.ScreenServiceIfc;
-import ui_Interfaces.UiNames;
+import level_Interfaces.*;
+import ui_Interfaces.*;
 
 public class GamePanel extends JPanel {
 
     private ScreenServiceIfc m_screenService;
+    private DisplayServiceIfc m_displayService;
     private int x, y;
     private KeyHandler m_keyHandler;
 
     public GamePanel() {
-        m_screenService = (ScreenService) ServiceManager.getService(UiNames.Services.ScreenService);
+        m_screenService = (ScreenServiceIfc) ServiceManager.getService(UiNames.Services.ScreenService);
+        m_displayService = (DisplayServiceIfc) ServiceManager.getService(UiNames.Services.DisplayService);
         setPreferredSize(new Dimension(m_screenService.getStageWidth(), m_screenService.getStageHeight()));
         setBackground(Color.black);
         setDoubleBuffered(true);
@@ -41,5 +39,6 @@ public class GamePanel extends JPanel {
             stageManagementService.draw(g2);
         }
         g2.dispose();
+        m_displayService.notifyDrawingDone();
     }
 }

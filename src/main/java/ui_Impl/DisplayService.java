@@ -1,5 +1,7 @@
 package ui_Impl;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import ui_Interfaces.DisplayServiceIfc;
 import ui_Interfaces.KeyHandlerIfc;
@@ -36,15 +38,37 @@ public final class DisplayService implements DisplayServiceIfc {
 
         m_window.setLocationRelativeTo(null);
         m_window.setVisible(true);
+
+        m_syncDrawing = new Object();
     }
-    
+
     @Override
     public void attachKeyHandler(KeyHandlerIfc keyHandler) {
         if (m_gamePanel != null) {
             m_gamePanel.addKeyListener(keyHandler);
         }
     }
-    
+
+    @Override
+     public void waitForDrawing() {
+        try {
+            synchronized (m_syncDrawing) {
+                m_syncDrawing.wait();
+            }
+        }
+        catch (InterruptedException ex) {
+            Logger.getLogger(DisplayService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void notifyDrawingDone() {
+        synchronized (m_syncDrawing) {
+            m_syncDrawing.notify();
+        }
+    }
+
     private GamePanel m_gamePanel;
     private JFrame m_window;
+    private Object m_syncDrawing;
 }
