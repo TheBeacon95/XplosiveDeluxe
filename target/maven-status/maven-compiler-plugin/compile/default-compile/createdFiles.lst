@@ -107,6 +107,7 @@ entity_Impl\MovingEntityAbs.class
 entity_Impl\EntityManagementService.class
 entity_Impl\Collectables\CollectableFactory$1.class
 ui_Interfaces\UiNames.class
+level_Impl\RandomLevelGenerator$LevelElement.class
 entity_Impl\Monsters\MonsterAbs.class
 entity_Interfaces\PlayerIfc.class
 level_Impl\BlockAbs.class

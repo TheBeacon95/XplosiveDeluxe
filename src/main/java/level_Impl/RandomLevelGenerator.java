@@ -51,27 +51,32 @@ public class RandomLevelGenerator {
 
     public Level generateRandomLevel() {
         Level generatedLevel = new Level();
+
+        WeightedList<LevelElement> weightedList = new WeightedList();
+        weightedList.addItem(LevelElement.Block, m_blockDensity * 2);
+        weightedList.addItem(LevelElement.Monster, m_monsterDensity);
+        weightedList.addItem(LevelElement.Empty, EMPTY_SPACE_WEIGHT);
+
         for (int row = 1; row < m_maxRow; row++) {
             for (int column = 1; column < m_maxColumn; column++) {
                 Coordinates cell = new Coordinates(column, row);
-                randomlySetObjects(generatedLevel, cell);
+                randomlySetObjects(generatedLevel, weightedList, cell);
             }
         }
         setPlayers(generatedLevel);
         return generatedLevel;
     }
 
-    private void randomlySetObjects(Level level, Coordinates cell) {
+    private void randomlySetObjects(Level level, WeightedList<LevelElement> weightedList, Coordinates cell) {
         if (isCellBlocked(cell)) {
             return;
         }
-        boolean canSetBlock = m_random.nextInt(12) < m_blockDensity;
-        boolean canSetMonster = !canSetBlock && !m_monsterTypes.isEmpty() && m_random.nextInt(30) < m_monsterDensity;
 
-        if (canSetBlock) {
+        LevelElement randomElement = weightedList.getRandomItem();
+        if (randomElement == LevelElement.Block) {
             level.setBlock(BlockType.Brick, cell);
         }
-        else if (canSetMonster) {
+        else if (randomElement == LevelElement.Monster) {
             level.setMonster(m_monsterTypes.get(m_random.nextInt(m_monsterTypes.size())), cell);
         }
     }
@@ -106,7 +111,6 @@ public class RandomLevelGenerator {
         Player4Space1 = new Coordinates(m_maxColumn - 1, 1);
         Player4Space2 = new Coordinates(m_maxColumn - 1, 2);
         Player4Space3 = new Coordinates(m_maxColumn - 2, 1);
-
     }
 
     private int m_blockDensity;
@@ -123,6 +127,7 @@ public class RandomLevelGenerator {
     private final static int MAX_BLOCK_DENSITY = 9;
     private final static int MIN_MONSTER_DENSITY = 0;
     private final static int MAX_MONSTER_DENSITY = 9;
+    private final static int EMPTY_SPACE_WEIGHT = 16;
 
     private Coordinates Player1Space1;
     private Coordinates Player1Space2;
@@ -136,6 +141,12 @@ public class RandomLevelGenerator {
     private Coordinates Player4Space1;
     private Coordinates Player4Space2;
     private Coordinates Player4Space3;
+
+    private enum LevelElement {
+        Empty,
+        Block,
+        Monster
+    }
 
     private void setPlayers(Level level) {
         level.setPlayer("Player_1", Player1Space1);
