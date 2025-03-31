@@ -15,7 +15,6 @@ public final class Ghost extends MonsterAbs {
 
     public Ghost(Coordinates position) {
         super(position, MonsterType.Ghost);
-        // Todo: create behaviors
         setMovementBehavior(new HostileMovement());
         setCollisionBehavior(new KillPlayerBehavior());
         setExplosionBehavior(new DieBehavior());

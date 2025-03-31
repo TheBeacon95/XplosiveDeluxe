@@ -15,7 +15,6 @@ public final class Phantom extends MonsterAbs {
 
     public Phantom(Coordinates position) {
         super(position, MonsterType.Phantom);
-        // Todo: create behaviors
         setMovementBehavior(new HostileMovement());
         setCollisionBehavior(new KillPlayerBehavior());
         setExplosionBehavior(new DieBehavior());

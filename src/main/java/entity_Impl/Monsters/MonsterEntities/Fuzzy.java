@@ -17,7 +17,6 @@ public final class Fuzzy extends MonsterAbs {
 
     public Fuzzy(Coordinates position) {
         super(position, MonsterType.Fuzzy);
-        // Todo: create behaviors
         setMovementBehavior(new HostileMovement());
         setCollisionBehavior(new KillPlayerBehavior());
         setExplosionBehavior(new DieBehavior());
@@ -31,7 +30,7 @@ public final class Fuzzy extends MonsterAbs {
         float distanceToClosestPlayer = Coordinates.getDistance(m_globalPosition, m_entityManagementService.getClosestPlayerPosition(m_globalPosition));
         return distanceToClosestPlayer > THRESHHOLD ? Speed.NormalMonster : Speed.DefaultPlayer;
     }
-    
+
     private final EntityManagementServiceIfc m_entityManagementService;
     private final float THRESHHOLD;
 }

@@ -15,7 +15,6 @@ public final class Bacteria extends MonsterAbs {
 
     public Bacteria(Coordinates position) {
         super(position, MonsterType.Bacteria);
-        // Todo: create behaviors
         setMovementBehavior(new HostileMovement());
         setCollisionBehavior(new KillPlayerBehavior());
         setExplosionBehavior(new DieBehavior());
