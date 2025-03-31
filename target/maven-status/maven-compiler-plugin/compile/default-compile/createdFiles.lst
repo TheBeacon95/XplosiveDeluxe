@@ -50,6 +50,7 @@ common\Coordinates$1.class
 entity_Interfaces\MonsterType.class
 common\Time.class
 level_Impl\ModuleImpl.class
+level_Impl\Blocks\OnOffSwitch$SwitchType.class
 game_Impl\GameManagerAgent.class
 level_Interfaces\BombType.class
 level_Interfaces\MovementServiceIfc.class
@@ -91,6 +92,7 @@ ui_Impl\ModuleImpl.class
 entity_Impl\Collectables\Shield.class
 ui_Impl\KeyHandler.class
 level_Impl\StageManagementService.class
+level_Impl\Blocks\OnOffSwitch.class
 level_Impl\MovementService.class
 level_Interfaces\Level.class
 ui_Impl\ScreenService.class

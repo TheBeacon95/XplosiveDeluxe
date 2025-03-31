@@ -18,6 +18,9 @@ public class BlockFactory {
             case Bomb -> new Bomb();
             case OnBlock -> new OnOffBlock(true);
             case OffBlock -> new OnOffBlock(false);
+            case OnSwitch -> new OnOffSwitch(OnOffSwitch.SwitchType.OnSwitch);
+            case OffSwitch -> new OnOffSwitch(OnOffSwitch.SwitchType.OffSwitch);
+            case OnOffSwitch -> new OnOffSwitch(OnOffSwitch.SwitchType.OnOffSwitch);
             case InvisibleBlock -> new InvisibleBlock();
             default -> null;
         };

@@ -146,7 +146,6 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
 
         if (isFirePressed && areBombsAvailable) {
             m_stageManagementService.placeBomb(BombType.FireBomb, getGridPosition(), m_status.getStrength(), this);
-            m_stageManagementService.toggleOnOffState();
         }
     }
 
