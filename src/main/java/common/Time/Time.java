@@ -1,4 +1,6 @@
-package common;
+package common.Time;
+
+import common.Duration;
 
 /**
  *
