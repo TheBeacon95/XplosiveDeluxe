@@ -14,21 +14,18 @@ public class TimerManager {
         m_unpausableTimers = new HashMap<>();
     }
 
-    void startTimer(int m_id) {
+    void startTimer(Timer timer) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    int registerPausable(Timer timer, Duration duration) {
-        m_pausableTimers.put(m_pausableTimersCount++, duration);
+    void registerPausable(Timer timer, Duration duration) {
+        m_pausableTimers.put(timer, duration);
     }
 
-    int registerUnpausable(Timer aThis, Duration duration) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    void registerUnpausable(Timer timer, Duration duration) {
+        m_unpausableTimers.put(timer, duration);
     }
 
-    private final HashMap<Integer, Duration> m_pausableTimers;
-    private final HashMap<Integer, Duration> m_unpausableTimers;
-
-    private int m_pausableTimersCount;
-    private int m_unpausableTimersCount;
+    private final HashMap<Timer, Duration> m_pausableTimers;
+    private final HashMap<Timer, Duration> m_unpausableTimers;
 }
