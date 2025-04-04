@@ -1,5 +1,6 @@
 package game_Impl.gameStates;
 
+import game_Impl.gameStates.Level.LevelStateMachine;
 import common.ServiceManager;
 import common.stateMachine.StateAbs;
 import entity_Interfaces.*;
@@ -36,6 +37,23 @@ public class RunLevelState extends StateAbs {
 
     @Override
     public void run() {
+        /* There should be an internal State Machine:
+         * - Level warm up state: The level goes from black to being there.
+         *      When it's done it goes to the play level state.
+         *
+         * - Play level state: The players and monsters etc. start moving.
+         *      This state can be exited to the pause state or to the win state or lose state (for combative it's a win state)
+         *      The order of things is:
+         *      1. Move all entities.
+         *      2. Check all collisions.
+         *      3. Perform all actions.
+         *      4. Redraw.
+         *
+         * - Ppause state: Shows the players a menu screen.
+         *      The menu can be left by either quitting or resuming.
+         *
+         * - Win/lose states: self explanarory.
+         */
         if (m_stageManagementService.isReady()) {
             m_stageManagementService.updateStage();
             m_entityManagementService.updateEntities();
@@ -45,6 +63,8 @@ public class RunLevelState extends StateAbs {
     }
 
     public static final String STATE_NAME = "RunLevelState";
+
+    private LevelStateMachine m_statemachine;
 
     private StageManagementServiceIfc m_stageManagementService;
     private EntityManagementServiceIfc m_entityManagementService;
