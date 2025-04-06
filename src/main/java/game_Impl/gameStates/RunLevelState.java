@@ -1,9 +1,10 @@
 package game_Impl.gameStates;
 
-import game_Impl.gameStates.Level.LevelStateMachine;
-import common.ServiceManager;
-import common.stateMachine.StateAbs;
+import common.*;
+import common.stateMachine.*;
 import entity_Interfaces.*;
+import game_Impl.StagePanel;
+import game_Impl.gameStates.Level.LevelStateMachine;
 import level_Interfaces.*;
 import ui_Interfaces.*;
 
@@ -23,6 +24,7 @@ public class RunLevelState extends StateAbs {
         m_stageManagementService = (StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService);
         m_entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
         m_displayService = (DisplayServiceIfc) ServiceManager.getService(UiNames.Services.DisplayService);
+        m_displayService.setPanel(new StagePanel());
 
 //        RandomLevelGenerator generator = new RandomLevelGenerator();
 //        generator.setBlockDensity(6);

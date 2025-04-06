@@ -6,11 +6,7 @@ import java.io.Serializable;
 import ui_Interfaces.KeyHandlerIfc;
 
 public class KeyHandler implements KeyHandlerIfc, Serializable {
-    
-    public KeyHandler() {
-        int i = 0;
-    }
-    
+
     @Override
     public Direction getPressedDirection() {
         // Todo: change this so that the newest direction is picked.
@@ -37,27 +33,27 @@ public class KeyHandler implements KeyHandlerIfc, Serializable {
     public boolean isFirePressed() {
         return m_isFirePressed;
     }
-    
+
     @Override
     public int upKey() {
         return m_upKey;
     }
-    
+
     @Override
     public int rightKey() {
         return m_rightKey;
     }
-    
+
     @Override
     public int downKey() {
         return m_downKey;
     }
-    
+
     @Override
     public int leftKey() {
         return m_leftKey;
     }
-    
+
     @Override
     public int fireKey() {
         return m_fireKey;
@@ -82,7 +78,7 @@ public class KeyHandler implements KeyHandlerIfc, Serializable {
     public void setFireKey(int fireKey) {
         m_fireKey = fireKey;
     }
-    
+
     @Override
     public void keyPressed(KeyEvent e) {
         Input input = convertKeyCodeToInput(e.getKeyCode());
@@ -139,9 +135,9 @@ public class KeyHandler implements KeyHandlerIfc, Serializable {
     private transient boolean m_isDownPressed;
     private transient boolean m_isLeftPressed;
     private transient boolean m_isFirePressed;
-    
+
     private transient Direction m_lastPressedDirection = Direction.NoDirection;
-    
+
     private int m_upKey = KeyEvent.VK_W;
     private int m_rightKey = KeyEvent.VK_D;
     private int m_downKey = KeyEvent.VK_S;

@@ -25,8 +25,6 @@ public class StageManagementService implements StageManagementServiceIfc {
         // Todo: put in low prio task so it can be loaded duric active.
         m_isReady = false;
         m_stage = new Stage(level);
-        // Todo: Move this
-        ((InputServiceIfc) ServiceManager.getService(UiNames.Services.InputService)).loadKeyInputs();
         createStage(level);
         // Todo: change this call
         MovementService.getInstance().setStage(m_stage);

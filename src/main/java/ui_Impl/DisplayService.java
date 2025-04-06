@@ -3,9 +3,7 @@ package ui_Impl;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import ui_Interfaces.DisplayServiceIfc;
-import ui_Interfaces.KeyHandlerIfc;
-import ui_Interfaces.UiNames;
+import ui_Interfaces.*;
 
 /**
  * This agent is responsible for creating and updating the game frame.
@@ -16,7 +14,9 @@ public final class DisplayService implements DisplayServiceIfc {
 
     @Override
     public synchronized void draw() {
-        m_gamePanel.repaint();
+        if (m_gamePanel != null) {
+            m_gamePanel.repaint();
+        }
     }
 
     @Override
@@ -31,7 +31,7 @@ public final class DisplayService implements DisplayServiceIfc {
         m_window.setResizable(false);
         m_window.setTitle("Xplosive Deluxe");
 
-        m_gamePanel = new GamePanel();
+        m_gamePanel = new GamePanelAbs() {};
         m_window.add(m_gamePanel);
 
         m_window.pack();
@@ -40,13 +40,6 @@ public final class DisplayService implements DisplayServiceIfc {
         m_window.setVisible(true);
 
         m_syncDrawing = new Object();
-    }
-
-    @Override
-    public void attachKeyHandler(KeyHandlerIfc keyHandler) {
-        if (m_gamePanel != null) {
-            m_gamePanel.addKeyListener(keyHandler);
-        }
     }
 
     @Override
@@ -68,7 +61,16 @@ public final class DisplayService implements DisplayServiceIfc {
         }
     }
 
-    private GamePanel m_gamePanel;
+    @Override
+    public void setPanel(GamePanelAbs gamePanel) {
+        m_window.remove(m_gamePanel);
+        m_gamePanel = gamePanel;
+        m_window.add(m_gamePanel);
+        m_gamePanel.requestFocusInWindow();
+        m_window.pack();
+    }
+
+    private GamePanelAbs m_gamePanel;
     private JFrame m_window;
     private Object m_syncDrawing;
 }

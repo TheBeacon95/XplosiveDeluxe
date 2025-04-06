@@ -1,15 +1,12 @@
 package ui_Impl;
 
-import common.ServiceManager;
-import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Logger;
 import level_Interfaces.Level;
-import ui_Interfaces.DisplayServiceIfc;
 import ui_Interfaces.InputServiceIfc;
 import ui_Interfaces.KeyHandlerIfc;
 import ui_Interfaces.UiNames;
@@ -39,7 +36,6 @@ public class InputService implements InputServiceIfc {
                 try (ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
                     keyHandler = (KeyHandler) objectInputStream.readObject();
                     m_playerHandlers.put("Player_" + i, keyHandler);
-                    ((DisplayServiceIfc) ServiceManager.getService(UiNames.Services.DisplayService)).attachKeyHandler(keyHandler);
                 }
             }
         }
@@ -58,64 +54,16 @@ public class InputService implements InputServiceIfc {
     }
 
     @Override
+    public List<KeyHandlerIfc> getAllPlayerInputs() {
+        if (m_playerHandlers.size() != 4) {
+            return null;
+        }
+        return new ArrayList<>(m_playerHandlers.values());
+    }
+
+    @Override
     public void initializeService() {
-//        KeyHandler keyHandler1 = new KeyHandler();
-//        keyHandler1.setUpKey(KeyEvent.VK_UP);
-//        keyHandler1.setRightKey(KeyEvent.VK_RIGHT);
-//        keyHandler1.setDownKey(KeyEvent.VK_DOWN);
-//        keyHandler1.setLeftKey(KeyEvent.VK_LEFT);
-//        keyHandler1.setFireKey(KeyEvent.VK_INSERT);
-//        
-//        KeyHandler keyHandler2 = new KeyHandler();
-//        keyHandler2.setUpKey(KeyEvent.VK_W);
-//        keyHandler2.setRightKey(KeyEvent.VK_D);
-//        keyHandler2.setDownKey(KeyEvent.VK_S);
-//        keyHandler2.setLeftKey(KeyEvent.VK_A);
-//        keyHandler2.setFireKey(KeyEvent.VK_SHIFT);
-//        
-//        KeyHandler keyHandler3 = new KeyHandler();
-//        keyHandler3.setUpKey(KeyEvent.VK_I);
-//        keyHandler3.setRightKey(KeyEvent.VK_L);
-//        keyHandler3.setDownKey(KeyEvent.VK_K);
-//        keyHandler3.setLeftKey(KeyEvent.VK_J);
-//        keyHandler3.setFireKey(KeyEvent.VK_BACK_SPACE);
-//        
-//        KeyHandler keyHandler4 = new KeyHandler();
-//        keyHandler4.setUpKey(KeyEvent.VK_G);
-//        keyHandler4.setRightKey(KeyEvent.VK_N);
-//        keyHandler4.setDownKey(KeyEvent.VK_B);
-//        keyHandler4.setLeftKey(KeyEvent.VK_V);
-//        keyHandler4.setFireKey(KeyEvent.VK_SPACE);
-//        
-//        FileOutputStream outputStream1;
-//        FileOutputStream outputStream2;
-//        FileOutputStream outputStream3;
-//        FileOutputStream outputStream4;
-//        try {
-//            outputStream1 = new FileOutputStream("C:\\Users\\Yanick\\GitHub\\XplosiveDeluxe\\src\\main\\resources\\KeyHandlers\\Player_1.xpd");
-//            outputStream2 = new FileOutputStream("C:\\Users\\Yanick\\GitHub\\XplosiveDeluxe\\src\\main\\resources\\KeyHandlers\\Player_2.xpd");
-//            outputStream3 = new FileOutputStream("C:\\Users\\Yanick\\GitHub\\XplosiveDeluxe\\src\\main\\resources\\KeyHandlers\\Player_3.xpd");
-//            outputStream4 = new FileOutputStream("C:\\Users\\Yanick\\GitHub\\XplosiveDeluxe\\src\\main\\resources\\KeyHandlers\\Player_4.xpd");
-//            try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream1)) {
-//                objectOutputStream.writeObject(keyHandler1);
-//                objectOutputStream.flush();
-//            }
-//            try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream2)) {
-//                objectOutputStream.writeObject(keyHandler2);
-//                objectOutputStream.flush();
-//            }
-//            try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream3)) {
-//                objectOutputStream.writeObject(keyHandler3);
-//                objectOutputStream.flush();
-//            }
-//            try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream4)) {
-//                objectOutputStream.writeObject(keyHandler4);
-//                objectOutputStream.flush();
-//            }
-//        }
-//        catch (Exception ex) {
-//            Logger.getLogger(Level.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
+        // Do nothing
     }
 
     @Override
