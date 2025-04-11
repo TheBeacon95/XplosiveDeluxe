@@ -1,6 +1,5 @@
 package level_Impl;
 
-import common.Animation;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +7,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import level_Interfaces.BlockType;
+import ui_Interfaces.*;
 
 /**
  *

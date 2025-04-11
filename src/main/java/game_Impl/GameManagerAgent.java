@@ -30,7 +30,7 @@ public class GameManagerAgent extends AgentAbs implements Runnable {
 
     @Override
     public void run() {
-      m_stateMachine = new GameStateMachine();
+      m_stateMachine = new MainStateMachine();
       m_stateMachine.start();
         double drawInterval = 1000 * 1000 * 1000 / FPS;
         double delta = 0;
@@ -66,7 +66,7 @@ public class GameManagerAgent extends AgentAbs implements Runnable {
     }
 
     private Thread m_gameThread;
-    private GameStateMachine m_stateMachine;
+    private MainStateMachine m_stateMachine;
 
     private static final double FPS = 60;
 }

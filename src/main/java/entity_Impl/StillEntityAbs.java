@@ -4,6 +4,7 @@ import common.*;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.ArrayList;
+import ui_Interfaces.*;
 
 /**
  * Abstraction for all items, power-ups and effectors.
@@ -30,7 +31,7 @@ public abstract class StillEntityAbs extends EntityAbs {
     public final void stall(long stallDuration) {
         // Do nothing.
     }
-    
+
     protected static Animation loadAnimation(String folderPath) {
         ArrayList<BufferedImage> sprites = new ArrayList<>();
         int i = 0;
@@ -43,11 +44,11 @@ public abstract class StillEntityAbs extends EntityAbs {
         }
         return new Animation(sprites);
     }
-    
+
     protected final void setDefaultAnimation(String folderPath) {
         m_defaultAnimation = loadAnimation(folderPath);
     }
-    
+
     protected final void setDeathAnimation(String folderPath) {
         ArrayList<BufferedImage> sprites = new ArrayList<>();
         int i = 0;

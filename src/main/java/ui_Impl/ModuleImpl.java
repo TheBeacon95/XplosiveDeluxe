@@ -6,7 +6,7 @@ public final class ModuleImpl extends ModuleAbs {
 
     public ModuleImpl() {
     }
-    
+
     @Override
     protected void initializeAgents() {
         // Do nothing.
@@ -22,5 +22,6 @@ public final class ModuleImpl extends ModuleAbs {
         registerService(new ScreenService());
         registerService(new DisplayService());
         registerService(new InputService());
+        registerService(new AnimationManagementService());
     }
 }

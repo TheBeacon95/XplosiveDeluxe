@@ -3,6 +3,7 @@ package entity_Impl.Collectables;
 import common.*;
 import entity_Impl.*;
 import entity_Interfaces.*;
+import ui_Interfaces.*;
 
 /**
  * Abstraction for all items, power-ups and effectors.

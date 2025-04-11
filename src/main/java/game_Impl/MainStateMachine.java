@@ -2,23 +2,23 @@ package game_Impl;
 
 import common.*;
 import common.stateMachine.*;
-import game_Impl.gameStates.*;
+import game_Impl.mainStates.*;
 import level_Interfaces.*;
 
 /**
  *
  * @author Yanick
  */
-public class GameStateMachine extends StateMachineAbs {
-    
-    public GameStateMachine() {
+public class MainStateMachine extends StateMachineAbs {
+
+    public MainStateMachine() {
         // Initialise states
         m_showMenuState = new ShowMenuState();
         m_loadLevelState = new LoadLevelState();
         m_runLevelState = new RunLevelState();
-        
+
         PlayerWonState playerWonState = new PlayerWonState();
-        
+
         // Initialise transitions
         m_runLevelState.AddTransition(new TransitionAbs(playerWonState) {
             @Override
@@ -26,7 +26,7 @@ public class GameStateMachine extends StateMachineAbs {
                 return ((StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService)).isOnePlayerLeft();
             }
         });
-        
+
         playerWonState.AddTransition(new TransitionAbs(m_runLevelState){
             @Override
             public boolean isExitConditionSet() {
@@ -44,13 +44,13 @@ public class GameStateMachine extends StateMachineAbs {
 //            }
 //        });
     }
-    
+
     @Override
     protected void onBeforeStart() {
 //        setInitialState(m_showMenuState); // TODO: Start with the menu when it's implemented.
         setInitialState(m_runLevelState);
     }
-    
+
     private StateAbs m_showMenuState;
     private StateAbs m_loadLevelState;
     private StateAbs m_runLevelState;

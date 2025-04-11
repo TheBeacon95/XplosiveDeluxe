@@ -1,5 +1,6 @@
-package common;
+package ui_Interfaces;
 
+import common.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,30 +11,32 @@ import java.util.List;
  * @author Yanick
  */
 public class Animation {
-    
+
     public Animation(List<BufferedImage> animationSprites, int animationDuration) {
         m_animationSprites = new ArrayList<>(animationSprites);
         m_spriteCount = animationSprites.size();
         m_animationDuration = animationDuration > 0 ? animationDuration : DEFAULT_ANIMATION_DURATION;
         m_isRepeating = true;
         m_animationStartTime = System.nanoTime();
+        m_animationManagementService = (AnimationManagementServiceIfc)ServiceManager.getService(UiNames.Services.AnimationManagementService);
     }
-    
+
     public Animation(List<BufferedImage> animationSprites) {
         this(animationSprites, DEFAULT_ANIMATION_DURATION);
     }
-    
+
     public Animation(Animation animationToCopy) {
         m_animationSprites = animationToCopy.m_animationSprites;
         m_spriteCount = animationToCopy.m_spriteCount;
         m_animationDuration = animationToCopy.m_animationDuration;
         m_isRepeating = animationToCopy.m_isRepeating;
         m_animationStartTime = System.nanoTime();
+        m_animationManagementService = (AnimationManagementServiceIfc)ServiceManager.getService(UiNames.Services.AnimationManagementService);
     }
-    
+
     /**
      * Tries to take over the animation from the last one to make it seamless.
-     * @param lastAnimation 
+     * @param lastAnimation
      */
     public void continueFromAnimation(Animation lastAnimation) {
         boolean doSpriteCountsMatch = m_spriteCount == lastAnimation.m_spriteCount;
@@ -42,7 +45,7 @@ public class Animation {
             m_animationStartTime = lastAnimation.m_animationStartTime;
         }
     }
-    
+
     /**
      * Retrieves the next sprite that needs to be drawn.
      * @return the next sprite in the animation.
@@ -55,53 +58,57 @@ public class Animation {
         }
         return spriteToDraw;
     }
-    
+
     public boolean isDone() {
         return m_isDone;
     }
-    
+
     public void setAnimationDuration(long durationNs) {
         if (durationNs > 0) {
             m_animationDuration = durationNs;
         }
     }
-    
+
     public void start() {
         m_animationStartTime = System.nanoTime();
         m_isDone = false;
     }
-    
+
     public void setRepeatingAnimation() {
         m_isRepeating = true;
     }
-    
+
     public void setSingleAnimation() {
         m_isRepeating = false;
     }
 
     private void refreshAnimationStartTime() {
         long currentTime = System.nanoTime();
-        while (currentTime - m_animationStartTime >= m_animationDuration) {
-                m_animationStartTime += m_animationDuration;
+//        while (currentTime - m_animationStartTime >= m_animationDuration) {
+//                m_animationStartTime += m_animationDuration;
+//        }
+        if (currentTime - m_animationStartTime >= m_animationDuration) {
+                m_animationStartTime = System.nanoTime();
         }
     }
 
     private void updateAnimationValues() {
-        long currentTime = System.nanoTime();
-        if (!m_isRepeating && currentTime - m_animationStartTime >= m_animationDuration) {
-            int a = 0;
-        }
-        m_isDone = !m_isRepeating && currentTime - m_animationStartTime >= m_animationDuration;
-        
-        if (!m_isDone) {
-            refreshAnimationStartTime();
-            m_currentSpriteIndex = (int) ((currentTime - m_animationStartTime) * m_spriteCount / m_animationDuration);
-        }
-        else {
-            m_currentSpriteIndex = 0;
+        if (m_animationManagementService.areAnimationsActive()) {
+            long currentTime = System.nanoTime();
+            m_isDone = !m_isRepeating && currentTime - m_animationStartTime >= m_animationDuration;
+
+            if (!m_isDone) {
+                refreshAnimationStartTime();
+                m_currentSpriteIndex = (int) ((currentTime - m_animationStartTime) * m_spriteCount / m_animationDuration);
+            }
+            else {
+                m_currentSpriteIndex = 0;
+            }
         }
     }
-    
+
+    private final AnimationManagementServiceIfc m_animationManagementService;
+
     private boolean m_isRepeating;
     private boolean m_isDone;
     private long m_animationDuration;       // Represents the duration of the animation

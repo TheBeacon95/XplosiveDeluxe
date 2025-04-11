@@ -1,4 +1,4 @@
-package game_Impl.gameStates;
+package game_Impl.mainStates;
 
 import level_Interfaces.LevelManagementServiceIfc;
 import level_Interfaces.LevelNames;

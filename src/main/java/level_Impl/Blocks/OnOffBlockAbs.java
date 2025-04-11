@@ -1,8 +1,9 @@
 package level_Impl.Blocks;
 
 import common.*;
-import level_Impl.BlockAbs;
+import level_Impl.*;
 import level_Interfaces.*;
+import ui_Interfaces.*;
 
 /**
  *

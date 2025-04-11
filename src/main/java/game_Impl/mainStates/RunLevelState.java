@@ -1,10 +1,10 @@
-package game_Impl.gameStates;
+package game_Impl.mainStates;
 
 import common.*;
 import common.stateMachine.*;
 import entity_Interfaces.*;
 import game_Impl.StagePanel;
-import game_Impl.gameStates.Level.LevelStateMachine;
+import game_Impl.mainStates.Level.LevelStateMachine;
 import level_Interfaces.*;
 import ui_Interfaces.*;
 
@@ -17,6 +17,7 @@ public class RunLevelState extends StateAbs {
 
     public RunLevelState() {
         super(STATE_NAME);
+        m_statemachine = new LevelStateMachine();
     }
 
     @Override
@@ -34,6 +35,8 @@ public class RunLevelState extends StateAbs {
         Level level = new Level();
         level.setupTestLevel();
         m_stageManagementService.setStage(level);
+
+        m_statemachine.start();
         m_entityManagementService.startEntities();
     }
 
@@ -56,17 +59,18 @@ public class RunLevelState extends StateAbs {
          *
          * - Win/lose states: self explanarory.
          */
-        if (m_stageManagementService.isReady()) {
-            m_stageManagementService.updateStage();
-            m_entityManagementService.updateEntities();
-
-            m_displayService.draw();
-        }
+        m_statemachine.run();
+//        if (m_stageManagementService.isReady()) {
+//            m_stageManagementService.updateStage();
+//            m_entityManagementService.updateEntities();
+//
+//            m_displayService.draw();
+//        }
     }
 
     public static final String STATE_NAME = "RunLevelState";
 
-    private LevelStateMachine m_statemachine;
+    private final LevelStateMachine m_statemachine;
 
     private StageManagementServiceIfc m_stageManagementService;
     private EntityManagementServiceIfc m_entityManagementService;

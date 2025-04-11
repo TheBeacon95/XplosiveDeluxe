@@ -1,5 +1,6 @@
 package ui_Impl;
 
+import common.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -11,6 +12,8 @@ import ui_Interfaces.*;
  * @author Yanick
  */
 public final class DisplayService implements DisplayServiceIfc {
+
+//    private JPanel m_overlayPanel;
 
     @Override
     public synchronized void draw() {
@@ -32,7 +35,13 @@ public final class DisplayService implements DisplayServiceIfc {
         m_window.setTitle("Xplosive Deluxe");
 
         m_gamePanel = new GamePanelAbs() {};
+//        m_overlayPanel = new JPanel();
+//        m_overlayPanel.setForeground(Color.BLACK);
+        ScreenServiceIfc screenService = (ScreenServiceIfc) ServiceManager.getService(UiNames.Services.ScreenService);
+//        m_overlayPanel.setPreferredSize(new Dimension(screenService.getStageWidth(), screenService.getStageHeight()));
+
         m_window.add(m_gamePanel);
+//        m_window.add(m_overlayPanel, 1);
 
         m_window.pack();
 
@@ -68,6 +77,11 @@ public final class DisplayService implements DisplayServiceIfc {
         m_window.add(m_gamePanel);
         m_gamePanel.requestFocusInWindow();
         m_window.pack();
+    }
+
+    @Override
+    public void setOpacityLevel(float level) {
+        m_gamePanel.setAlpha(level);
     }
 
     private GamePanelAbs m_gamePanel;
