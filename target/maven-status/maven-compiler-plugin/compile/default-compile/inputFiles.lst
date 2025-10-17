@@ -26,6 +26,7 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Interfaces\MonsterIfc
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\Behaviors\SpecialBehaviors\EatBricksBehavior.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Monsters\MonsterEntities\Phantom.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\mainStates\LoadLevelState.java
+C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\mainStates\Level\LevelStates\ScreenFadeState.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\RandomLevelGenerator.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\ui_Interfaces\AnimationManagementServiceIfc.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Interfaces\LevelManagementServiceIfc.java
@@ -43,7 +44,6 @@ C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Collectables\Spe
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\Coordinates.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\entity_Impl\Collectables\BombPlus.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\GameManagerAgent.java
-C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\game_Impl\mainStates\Level\LevelStates\WarmupState.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\Blocks\Brick.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\level_Impl\ModuleImpl.java
 C:\Users\Yanick\GitHub\XplosiveDeluxe\src\main\java\common\WeightedList.java

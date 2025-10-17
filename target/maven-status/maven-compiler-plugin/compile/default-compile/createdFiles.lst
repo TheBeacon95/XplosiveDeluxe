@@ -1,5 +1,4 @@
 entity_Impl\ModuleImpl.class
-game_Impl\mainStates\Level\LevelStates\WarmupState.class
 mainApplication\Main.class
 common\Duration.class
 game_Interfaces\GameMode.class
@@ -17,6 +16,7 @@ game_Impl\mainStates\PlayerWonState.class
 common\Time\TimeUtil.class
 entity_Interfaces\EntityManagementServiceIfc.class
 level_Interfaces\BombListenerIfc.class
+game_Impl\mainStates\Level\LevelStates\ScreenFadeState.class
 game_Impl\mainStates\ShowMenuState$MenuSettings.class
 entity_Interfaces\MonsterIfc.class
 common\Time\TimerDoneListenerIfc.class
@@ -84,6 +84,7 @@ entity_Impl\Monsters\Behaviors\CollisionBehaviors\StallPlayerBehavior.class
 entity_Interfaces\EntityNames$Services.class
 level_Interfaces\BombIfc.class
 entity_Impl\Monsters\Behaviors\ExplosionBehaviors\DieBehavior.class
+game_Impl\mainStates\Level\LevelStateMachine$2.class
 ui_Impl\DisplayService.class
 game_Impl\StagePanel.class
 entity_Impl\Collectables\CollectableFactory.class
@@ -121,6 +122,7 @@ entity_Impl\Collectables\CollectableAbs.class
 entity_Impl\MovingEntityAbs.class
 entity_Impl\EntityManagementService.class
 entity_Impl\Collectables\CollectableFactory$1.class
+game_Impl\mainStates\Level\LevelStateMachine$3.class
 ui_Interfaces\UiNames.class
 common\Time\Timer.class
 level_Impl\RandomLevelGenerator$LevelElement.class

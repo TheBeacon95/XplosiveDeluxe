@@ -3,7 +3,7 @@ package game_Impl.mainStates;
 import common.*;
 import common.stateMachine.*;
 import entity_Interfaces.*;
-import game_Impl.StagePanel;
+import game_Impl.mainStates.GamePanels.StagePanel;
 import game_Impl.mainStates.Level.LevelStateMachine;
 import level_Interfaces.*;
 import ui_Interfaces.*;
@@ -27,17 +27,17 @@ public class RunLevelState extends StateAbs {
         m_displayService = (DisplayServiceIfc) ServiceManager.getService(UiNames.Services.DisplayService);
         m_displayService.setPanel(new StagePanel());
 
-//        RandomLevelGenerator generator = new RandomLevelGenerator();
-//        generator.setBlockDensity(6);
-//        generator.setMonsterDensity(1);
-//        generator.addMonsterType(MonsterType.Bacteria);
-//        m_stageManagementService.setStage(generator.generateRandomLevel());
-        Level level = new Level();
-        level.setupTestLevel();
-        m_stageManagementService.setStage(level);
-
+////        RandomLevelGenerator generator = new RandomLevelGenerator();
+////        generator.setBlockDensity(6);
+////        generator.setMonsterDensity(1);
+////        generator.addMonsterType(MonsterType.Bacteria);
+////        m_stageManagementService.setStage(generator.generateRandomLevel());
+//        Level level = new Level();
+//        level.setupTestLevel();
+//        m_stageManagementService.setStage(level);
+//
         m_statemachine.start();
-        m_entityManagementService.startEntities();
+//        m_entityManagementService.startEntities();
     }
 
     @Override

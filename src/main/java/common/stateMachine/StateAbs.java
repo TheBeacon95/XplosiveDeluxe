@@ -30,7 +30,7 @@ public abstract class StateAbs implements IdentifiableIfc {
         return m_stateName;
     }
     
-    public final void AddTransition(TransitionAbs transition) {
+    public final void addTransition(TransitionAbs transition) {
         m_transitions.add(transition);
     }
     

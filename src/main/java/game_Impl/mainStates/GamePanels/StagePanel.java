@@ -1,4 +1,4 @@
-package game_Impl;
+package game_Impl.mainStates.GamePanels;
 
 import common.*;
 import java.awt.Graphics2D;
@@ -11,13 +11,9 @@ public class StagePanel extends GamePanelAbs {
 
     public StagePanel() {
         m_stageManagementService = (StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService);
-        InputServiceIfc inputService = (InputServiceIfc) ServiceManager.getService(UiNames.Services.InputService);
-        inputService.loadKeyInputs();
-        for (KeyHandlerIfc keyHandler: inputService.getAllPlayerInputs()) {
-            addKeyListener(keyHandler);
-        }
     }
 
+    // TODO: !!
     @Override
     protected final void onPaintComponent(Graphics2D g2) {
          m_stageManagementService = (StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService);

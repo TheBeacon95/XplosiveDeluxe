@@ -3,8 +3,10 @@
 import common.*;
 import entity_Impl.MovingEntityAbs; // Todo: this class shouldn't reference a higher package.
 import entity_Interfaces.*;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.util.logging.Logger;
 import level_Interfaces.*;
-import ui_Interfaces.*;
 
 /**
  * Represents a Player entity.
@@ -17,10 +19,9 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
         m_playerId = playerId;
         m_status = new PlayerStatus(lifeCount);
         m_controls = new PlayerControls();
-        InputServiceIfc inputService = (InputServiceIfc) ServiceManager.getService(UiNames.Services.InputService);
-        m_keyHandler = inputService.getInput(getId());
         m_stageManagementService = (StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService);
         m_facingDirection = Direction.Down;
+        loadKeyInputs();
     }
 
     @Override
@@ -155,6 +156,21 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
         }
     }
 
+    private void loadKeyInputs() {
+        FileInputStream fileInputStream;
+        PlayerKeyHandler keyHandler = null;
+        try {
+            fileInputStream = new FileInputStream("C:\\Users\\Yanick\\GitHub\\XplosiveDeluxe\\src\\main\\resources\\KeyHandlers\\" + getId() + ".xpd");
+            try (ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+                keyHandler = (PlayerKeyHandler) objectInputStream.readObject();
+            }
+        }
+        catch (Exception ex) {
+            Logger.getLogger(java.util.logging.Level.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        m_keyHandler = keyHandler;
+    }
+
     private final String m_playerId;
     private final PlayerControls m_controls;
     private final PlayerStatus m_status;
@@ -162,7 +178,7 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
     private Direction m_facingDirection;
 
     private long m_effectEndTime;
-    private final KeyHandlerIfc m_keyHandler;
+    private PlayerKeyHandler m_keyHandler;
 
     private int m_activeBombCount;
     private final StageManagementServiceIfc m_stageManagementService;

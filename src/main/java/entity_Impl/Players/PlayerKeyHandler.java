@@ -1,13 +1,15 @@
-package ui_Impl;
+package entity_Impl.Players;
 
-import common.Direction;
+import common.*;
 import java.awt.event.KeyEvent;
-import java.io.Serializable;
-import ui_Interfaces.KeyHandlerIfc;
+import ui_Interfaces.*;
 
-public class KeyHandler implements KeyHandlerIfc, Serializable {
+/**
+ *
+ * @author Yanick
+ */
+public final class PlayerKeyHandler extends KeyHandlerAbs {
 
-    @Override
     public Direction getPressedDirection() {
         // Todo: change this so that the newest direction is picked.
         Direction direction;
@@ -29,32 +31,26 @@ public class KeyHandler implements KeyHandlerIfc, Serializable {
         return direction;
     }
 
-    @Override
     public boolean isFirePressed() {
         return m_isFirePressed;
     }
 
-    @Override
     public int upKey() {
         return m_upKey;
     }
 
-    @Override
     public int rightKey() {
         return m_rightKey;
     }
 
-    @Override
     public int downKey() {
         return m_downKey;
     }
 
-    @Override
     public int leftKey() {
         return m_leftKey;
     }
 
-    @Override
     public int fireKey() {
         return m_fireKey;
     }
@@ -81,7 +77,7 @@ public class KeyHandler implements KeyHandlerIfc, Serializable {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        Input input = convertKeyCodeToInput(e.getKeyCode());
+        PlayerInput input = convertKeyCodeToInput(e.getKeyCode());
         switch (input) {
             case Up -> m_isUpPressed = true;
             case Right -> m_isRightPressed = true;
@@ -94,7 +90,7 @@ public class KeyHandler implements KeyHandlerIfc, Serializable {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        Input input = convertKeyCodeToInput(e.getKeyCode());
+        PlayerInput input = convertKeyCodeToInput(e.getKeyCode());
         switch (input) {
             case Up -> m_isUpPressed = false;
             case Right -> m_isRightPressed = false;
@@ -105,27 +101,22 @@ public class KeyHandler implements KeyHandlerIfc, Serializable {
         }
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // Do Nothing
-    }
-
-    private Input convertKeyCodeToInput(int keyCode) {
-        Input input = Input.None;
+    private PlayerInput convertKeyCodeToInput(int keyCode) {
+        PlayerInput input = PlayerInput.None;
         if (keyCode == m_upKey) {
-            input = Input.Up;
+            input = PlayerInput.Up;
         }
         else if (keyCode == m_rightKey) {
-            input = Input.Right;
+            input = PlayerInput.Right;
         }
         else if (keyCode == m_downKey) {
-            input = Input.Down;
+            input = PlayerInput.Down;
         }
         else if (keyCode == m_leftKey) {
-            input = Input.Left;
+            input = PlayerInput.Left;
         }
         else if (keyCode == m_fireKey) {
-            input = Input.Fire;
+            input = PlayerInput.Fire;
         }
         return input;
     }
@@ -136,7 +127,7 @@ public class KeyHandler implements KeyHandlerIfc, Serializable {
     private transient boolean m_isLeftPressed;
     private transient boolean m_isFirePressed;
 
-    private transient Direction m_lastPressedDirection = Direction.NoDirection;
+//    private transient Direction m_lastPressedDirection = Direction.NoDirection;
 
     private int m_upKey = KeyEvent.VK_W;
     private int m_rightKey = KeyEvent.VK_D;
