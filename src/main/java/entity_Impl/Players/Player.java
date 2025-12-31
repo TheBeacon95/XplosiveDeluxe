@@ -171,6 +171,10 @@ public class Player extends MovingEntityAbs implements PlayerIfc, IdentifiableIf
         m_keyHandler = keyHandler;
     }
 
+    private void loadKeyInputs() {
+
+    }
+
     private final String m_playerId;
     private final PlayerControls m_controls;
     private final PlayerStatus m_status;

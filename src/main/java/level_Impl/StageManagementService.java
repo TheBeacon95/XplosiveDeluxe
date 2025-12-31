@@ -251,4 +251,24 @@ public class StageManagementService implements StageManagementServiceIfc {
         BlockAbs block = m_stage.getBlocks().getOrDefault(position, null);
         return block == null || block.isReplaceable();
     }
+
+    @Override
+    public boolean isStageDone() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean isWin() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean isLose() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean isGameOver() {
+        throw new UnsupportedOperationException("Not supported yet.")
+    }
 }

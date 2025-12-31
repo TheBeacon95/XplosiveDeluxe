@@ -6,6 +6,7 @@ import entity_Impl.Explosions.*;
 import entity_Impl.Monsters.*;
 import entity_Impl.Players.*;
 import entity_Interfaces.*;
+import game_Impl.mainStates.GamePanels.StagePanel;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -217,5 +218,15 @@ public class EntityManagementService implements EntityManagementServiceIfc {
 //        for (EntityAbs explosion : new ArrayList<>(m_explosions)) {
 //            explosion.start();
 //        }
+    }
+
+    @Override
+    public void activatePlayerKeyBindings(StagePanel m_stagePanel) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void deactivatePlayerKeyBindings(StagePanel m_stagePanel) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

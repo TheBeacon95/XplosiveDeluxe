@@ -1,4 +1,4 @@
-package game_Impl;
+package ui_Interfaces;
 
 /**
  *
@@ -7,6 +7,8 @@ package game_Impl;
 public enum MenuInput {
     None,
     Up,
+    Right,
     Down,
+    Left,
     Select
 }

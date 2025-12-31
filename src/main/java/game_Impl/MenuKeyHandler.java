@@ -1,5 +1,6 @@
 package game_Impl;
 
+import ui_Interfaces.MenuInput;
 import java.awt.event.KeyEvent;
 import ui_Interfaces.KeyHandlerAbs;
 

@@ -110,4 +110,18 @@ public interface StageManagementServiceIfc extends ServiceIfc {
      * Toggles the On-Off-State
      */
     public void toggleOnOffState();
+
+    /**
+     * Let's the user know if the level needs to be continued.
+     * => In COOP mode: all monsters defeated or all players defeated.
+     * => In Battle mode: at most 1 player alive.
+     * @return true if the conditions to end the level are met. False otherwise.
+     */
+    public boolean isStageDone();
+
+    public boolean isWin();
+
+    public boolean isLose();
+
+    public boolean isGameOver();
 }

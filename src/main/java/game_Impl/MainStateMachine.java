@@ -10,13 +10,17 @@ import game_Impl.mainStates.*;
 public class MainStateMachine extends StateMachineAbs {
 
     public MainStateMachine() {
-        // Initialize states
+        // Initialize UI states
         m_mainMenuState = new MainMenuState();
-        m_fadeOutToPrepareState = ScreenFadeState.createFadeOutState();
-        m_prepareStageState = new PrepareStageState();
-        m_fadeInToRunStageState = ScreenFadeState.createFadeInState(m_runStageState);
         m_runStageState = new RunStageState();
-        m_pauseLevelState = new PauseLevelState();
+
+        // Initialize other states
+        m_prepareStageState = new PrepareStageState();
+        m_pauseLevelState = new PauseStageState();
+
+        // Initialize FadeStates
+        m_fadeOutToPrepareState = ScreenFadeState.createFadeOutState();
+        m_fadeInToRunStageState = ScreenFadeState.createFadeInState(m_runStageState);
         m_fadeOutToFadeInState = ScreenFadeState.createFadeOutState();
         m_fadeInToMainMenuState = ScreenFadeState.createFadeInState(m_mainMenuState);
 //        m_gameOverState = new GameOverState();
@@ -68,7 +72,7 @@ public class MainStateMachine extends StateMachineAbs {
         m_runStageState.addTransition(new TransitionAbs(m_fadeOutToPrepareState) {
             @Override
             public boolean isExitConditionSet() {
-                return m_runStageState.areWinConditionsMet() || m_runStageState.areLoseConditionsMet();
+                return m_runStageState.areWinOrLoseConditionsMet();
             }
         });
         m_runStageState.addTransition(new TransitionAbs(m_fadeOutToFadeInState) {
@@ -116,7 +120,7 @@ public class MainStateMachine extends StateMachineAbs {
     private final PrepareStageState m_prepareStageState;
     private final ScreenFadeState m_fadeInToRunStageState;
     private final RunStageState m_runStageState;
-    private final PauseLevelState m_pauseLevelState;
+    private final PauseStageState m_pauseLevelState;
 //    private final GameOverState m_gameOverState;
     private final ScreenFadeState m_fadeOutToFadeInState;
     private final ScreenFadeState m_fadeInToMainMenuState;

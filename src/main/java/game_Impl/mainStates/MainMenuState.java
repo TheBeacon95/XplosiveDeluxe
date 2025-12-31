@@ -1,11 +1,16 @@
 package game_Impl.mainStates;
 
-import common.stateMachine.StateAbs;
+import ui_Interfaces.MenuInput;
 import entity_Interfaces.MonsterType;
 import game_Impl.*;
+import static ui_Interfaces.MenuInput.Down;
+import static ui_Interfaces.MenuInput.None;
+import static ui_Interfaces.MenuInput.Select;
+import static ui_Interfaces.MenuInput.Up;
 import game_Impl.mainStates.GamePanels.*;
 import game_Interfaces.*;
 import java.util.EnumSet;
+import ui_Interfaces.GamePanelAbs;
 
 // Todo: Finish implementing the menu.
 
@@ -13,7 +18,7 @@ import java.util.EnumSet;
  * Shows the game menu.
  * @author Yanick
  */
-public final class MainMenuState extends StateAbs {
+public final class MainMenuState extends UiStateAbs {
 
     public MainMenuState() {
         super(STATE_NAME);
@@ -32,19 +37,17 @@ public final class MainMenuState extends StateAbs {
     @Override
     public void run() {
         handleInput();
-        drawMenu();
+        updatePanel();
     }
 
     public boolean isStartGameSelected() {
         return m_isStartGameSelected;
     }
 
-    private static final String STATE_NAME = "MainMenuState";
-    private MenuSettings m_settings;
-    private MenuKeyHandler m_menuInput;
-    private final MainMenuPanel m_menuPanel;
-    private boolean m_isStartGameSelected;
-    private MenuSelection m_menuSelection;
+    @Override
+    protected GamePanelAbs getGamePanel() {
+        return m_menuPanel;
+    }
 
     private void handleInput() {
         MenuInput input = m_menuInput.getCurrentInput();
@@ -55,6 +58,21 @@ public final class MainMenuState extends StateAbs {
             case None -> {}
         }
     }
+
+    private void updatePanel() {
+
+    }
+
+    private void onSelectClicked() {
+        
+    }
+
+    private static final String STATE_NAME = "MainMenuState";
+    private MenuSettings m_settings;
+    private MenuKeyHandler m_menuInput;
+    private final MainMenuPanel m_menuPanel;
+    private boolean m_isStartGameSelected;
+    private MenuSelection m_menuSelection;
 
     private enum MenuSelection {
         Players,

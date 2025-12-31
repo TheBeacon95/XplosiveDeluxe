@@ -2,6 +2,7 @@ package entity_Interfaces;
 
 import common.Coordinates;
 import common.ServiceIfc;
+import game_Impl.mainStates.GamePanels.StagePanel;
 import java.awt.Graphics2D;
 import java.util.List;
 
@@ -94,4 +95,8 @@ public interface EntityManagementServiceIfc extends ServiceIfc {
      * @return the coordinates of the closest player.
      */
     Coordinates getClosestPlayerPosition(Coordinates position);
+
+    public void activatePlayerKeyBindings(StagePanel m_stagePanel);
+
+    public void deactivatePlayerKeyBindings(StagePanel m_stagePanel);
 }

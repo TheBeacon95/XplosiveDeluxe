@@ -21,4 +21,8 @@ public class StagePanel extends GamePanelAbs {
             m_stageManagementService.draw(g2);
         }
     }
+
+    public void activatePlayerActions() {
+        m_stageManagementService.activatePlayerInputs(this);
+    }
 }

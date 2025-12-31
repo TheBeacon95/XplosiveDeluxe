@@ -1,5 +1,6 @@
 package entity_Impl.Players;
 
+import ui_Interfaces.PlayerInput;
 import common.*;
 import java.awt.event.KeyEvent;
 import ui_Interfaces.*;
