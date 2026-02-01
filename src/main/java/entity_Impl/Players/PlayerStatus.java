@@ -2,6 +2,8 @@ package entity_Impl.Players;
 
 import entity_Interfaces.*;
 
+// Todo: This shouldn't be a Entity Impl responsibility. Move it to the Game Impl.
+
 /**
  *
  * @author Yanick

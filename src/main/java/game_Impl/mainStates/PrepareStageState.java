@@ -2,8 +2,8 @@ package game_Impl.mainStates;
 
 import common.ServiceManager;
 import common.stateMachine.StateAbs;
-import level_Interfaces.LevelManagementServiceIfc;
-import level_Interfaces.LevelNames;
+import level_Interfaces.*;
+import ui_Interfaces.*;
 
 /**
  * Loads a Level.
@@ -25,7 +25,7 @@ public class PrepareStageState extends StateAbs {
             return m_threadRunner.m_isLoadingDone;
         }
 
-    public final static String STATE_NAME = "LoadLevelState";
+    public final static String STATE_NAME = "PrepareStageState";
     private LoadLevelThreadRunner m_threadRunner;
 
     private static class LoadLevelThreadRunner implements Runnable {
@@ -34,6 +34,7 @@ public class PrepareStageState extends StateAbs {
         public void run() {
             LevelManagementServiceIfc levelManagementService = (LevelManagementServiceIfc) ServiceManager.getService(LevelNames.Services.LevelManagementService);
             levelManagementService.loadLevel();
+            ((InputManagementServiceIfc) ServiceManager.getService(UiNames.Services.InputManagementService)).loadPlayerInputs();
             m_isLoadingDone = true;
         }
 

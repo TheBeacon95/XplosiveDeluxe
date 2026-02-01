@@ -30,8 +30,8 @@ public class MainStateMachine extends StateMachineAbs {
 
     @Override
     protected void onBeforeStart() {
-//        setInitialState(m_showMenuState); // TODO: Start with the menu when it's implemented.
-        setInitialState(m_fadeInToMainMenuState);
+//        setInitialState(m_fadeInToMainMenuState);
+        setInitialState(m_fadeOutToPrepareState);
     }
 
     private void configureTransitions() {

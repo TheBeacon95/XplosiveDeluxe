@@ -21,7 +21,9 @@ public class ScreenFadeState extends StateAbs {
     @Override
     public void enter() {
         m_displayService = (DisplayServiceIfc) ServiceManager.getService(UiNames.Services.DisplayService);
-        m_uiState.setAsNextPanel();
+        if (m_uiState != null) {
+            m_uiState.setAsNextPanel();
+        }
         m_startTime = System.nanoTime();
     }
 
@@ -56,5 +58,5 @@ public class ScreenFadeState extends StateAbs {
     private long m_startTime;
     private DisplayServiceIfc m_displayService;
     private static final String STATE_NAME = "WarmupState";
-    private static final long SCREEN_FADE_TIME = 2l * 1000 * 1000 * 1000;
+    private static final long SCREEN_FADE_TIME = 1l * 500 * 1000 * 1000;
 }

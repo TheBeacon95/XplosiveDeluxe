@@ -1,16 +1,11 @@
 package game_Impl.mainStates;
 
-import ui_Interfaces.MenuInput;
+import common.ServiceManager;
 import entity_Interfaces.MonsterType;
-import game_Impl.*;
-import static ui_Interfaces.MenuInput.Down;
-import static ui_Interfaces.MenuInput.None;
-import static ui_Interfaces.MenuInput.Select;
-import static ui_Interfaces.MenuInput.Up;
 import game_Impl.mainStates.GamePanels.*;
 import game_Interfaces.*;
 import java.util.EnumSet;
-import ui_Interfaces.GamePanelAbs;
+import ui_Interfaces.*;
 
 // Todo: Finish implementing the menu.
 
@@ -23,6 +18,8 @@ public final class MainMenuState extends UiStateAbs {
     public MainMenuState() {
         super(STATE_NAME);
         m_menuPanel = new MainMenuPanel();
+        m_inputManagementService = (InputManagementServiceIfc) ServiceManager.getService(UiNames.Services.InputManagementService);
+        m_menuInput = m_inputManagementService.getPressedMenuButtons();
     }
 
     @Override
@@ -32,6 +29,12 @@ public final class MainMenuState extends UiStateAbs {
         if (m_settings == null) {
             m_settings = MenuSettings.defaultSettings();
         }
+        m_inputManagementService.activateMenuInputs(m_menuPanel);
+    }
+
+    @Override
+    public void exit() {
+        m_inputManagementService.deactivateMenuInputs(m_menuPanel);
     }
 
     @Override
@@ -50,12 +53,20 @@ public final class MainMenuState extends UiStateAbs {
     }
 
     private void handleInput() {
-        MenuInput input = m_menuInput.getCurrentInput();
-        switch (input) {
-            case Down -> m_menuSelection.down();
-            case Up -> m_menuSelection.up();
-            case Select -> onSelectClicked();
-            case None -> {}
+        if (m_menuInput.isUpPressed) {
+            m_menuSelection.up();
+        }
+        else if (m_menuInput.isDownPressed) {
+            m_menuSelection.down();
+        }
+//        else if (m_menuInput.isRightPressed) {
+//            m_menuSelection.right();
+//        }
+//        else if (m_menuInput.isLeftPressed) {
+//            m_menuSelection.left();
+//        }
+        else if (m_menuInput.isSelectPressed) {
+            onSelectClicked();
         }
     }
 
@@ -64,15 +75,16 @@ public final class MainMenuState extends UiStateAbs {
     }
 
     private void onSelectClicked() {
-        
+
     }
 
     private static final String STATE_NAME = "MainMenuState";
     private MenuSettings m_settings;
-    private MenuKeyHandler m_menuInput;
     private final MainMenuPanel m_menuPanel;
     private boolean m_isStartGameSelected;
     private MenuSelection m_menuSelection;
+    private final MenuInput m_menuInput;
+    private final InputManagementServiceIfc m_inputManagementService;
 
     private enum MenuSelection {
         Players,

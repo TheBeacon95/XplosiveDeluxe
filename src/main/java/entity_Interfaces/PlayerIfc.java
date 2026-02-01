@@ -10,11 +10,11 @@ public interface PlayerIfc extends EntityIfc, BombListenerIfc {
      */
     PlayerStatusIfc getStatus();
 
-    /**
-     * Shows the controls the player uses.
-     * @return player controls
-     */
-    PlayerControls getControls();
+//    /**
+//     * Shows the controls the player uses.
+//     * @return player controls
+//     */
+//    PlayerControls getControls();
 
     /**
      * Increases the number of lives by one, not exceeding the max.

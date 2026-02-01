@@ -1,11 +1,14 @@
 package ui_Impl;
 
 import common.PlayerId;
+import common.ServiceManager;
+import entity_Interfaces.*;
 import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
-import ui_Impl.PlayerActions.PlayerActionManager;
-import ui_Impl.PlayerActions.PlayerInputChangedAbs;
+import ui_Impl.MenuActions.*;
+import ui_Impl.PlayerActions.*;
 import ui_Interfaces.*;
 
 /**
@@ -21,7 +24,7 @@ public class InputManagementService implements InputManagementServiceIfc {
 
     @Override
     public void initializeService() {
-        // Do nothing.
+        m_entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
     }
 
     @Override
@@ -98,6 +101,8 @@ public class InputManagementService implements InputManagementServiceIfc {
         setAction(panel, m_player1LeftReleased, UiNames.PlayerInputs.PLAYER1_LEFT_RELEASED, manager.m_player1LeftButtonReleased);
         setAction(panel, m_player1FireReleased, UiNames.PlayerInputs.PLAYER1_FIRE_RELEASED, manager.m_player1FireButtonReleased);
 
+        m_player1Input = manager.m_player1Input;
+
         //Player 2
         setAction(panel, m_player2UpPressed, UiNames.PlayerInputs.PLAYER2_UP_PRESSED, manager.m_player2UpButtonPressed);
         setAction(panel, m_player2RightPressed, UiNames.PlayerInputs.PLAYER2_RIGHT_PRESSED, manager.m_player2RightButtonPressed);
@@ -110,6 +115,8 @@ public class InputManagementService implements InputManagementServiceIfc {
         setAction(panel, m_player2DownReleased, UiNames.PlayerInputs.PLAYER2_DOWN_RELEASED, manager.m_player2DownButtonReleased);
         setAction(panel, m_player2LeftReleased, UiNames.PlayerInputs.PLAYER2_LEFT_RELEASED, manager.m_player2LeftButtonReleased);
         setAction(panel, m_player2FireReleased, UiNames.PlayerInputs.PLAYER2_FIRE_RELEASED, manager.m_player2FireButtonReleased);
+
+        m_player2Input = manager.m_player2Input;
 
         //Player 3
         setAction(panel, m_player3UpPressed, UiNames.PlayerInputs.PLAYER3_UP_PRESSED, manager.m_player3UpButtonPressed);
@@ -124,6 +131,8 @@ public class InputManagementService implements InputManagementServiceIfc {
         setAction(panel, m_player3LeftReleased, UiNames.PlayerInputs.PLAYER3_LEFT_RELEASED, manager.m_player3LeftButtonReleased);
         setAction(panel, m_player3FireReleased, UiNames.PlayerInputs.PLAYER3_FIRE_RELEASED, manager.m_player3FireButtonReleased);
 
+        m_player3Input = manager.m_player3Input;
+
         //Player 4
         setAction(panel, m_player4UpPressed, UiNames.PlayerInputs.PLAYER4_UP_PRESSED, manager.m_player4UpButtonPressed);
         setAction(panel, m_player4RightPressed, UiNames.PlayerInputs.PLAYER4_RIGHT_PRESSED, manager.m_player4RightButtonPressed);
@@ -136,6 +145,9 @@ public class InputManagementService implements InputManagementServiceIfc {
         setAction(panel, m_player4DownReleased, UiNames.PlayerInputs.PLAYER4_DOWN_RELEASED, manager.m_player4DownButtonReleased);
         setAction(panel, m_player4LeftReleased, UiNames.PlayerInputs.PLAYER4_LEFT_RELEASED, manager.m_player4LeftButtonReleased);
         setAction(panel, m_player4FireReleased, UiNames.PlayerInputs.PLAYER4_FIRE_RELEASED, manager.m_player4FireButtonReleased);
+
+        m_player4Input = manager.m_player4Input;
+        m_entityManagementService.activatePlayerInputs();
     }
 
     @Override
@@ -153,6 +165,8 @@ public class InputManagementService implements InputManagementServiceIfc {
         removeAction(panel, m_player1LeftReleased, UiNames.PlayerInputs.PLAYER1_LEFT_RELEASED);
         removeAction(panel, m_player1FireReleased, UiNames.PlayerInputs.PLAYER1_FIRE_RELEASED);
 
+        m_player1Input = null;
+
         //Player 2
         removeAction(panel, m_player2UpPressed, UiNames.PlayerInputs.PLAYER2_UP_PRESSED);
         removeAction(panel, m_player2RightPressed, UiNames.PlayerInputs.PLAYER2_RIGHT_PRESSED);
@@ -165,6 +179,8 @@ public class InputManagementService implements InputManagementServiceIfc {
         removeAction(panel, m_player2DownReleased, UiNames.PlayerInputs.PLAYER2_DOWN_RELEASED);
         removeAction(panel, m_player2LeftReleased, UiNames.PlayerInputs.PLAYER2_LEFT_RELEASED);
         removeAction(panel, m_player2FireReleased, UiNames.PlayerInputs.PLAYER2_FIRE_RELEASED);
+
+        m_player2Input = null;
 
         //Player 3
         removeAction(panel, m_player3UpPressed, UiNames.PlayerInputs.PLAYER3_UP_PRESSED);
@@ -179,6 +195,8 @@ public class InputManagementService implements InputManagementServiceIfc {
         removeAction(panel, m_player3LeftReleased, UiNames.PlayerInputs.PLAYER3_LEFT_RELEASED);
         removeAction(panel, m_player3FireReleased, UiNames.PlayerInputs.PLAYER3_FIRE_RELEASED);
 
+        m_player3Input = null;
+
         //Player 4
         removeAction(panel, m_player4UpPressed, UiNames.PlayerInputs.PLAYER4_UP_PRESSED);
         removeAction(panel, m_player4RightPressed, UiNames.PlayerInputs.PLAYER4_RIGHT_PRESSED);
@@ -191,16 +209,41 @@ public class InputManagementService implements InputManagementServiceIfc {
         removeAction(panel, m_player4DownReleased, UiNames.PlayerInputs.PLAYER4_DOWN_RELEASED);
         removeAction(panel, m_player4LeftReleased, UiNames.PlayerInputs.PLAYER4_LEFT_RELEASED);
         removeAction(panel, m_player4FireReleased, UiNames.PlayerInputs.PLAYER4_FIRE_RELEASED);
+
+        m_player4Input = null;
+        m_entityManagementService.activatePlayerInputs();
     }
 
     @Override
     public void activateMenuInputs(JPanel panel) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        MenuActionManager manager = new MenuActionManager();
+
+        setAction(panel, m_menuUpPressed, UiNames.MenuInputs.UP_PRESSED, manager.m_menuUpButtonPressed);
+        setAction(panel, m_menuRightPressed, UiNames.MenuInputs.RIGHT_PRESSED, manager.m_menuRightButtonPressed);
+        setAction(panel, m_menuDownPressed, UiNames.MenuInputs.DOWN_PRESSED, manager.m_menuDownButtonPressed);
+        setAction(panel, m_menuLeftPressed, UiNames.MenuInputs.LEFT_PRESSED, manager.m_menuLeftButtonPressed);
+        setAction(panel, m_menuFirePressed, UiNames.MenuInputs.SELECT_PRESSED, manager.m_menuFireButtonPressed);
+
+        setAction(panel, m_menuUpReleased, UiNames.MenuInputs.UP_RELEASED, manager.m_menuUpButtonReleased);
+        setAction(panel, m_menuRightReleased, UiNames.MenuInputs.RIGHT_RELEASED, manager.m_menuRightButtonReleased);
+        setAction(panel, m_menuDownReleased, UiNames.MenuInputs.DOWN_RELEASED, manager.m_menuDownButtonReleased);
+        setAction(panel, m_menuLeftReleased, UiNames.MenuInputs.LEFT_RELEASED, manager.m_menuLeftButtonReleased);
+        setAction(panel, m_menuFireReleased, UiNames.MenuInputs.SELECT_RELEASED, manager.m_menuFireButtonReleased);
     }
 
     @Override
     public void deactivateMenuInputs(JPanel panel) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        removeAction(panel, m_menuUpPressed, UiNames.MenuInputs.UP_PRESSED);
+        removeAction(panel, m_menuRightPressed, UiNames.MenuInputs.RIGHT_PRESSED);
+        removeAction(panel, m_menuDownPressed, UiNames.MenuInputs.DOWN_PRESSED);
+        removeAction(panel, m_menuLeftPressed, UiNames.MenuInputs.LEFT_PRESSED);
+        removeAction(panel, m_menuFirePressed, UiNames.MenuInputs.SELECT_PRESSED);
+
+        removeAction(panel, m_menuUpReleased, UiNames.MenuInputs.UP_RELEASED);
+        removeAction(panel, m_menuRightReleased, UiNames.MenuInputs.RIGHT_RELEASED);
+        removeAction(panel, m_menuDownReleased, UiNames.MenuInputs.DOWN_RELEASED);
+        removeAction(panel, m_menuLeftReleased, UiNames.MenuInputs.LEFT_RELEASED);
+        removeAction(panel, m_menuFireReleased, UiNames.MenuInputs.SELECT_RELEASED);
     }
 
     @Override
@@ -215,10 +258,10 @@ public class InputManagementService implements InputManagementServiceIfc {
 
     @Override
     public MenuInput getPressedMenuButtons() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return m_menuInput;
     }
 
-    private void setAction(JPanel panel, KeyStroke keyStroke, String actionId, PlayerInputChangedAbs action) {
+    private void setAction(JPanel panel, KeyStroke keyStroke, String actionId, AbstractAction action) {
         panel.getInputMap().put(keyStroke, actionId);
         panel.getActionMap().put(actionId, action);
     }
@@ -228,7 +271,24 @@ public class InputManagementService implements InputManagementServiceIfc {
         panel.getActionMap().remove(actionId);
     }
 
+    private EntityManagementServiceIfc m_entityManagementService;
+
     // Todo: Replace this and have it be read and written to / from JSON
+    // Menu
+    private MenuInput m_menuInput;
+
+    private KeyStroke m_menuUpPressed;
+    private KeyStroke m_menuRightPressed;
+    private KeyStroke m_menuDownPressed;
+    private KeyStroke m_menuLeftPressed;
+    private KeyStroke m_menuFirePressed;
+
+    private KeyStroke m_menuUpReleased;
+    private KeyStroke m_menuRightReleased;
+    private KeyStroke m_menuDownReleased;
+    private KeyStroke m_menuLeftReleased;
+    private KeyStroke m_menuFireReleased;
+
     // Player 1
     private PlayerInput m_player1Input;
 

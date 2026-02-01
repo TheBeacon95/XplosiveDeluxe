@@ -1,6 +1,7 @@
 package level_Interfaces;
 
 import common.Coordinates;
+import common.PlayerId;
 import entity_Interfaces.CollectableType;
 import entity_Interfaces.MonsterType;
 import java.io.FileInputStream;
@@ -70,8 +71,8 @@ public class Level implements Serializable {
         return (HashMap<Coordinates, ArrayList<MonsterType>>) m_monsters.clone();
     }
 
-    public HashMap<String, Coordinates> getPlayers() {
-        return (HashMap<String, Coordinates>) m_players.clone();
+    public HashMap<PlayerId, Coordinates> getPlayers() {
+        return (HashMap<PlayerId, Coordinates>) m_players.clone();
     }
 
     public HashMap<Coordinates, CollectableType> getCollectables() {
@@ -129,18 +130,18 @@ public class Level implements Serializable {
     }
 
     private void placePlayers() {
-        m_players.put("Player_1", new Coordinates(3, 3));
-        m_players.put("Player_2", new Coordinates(15, 3));
-        m_players.put("Player_3", new Coordinates(3, 13));
-        m_players.put("Player_4", new Coordinates(15, 13));
+        m_players.put(PlayerId.Player_1, new Coordinates(3, 3));
+        m_players.put(PlayerId.Player_2, new Coordinates(15, 3));
+        m_players.put(PlayerId.Player_3, new Coordinates(3, 13));
+        m_players.put(PlayerId.Player_4, new Coordinates(15, 13));
     }
 
     private final HashMap<Coordinates, BlockType> m_blocks;
     private final HashMap<Coordinates, ArrayList<MonsterType>> m_monsters;
-    private final HashMap<String, Coordinates> m_players;
+    private final HashMap<PlayerId, Coordinates> m_players;
     private final HashMap<Coordinates, CollectableType> m_collectables;
 
-    public void setPlayer(String playerId, Coordinates cell) {
+    public void setPlayer(PlayerId playerId, Coordinates cell) {
         m_players.put(playerId, cell);
     }
 }

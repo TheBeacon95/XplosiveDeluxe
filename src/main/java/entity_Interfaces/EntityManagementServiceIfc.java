@@ -1,8 +1,6 @@
 package entity_Interfaces;
 
-import common.Coordinates;
-import common.ServiceIfc;
-import game_Impl.mainStates.GamePanels.StagePanel;
+import common.*;
 import java.awt.Graphics2D;
 import java.util.List;
 
@@ -38,7 +36,7 @@ public interface EntityManagementServiceIfc extends ServiceIfc {
      * @param position Where the Player will be placed.
      * @throws IllegalArgumentException
      */
-    void createPlayer(String playerId, Coordinates position) throws IllegalArgumentException;
+    void createPlayer(PlayerId playerId, Coordinates position) throws IllegalArgumentException;
 
     /**
      * Creates an explosion of any type.
@@ -96,7 +94,7 @@ public interface EntityManagementServiceIfc extends ServiceIfc {
      */
     Coordinates getClosestPlayerPosition(Coordinates position);
 
-    public void activatePlayerKeyBindings(StagePanel m_stagePanel);
+    public void activatePlayerInputs();
 
-    public void deactivatePlayerKeyBindings(StagePanel m_stagePanel);
+    public void deactivatePlayerInputs();
 }

@@ -4,11 +4,10 @@ package ui_Interfaces;
  *
  * @author Yanick
  */
-public enum MenuInput {
-    None,
-    Up,
-    Right,
-    Down,
-    Left,
-    Select
+public class MenuInput {
+    public boolean isUpPressed;
+    public boolean isRightPressed;
+    public boolean isDownPressed;
+    public boolean isLeftPressed;
+    public boolean isSelectPressed;
 }

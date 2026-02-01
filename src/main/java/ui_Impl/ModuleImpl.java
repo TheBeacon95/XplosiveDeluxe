@@ -22,5 +22,6 @@ public final class ModuleImpl extends ModuleAbs {
         registerService(new ScreenService());
         registerService(new DisplayService());
         registerService(new AnimationManagementService());
+        registerService(new InputManagementService());
     }
 }

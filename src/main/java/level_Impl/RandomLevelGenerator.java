@@ -53,7 +53,7 @@ public class RandomLevelGenerator {
         Level generatedLevel = new Level();
 
         WeightedList<LevelElement> weightedList = new WeightedList();
-        weightedList.addItem(LevelElement.Block, m_blockDensity * 2);
+        weightedList.addItem(LevelElement.Block, m_blockDensity * 4);
         weightedList.addItem(LevelElement.Monster, m_monsterDensity);
         weightedList.addItem(LevelElement.Empty, EMPTY_SPACE_WEIGHT);
 
@@ -149,9 +149,9 @@ public class RandomLevelGenerator {
     }
 
     private void setPlayers(Level level) {
-        level.setPlayer("Player_1", Player1Space1);
-        level.setPlayer("Player_2", Player2Space1);
-        level.setPlayer("Player_3", Player3Space1);
-        level.setPlayer("Player_4", Player4Space1);
+        level.setPlayer(PlayerId.Player_1, Player1Space1);
+        level.setPlayer(PlayerId.Player_2, Player2Space1);
+        level.setPlayer(PlayerId.Player_3, Player3Space1);
+        level.setPlayer(PlayerId.Player_4, Player4Space1);
     }
 }

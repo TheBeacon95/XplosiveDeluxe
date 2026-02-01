@@ -52,7 +52,7 @@ public interface InputManagementServiceIfc extends ServiceIfc {
     PlayerInput getPlayerInput(PlayerId playerId);
 
     /**
-     * Gets a list of all currently pressed buttons for the menu.
+     * Gets a MenuInput object that the menu states will reference.
      * @return
      */
     MenuInput getPressedMenuButtons();

@@ -8,4 +8,10 @@ import common.stateMachine.StateAbs;
  */
 public class GameOverState extends StateAbs {
 
+    public GameOverState() {
+        super(STATE_NAME);
+    }
+
+    private static final String STATE_NAME = "MainMenuState";
+
 }

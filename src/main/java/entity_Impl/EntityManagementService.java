@@ -6,7 +6,6 @@ import entity_Impl.Explosions.*;
 import entity_Impl.Monsters.*;
 import entity_Impl.Players.*;
 import entity_Interfaces.*;
-import game_Impl.mainStates.GamePanels.StagePanel;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import ui_Interfaces.*;
 
 /**
  *
@@ -50,7 +50,7 @@ public class EntityManagementService implements EntityManagementServiceIfc {
     }
 
     @Override
-    public void createPlayer(String playerId, Coordinates position) throws IllegalArgumentException {
+    public void createPlayer(PlayerId playerId, Coordinates position) throws IllegalArgumentException {
         // Todo: update this to have different skins.
         m_players.add(m_playerFactory.createPlayer(playerId, position, m_playerSkinPaths.get(playerId)));
     }
@@ -181,10 +181,12 @@ public class EntityManagementService implements EntityManagementServiceIfc {
         m_playerFactory = new PlayerFactory();
         m_playerSkinPaths = new HashMap<>();
         // Todo: setup skinPaths.
-        m_playerSkinPaths.put("Player_1", "Sprites/Players/Skin_0/");
-        m_playerSkinPaths.put("Player_2", "Sprites/Players/Skin_1/");
-        m_playerSkinPaths.put("Player_3", "Sprites/Players/Skin_2/");
-        m_playerSkinPaths.put("Player_4", "Sprites/Players/Skin_3/");
+        m_playerSkinPaths.put(PlayerId.Player_1, "Sprites/Players/Skin_0/");
+        m_playerSkinPaths.put(PlayerId.Player_2, "Sprites/Players/Skin_1/");
+        m_playerSkinPaths.put(PlayerId.Player_3, "Sprites/Players/Skin_2/");
+        m_playerSkinPaths.put(PlayerId.Player_4, "Sprites/Players/Skin_3/");
+
+        m_inputManagementService = (InputManagementServiceIfc) ServiceManager.getService(UiNames.Services.InputManagementService);
     }
 
     @Override
@@ -200,9 +202,10 @@ public class EntityManagementService implements EntityManagementServiceIfc {
     private ExplosionFactory m_explosionFactory;
     private CollectableFactory m_collectableFactory;
     private PlayerFactory m_playerFactory;
-    private HashMap<String, String> m_playerSkinPaths;
+    private HashMap<PlayerId, String> m_playerSkinPaths;
     private final Random m_random;
     private final RandomCollectablePicker m_randomCollectablePicker;
+    private InputManagementServiceIfc m_inputManagementService;
 
     @Override
     public void startEntities() {
@@ -221,12 +224,14 @@ public class EntityManagementService implements EntityManagementServiceIfc {
     }
 
     @Override
-    public void activatePlayerKeyBindings(StagePanel m_stagePanel) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void activatePlayerInputs() {
+        for(EntityAbs player: m_players) {
+            ((Player)player).setPlayerInput(m_inputManagementService.getPlayerInput(((Player)player).getPlayerId()));
+        }
     }
 
     @Override
-    public void deactivatePlayerKeyBindings(StagePanel m_stagePanel) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void deactivatePlayerInputs() {
+        // Nothing to do here.
     }
 }

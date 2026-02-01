@@ -1,6 +1,7 @@
 package level_Impl;
 
 import common.*;
+import entity_Interfaces.*;
 import level_Interfaces.*;
 
 /**
@@ -8,10 +9,14 @@ import level_Interfaces.*;
  * @author Yanick
  */
 public class LevelManagementService implements LevelManagementServiceIfc {
-
+    
     @Override
     public void loadLevel() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        RandomLevelGenerator generator = new RandomLevelGenerator();
+        generator.setBlockDensity(6);
+        generator.setMonsterDensity(1);
+        generator.addMonsterType(MonsterType.Muncher);
+        m_stageManagementService.setStage(generator.generateRandomLevel());
     }
 
     @Override
@@ -28,7 +33,7 @@ public class LevelManagementService implements LevelManagementServiceIfc {
     public int getLevelColumnsCount() {
         return COLUMNS_COUNT;
     }
-    
+
     @Override
     public boolean isGridBlockPosition(Coordinates position) {
         boolean isOuterWall = position.x == 0 || position.x == 18 || position.y == 0 || position.y == 14;
@@ -38,15 +43,16 @@ public class LevelManagementService implements LevelManagementServiceIfc {
 
     @Override
     public void initializeService() {
-        // Nothing to do here.
+        m_stageManagementService = (StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService);
     }
 
     @Override
     public String getId() {
         return LevelNames.Services.LevelManagementService;
     }
-    
+
     private final static int BLOCK_SEGMENTS = 8; // Shows how many steps can be taken between two blocks.
     private final static int ROWS_COUNT = 15;
     private final static int COLUMNS_COUNT = 19;
+    private StageManagementServiceIfc m_stageManagementService;
 }

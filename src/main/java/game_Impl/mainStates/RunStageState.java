@@ -28,7 +28,7 @@ public class RunStageState extends UiStateAbs {
         m_displayService.setPanel(m_stagePanel);
 
         m_isPauseRequested = false;
-        m_entityManagementService.activatePlayerKeyBindings(m_stagePanel);
+        m_inputManagementService.activatePlayerInputs(m_stagePanel);
         m_stagePanel.getInputMap().put(KeyStroke.getKeyStroke("ESC"), "pauseAction");
         m_stagePanel.getActionMap().put("pauseAction", m_pauseAction);
     }
@@ -38,12 +38,13 @@ public class RunStageState extends UiStateAbs {
         if (m_stageManagementService.isReady()) {
             m_stageManagementService.updateStage();
             m_entityManagementService.updateEntities();
+            m_displayService.draw();
         }
     }
 
     @Override
     public void exit() {
-        m_entityManagementService.deactivatePlayerKeyBindings(m_stagePanel);
+        m_inputManagementService.activatePlayerInputs(m_stagePanel);
         m_stagePanel.getInputMap().remove(KeyStroke.getKeyStroke("ESC"));
         m_stagePanel.getActionMap().remove("pauseAction");
     }
@@ -70,16 +71,18 @@ public class RunStageState extends UiStateAbs {
             m_stageManagementService = (StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService);
             m_entityManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
             m_displayService = (DisplayServiceIfc) ServiceManager.getService(UiNames.Services.DisplayService);
+            m_inputManagementService = (InputManagementServiceIfc) ServiceManager.getService(UiNames.Services.InputManagementService);
             areServicesInitialized = true;
         }
     }
 
-    public static final String STATE_NAME = "RunLevelState";
+    public static final String STATE_NAME = "RunStageState";
 
     private StageManagementServiceIfc m_stageManagementService;
     private EntityManagementServiceIfc m_entityManagementService;
     private DisplayServiceIfc m_displayService;
-    private boolean areServicesInitialized;
+    private InputManagementServiceIfc  m_inputManagementService;
+    private boolean areServicesInitialized;  // TODO: remove this. This shouldn't be necessary.
 
     private final StagePanel m_stagePanel;
     private boolean m_isPauseRequested;

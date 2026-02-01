@@ -74,12 +74,12 @@ public class UiNames {
         public final static String RIGHT_PRESSED = "RightInputPressed";
         public final static String DOWN_PRESSED = "DownInputPressed";
         public final static String LEFT_PRESSED = "LeftInputPressed";
-        public final static String FIRE_PRESSED = "FireInputPressed";
+        public final static String SELECT_PRESSED = "SelectInputPressed";
 
         public final static String UP_RELEASED = "UpInputReleased";
         public final static String RIGHT_RELEASED = "RightInputReleased";
         public final static String DOWN_RELEASED = "DownInputReleased";
         public final static String LEFT_RELEASED = "LeftInputReleased";
-        public final static String FIRE_RELEASED = "FireInputReleased";
+        public final static String SELECT_RELEASED = "SelectInputReleased";
     }
 }

@@ -22,7 +22,7 @@ public class StagePanel extends GamePanelAbs {
         }
     }
 
-    public void activatePlayerActions() {
-        m_stageManagementService.activatePlayerInputs(this);
-    }
+//    public void activatePlayerActions() {
+//        m_stageManagementService.activatePlayerInputs(this);
+//    }
 }

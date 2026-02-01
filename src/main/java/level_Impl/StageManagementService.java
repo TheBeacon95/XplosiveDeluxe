@@ -157,8 +157,8 @@ public class StageManagementService implements StageManagementServiceIfc {
 
     private void createStage(Level level) {
         m_entityManagementService.clearAllEntities();
-        Map<String, Coordinates> players = level.getPlayers();
-        for (Map.Entry<String, Coordinates> player : players.entrySet()) {
+        Map<PlayerId, Coordinates> players = level.getPlayers();
+        for (Map.Entry<PlayerId, Coordinates> player : players.entrySet()) {
             m_entityManagementService.createPlayer(player.getKey(), player.getValue());
         }
 
@@ -259,16 +259,16 @@ public class StageManagementService implements StageManagementServiceIfc {
 
     @Override
     public boolean isWin() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return isOnePlayerLeft();
     }
 
     @Override
     public boolean isLose() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return false; // TODO
     }
 
     @Override
     public boolean isGameOver() {
-        throw new UnsupportedOperationException("Not supported yet.")
+        return false; // TODO
     }
 }
