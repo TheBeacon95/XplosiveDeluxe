@@ -30,7 +30,8 @@ public class AnimationManagementService implements AnimationManagementServiceIfc
 
     @Override
     public boolean areAnimationsActive() {
-        return m_areAnimationsActive;
+        return true;
+//        return m_areAnimationsActive;
     }
 
     private boolean m_areAnimationsActive;

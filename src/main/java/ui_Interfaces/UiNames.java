@@ -30,11 +30,11 @@ public class UiNames {
         public final static String PLAYER1_FIRE_RELEASED = "player1FireInputReleased";
 
         // Player 2
-        public final static String PLAYER2_UP_PRESSED = "player2UpInputReleased";
-        public final static String PLAYER2_RIGHT_PRESSED = "player2RightInputReleased";
-        public final static String PLAYER2_DOWN_PRESSED = "player2DownInputReleased";
-        public final static String PLAYER2_LEFT_PRESSED = "player2LeftInputReleased";
-        public final static String PLAYER2_FIRE_PRESSED = "player2FireInputReleased";
+        public final static String PLAYER2_UP_PRESSED = "player2UpInputPressed";
+        public final static String PLAYER2_RIGHT_PRESSED = "player2RightInputPressed";
+        public final static String PLAYER2_DOWN_PRESSED = "player2DownInputPressed";
+        public final static String PLAYER2_LEFT_PRESSED = "player2LeftInputPressed";
+        public final static String PLAYER2_FIRE_PRESSED = "player2FireInputPressed";
 
         public final static String PLAYER2_UP_RELEASED = "player2UpInputReleased";
         public final static String PLAYER2_RIGHT_RELEASED = "player2RightInputReleased";
