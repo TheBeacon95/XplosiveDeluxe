@@ -58,7 +58,7 @@ public abstract class BlockAbs {
      * @return true if the block stops explosions. Otherwise false.
      */
     public boolean canBlockExplosions() {
-        return !m_isBeingDestroyed;
+        return true;
     }
 
     /**

@@ -14,6 +14,7 @@ public class ExplosionFactory {
 
     public ExplosionFactory() {
         m_stageManagementService = (StageManagementServiceIfc) ServiceManager.getService(LevelNames.Services.StageManagementService);
+        m_entitManagementService = (EntityManagementServiceIfc) ServiceManager.getService(EntityNames.Services.EntityManagementService);
         Explosion.loadSprites();
     }
 
@@ -32,14 +33,16 @@ public class ExplosionFactory {
         int remainingStrength = strength;
         boolean isExplosionStopper;
         boolean isIndestructable;
+        boolean isExplosion;
         ArrayList<EntityAbs> newExplosions = new ArrayList<>();
         do {
             nextPosition.translate(direction, 1);
             isExplosionStopper = m_stageManagementService.isExplosionStopper(nextPosition);
             isIndestructable = m_stageManagementService.isIndestructible(nextPosition);
+            isExplosion = m_entitManagementService.isExplosionHere(nextPosition);
             m_stageManagementService.explode(nextPosition);
             remainingStrength--;
-            if (!(isIndestructable && isExplosionStopper)) {
+            if (!(isIndestructable && isExplosionStopper && !isExplosion)) {
                 newExplosions.add(new Explosion(nextPosition, explosionType));
             }
         }
@@ -49,4 +52,5 @@ public class ExplosionFactory {
     }
 
     private final StageManagementServiceIfc m_stageManagementService;
+    private final EntityManagementServiceIfc m_entitManagementService;
 }
